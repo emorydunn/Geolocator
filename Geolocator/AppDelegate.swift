@@ -21,6 +21,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
 
+    func application(_ sender: NSApplication, openFiles filenames: [String]) {
+        print("Opening", filenames)
+
+        let urls = filenames.map { URL(fileURLWithPath: $0) }
+        
+        ImageLoader.postNotification(urls)
+        
+    }
 
 }
 

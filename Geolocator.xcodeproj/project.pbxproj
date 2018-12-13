@@ -7,13 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		620DFCE821C18E5900D1CD98 /* MetadataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620DFCE721C18E5900D1CD98 /* MetadataManager.swift */; };
+		620DFCEC21C1AAA200D1CD98 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620DFCEB21C1AAA200D1CD98 /* ActivityViewController.swift */; };
 		D20745EF21C0BABF00D0423C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20745EE21C0BABF00D0423C /* AppDelegate.swift */; };
 		D20745F121C0BABF00D0423C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20745F021C0BABF00D0423C /* ViewController.swift */; };
 		D20745F321C0BAC100D0423C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D20745F221C0BAC100D0423C /* Assets.xcassets */; };
 		D20745F621C0BAC100D0423C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D20745F421C0BAC100D0423C /* Main.storyboard */; };
+		D20745FF21C0BC5700D0423C /* LocatableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20745FE21C0BC5700D0423C /* LocatableImage.swift */; };
+		D207460121C0C88800D0423C /* FolderLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D207460021C0C88800D0423C /* FolderLoader.swift */; };
+		D297F20021C2210100DBA825 /* ReverseGeocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D297F1FF21C2210100DBA825 /* ReverseGeocoder.swift */; };
+		D297F20321C2212B00DBA825 /* IPTCLocatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D297F20221C2212B00DBA825 /* IPTCLocatable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		620DFCE721C18E5900D1CD98 /* MetadataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataManager.swift; sourceTree = "<group>"; };
+		620DFCEB21C1AAA200D1CD98 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		D20745EB21C0BABF00D0423C /* Geolocator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geolocator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D20745EE21C0BABF00D0423C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D20745F021C0BABF00D0423C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -21,6 +29,10 @@
 		D20745F521C0BAC100D0423C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D20745F721C0BAC100D0423C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D20745F821C0BAC100D0423C /* Geolocator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Geolocator.entitlements; sourceTree = "<group>"; };
+		D20745FE21C0BC5700D0423C /* LocatableImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatableImage.swift; sourceTree = "<group>"; };
+		D207460021C0C88800D0423C /* FolderLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderLoader.swift; sourceTree = "<group>"; };
+		D297F1FF21C2210100DBA825 /* ReverseGeocoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseGeocoder.swift; sourceTree = "<group>"; };
+		D297F20221C2212B00DBA825 /* IPTCLocatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPTCLocatable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,14 +65,36 @@
 		D20745ED21C0BABF00D0423C /* Geolocator */ = {
 			isa = PBXGroup;
 			children = (
+				D297F20421C2217400DBA825 /* View Controllers */,
+				D297F20121C2211E00DBA825 /* Protocols */,
 				D20745EE21C0BABF00D0423C /* AppDelegate.swift */,
-				D20745F021C0BABF00D0423C /* ViewController.swift */,
+				D207460021C0C88800D0423C /* FolderLoader.swift */,
+				620DFCE721C18E5900D1CD98 /* MetadataManager.swift */,
+				D297F1FF21C2210100DBA825 /* ReverseGeocoder.swift */,
+				D20745FE21C0BC5700D0423C /* LocatableImage.swift */,
 				D20745F221C0BAC100D0423C /* Assets.xcassets */,
 				D20745F421C0BAC100D0423C /* Main.storyboard */,
 				D20745F721C0BAC100D0423C /* Info.plist */,
 				D20745F821C0BAC100D0423C /* Geolocator.entitlements */,
 			);
 			path = Geolocator;
+			sourceTree = "<group>";
+		};
+		D297F20121C2211E00DBA825 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				D297F20221C2212B00DBA825 /* IPTCLocatable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		D297F20421C2217400DBA825 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				620DFCEB21C1AAA200D1CD98 /* ActivityViewController.swift */,
+				D20745F021C0BABF00D0423C /* ViewController.swift */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,7 +167,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				620DFCE821C18E5900D1CD98 /* MetadataManager.swift in Sources */,
+				620DFCEC21C1AAA200D1CD98 /* ActivityViewController.swift in Sources */,
+				D297F20021C2210100DBA825 /* ReverseGeocoder.swift in Sources */,
+				D207460121C0C88800D0423C /* FolderLoader.swift in Sources */,
 				D20745F121C0BABF00D0423C /* ViewController.swift in Sources */,
+				D297F20321C2212B00DBA825 /* IPTCLocatable.swift in Sources */,
+				D20745FF21C0BC5700D0423C /* LocatableImage.swift in Sources */,
 				D20745EF21C0BABF00D0423C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
