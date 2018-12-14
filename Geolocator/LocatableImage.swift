@@ -50,15 +50,43 @@ public class LocatableImage: NSObject {
         return nil
     }
     
-    var latitude: Double = 0
-    var longitude: Double = 0
+    var latitude: Double {
+        guard let number = gps["Latitude", default: 0.0] as? Double else {
+            return 0
+        }
+        
+        return latitudeRef.sign(number)
+    }
+    var longitude: Double {
+        guard let number = gps["Longitude", default: 0.0] as? Double else {
+            return 0
+        }
+        
+        return longitudeRef.sign(number)
+    }
     
-    var latitudeRef: GPSDirection = .north
-    var longitudeRef: GPSDirection = .west
+    var latitudeRef: GPSDirection {
+        guard let direction = gps["LatitudeRef", default: "N"] as? String else {
+            return .north
+        }
+        return GPSDirection(rawValue: direction) ?? .north
+    }
+    var longitudeRef: GPSDirection {
+        guard let direction = gps["LongitudeRef", default: "E"] as? String else {
+            return .east
+        }
+        return GPSDirection(rawValue: direction) ?? .east
+    }
     
     var status: GPSStatus = .void
     
-    @objc var displayCoordinates: String = ""
+    @objc var displayCoordinates: String? {
+        if latitude != 0 && longitude != 0 {
+            return "\(latitude), \(longitude)"
+        }
+        return nil
+    }
+    
     
     @objc var displayStatus: String {
         return status.rawValue
@@ -95,17 +123,6 @@ public class LocatableImage: NSObject {
         }
         
         self.imageProperties = properties
-        
-        // Set properties
-        let latitudeRef = GPSDirection(rawValue: gps["LatitudeRef", default: "N"] as! String)
-        let longitudeRef = GPSDirection(rawValue: gps["LongitudeRef", default: "W"] as! String)
-        
-        latitude = latitudeRef!.sign(gps["Latitude", default: 0.0] as! Double)
-        longitude = longitudeRef!.sign(gps["Longitude", default: 0.0] as! Double)
-        
-        if latitude != 0 && longitude != 0 {
-            displayCoordinates = "\(latitude), \(longitude)"
-        }
         
     }
     
