@@ -67,6 +67,7 @@ class ViewController: NSViewController {
             self.reloadData(sender)
             if self.activityView != nil {
                 self.dismiss(self.activityView!)
+                self.activityView = nil
             }
             
             NotificationCenter.default.removeObserver(self, name: MetadataManager.notificationName, object: manager)
@@ -91,6 +92,7 @@ class ViewController: NSViewController {
             self.reloadData(sender)
             if self.activityView != nil {
                 self.dismiss(self.activityView!)
+                self.activityView = nil
             }
             
             NotificationCenter.default.removeObserver(self, name: MetadataManager.notificationName, object: manager)
