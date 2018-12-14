@@ -55,6 +55,18 @@ class ViewController: NSViewController {
         }
     }
     
+    @IBAction func copy(_ sender: Any) {
+        guard let selectedRecords = dataArrayController.selectedObjects as? [LocatableImage] else {
+            NSLog("No selection to copy")
+            return
+        }
+        
+        NSPasteboard.general.clearContents()
+        let success = NSPasteboard.general.writeObjects(selectedRecords)
+        NSLog("\(success ? "Wrote" : "Failed to write") \(selectedRecords.count) records to paste board")
+    }
+
+    
     @IBAction func open(_ sender: Any) {
         promptForFiles()
     }

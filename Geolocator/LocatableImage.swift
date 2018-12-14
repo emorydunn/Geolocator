@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Cocoa
 
 public enum GPSStatus: String, Codable {
     case active = "A"
@@ -173,3 +174,33 @@ public class LocatableImage: NSObject {
     
 }
 
+extension LocatableImage: NSPasteboardWriting {
+    public func writableTypes(for pasteboard: NSPasteboard) -> [NSPasteboard.PasteboardType] {
+        return [NSPasteboard.PasteboardType.string]
+    }
+    
+    
+    public func pasteboardPropertyList(forType type: NSPasteboard.PasteboardType) -> Any? {
+        switch type {
+        case .string:
+            guard JSONSerialization.isValidJSONObject(self.imageProperties) else {
+                NSLog("Properties of \(self.displayName ?? "no mame image") are not JSON encodable")
+                return nil
+            }
+            
+            do {
+                let data = try JSONSerialization.data(withJSONObject: self.imageProperties, options: JSONSerialization.WritingOptions.prettyPrinted)
+                
+                return String(data: data, encoding: .utf8)
+            } catch {
+                NSLog(error.localizedDescription)
+                return nil
+            }
+
+        default:
+            return nil
+        }
+    }
+    
+    
+}
