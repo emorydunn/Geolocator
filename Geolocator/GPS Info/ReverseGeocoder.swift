@@ -114,9 +114,6 @@ public class GoogleGeocoder: ReverseGeocoder {
 
         guard let results = json["results"] as? [[String: Any]], let firstResult = results.first else {
             NSLog("JSON did not contain a `results` key")
-            print("###")
-            print(json)
-            print("###\n")
             return nil
         }
 
