@@ -732,8 +732,48 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="6F584D80-BF1D-4806-BB84-A87AC9682D4D" label="Geocoder" paletteLabel="Geocoder" sizingBehavior="auto" id="fav-0I-cly">
+                                    <nil key="toolTip"/>
+                                    <popUpButton key="view" verticalHuggingPriority="750" id="eVT-7S-HKP">
+                                        <rect key="frame" x="0.0" y="14" width="100" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <popUpButtonCell key="cell" type="roundTextured" title="Apple" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="OFn-zR-zCo" id="mHN-eF-HXP">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="menu"/>
+                                            <menu key="menu" id="JCd-m7-Csq">
+                                                <items>
+                                                    <menuItem title="Apple" state="on" id="OFn-zR-zCo">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                    <menuItem title="Google" tag="1" id="hcu-JJ-sZp">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </popUpButtonCell>
+                                        <connections>
+                                            <binding destination="7Jk-nz-oku" name="selectedIndex" keyPath="values.geocoderSelection" id="Jhc-5P-72C"/>
+                                        </connections>
+                                    </popUpButton>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="3718854C-711C-431F-BCF6-3CA218B2A2F8" label="Show Activity" paletteLabel="Show Activity" sizingBehavior="auto" id="3OA-pB-urV">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" id="qMC-Vn-dKO">
+                                        <rect key="frame" x="0.0" y="14" width="100" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" title="Show Activity" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" inset="2" id="CPd-Gn-C14">
+                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="7Jk-nz-oku" name="value" keyPath="values.showActivityView" id="vqK-4Q-vsh"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
+                                <toolbarItem reference="fav-0I-cly"/>
+                                <toolbarItem reference="3OA-pB-urV"/>
                                 <toolbarItem reference="9S9-wz-Uac"/>
                                 <toolbarItem reference="4jn-0P-YYf"/>
                                 <toolbarItem reference="H4S-bE-iLR"/>
@@ -748,6 +788,7 @@
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController representsSharedInstance="YES" id="7Jk-nz-oku"/>
             </objects>
             <point key="canvasLocation" x="131" y="586"/>
         </scene>
@@ -1181,25 +1222,25 @@
             <objects>
                 <viewController id="8G1-3p-clf" customClass="ActivityViewController" customModule="Geolocator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="0Ig-Ud-ydM">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="129"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="149"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <progressIndicator wantsLayer="YES" maxValue="1" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="FSR-a0-gqy">
-                                <rect key="frame" x="20" y="60" width="410" height="25"/>
+                                <rect key="frame" x="20" y="60" width="410" height="20"/>
                                 <connections>
                                     <binding destination="8G1-3p-clf" name="value" keyPath="self.progress.fractionCompleted" id="qxG-bt-K3A"/>
                                     <binding destination="8G1-3p-clf" name="isIndeterminate" keyPath="self.progress.isIndeterminate" id="PkU-7Q-HgG"/>
                                 </connections>
                             </progressIndicator>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ift-tr-4xr">
-                                <rect key="frame" x="18" y="92" width="43" height="17"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Action" id="Y6t-NX-JJa">
+                                <rect key="frame" x="18" y="112" width="74" height="17"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Description" id="Y6t-NX-JJa">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="8G1-3p-clf" name="value" keyPath="self.progress.localizedAdditionalDescription" id="O7W-dD-VQu"/>
+                                    <binding destination="8G1-3p-clf" name="value" keyPath="self.progress.localizedDescription" id="uC6-Xf-RS7"/>
                                 </connections>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5CU-FV-L5P">
@@ -1215,17 +1256,31 @@ Gw
                                     <action selector="cancelOperation:" target="l1U-YW-agZ" id="mzg-OY-gXw"/>
                                 </connections>
                             </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Wu0-1F-Ked">
+                                <rect key="frame" x="18" y="87" width="414" height="17"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Additional Description" id="30a-j0-as6">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="8G1-3p-clf" name="value" keyPath="self.progress.localizedAdditionalDescription" id="VLn-VZ-cWU"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="5CU-FV-L5P" firstAttribute="top" secondItem="FSR-a0-gqy" secondAttribute="bottom" constant="20" id="0ZP-vh-ZRS"/>
+                            <constraint firstItem="5CU-FV-L5P" firstAttribute="top" secondItem="FSR-a0-gqy" secondAttribute="bottom" constant="20" symbolic="YES" id="0ZP-vh-ZRS"/>
                             <constraint firstItem="FSR-a0-gqy" firstAttribute="leading" secondItem="0Ig-Ud-ydM" secondAttribute="leading" constant="20" id="1vd-cR-NA9"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ift-tr-4xr" secondAttribute="trailing" constant="20" symbolic="YES" id="28r-Qi-R58"/>
                             <constraint firstItem="5CU-FV-L5P" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0Ig-Ud-ydM" secondAttribute="leading" constant="20" symbolic="YES" id="8OO-76-RU1"/>
-                            <constraint firstItem="FSR-a0-gqy" firstAttribute="top" secondItem="Ift-tr-4xr" secondAttribute="bottom" constant="8" id="Hbd-vq-rJN"/>
+                            <constraint firstItem="FSR-a0-gqy" firstAttribute="top" secondItem="Wu0-1F-Ked" secondAttribute="bottom" constant="8" symbolic="YES" id="EKM-Fr-d3u"/>
                             <constraint firstItem="Ift-tr-4xr" firstAttribute="leading" secondItem="0Ig-Ud-ydM" secondAttribute="leading" constant="20" id="VwB-6h-nCW"/>
                             <constraint firstAttribute="trailing" secondItem="FSR-a0-gqy" secondAttribute="trailing" constant="20" id="Y5E-qz-yDO"/>
                             <constraint firstAttribute="bottom" secondItem="5CU-FV-L5P" secondAttribute="bottom" constant="20" symbolic="YES" id="dNQ-nA-B9N"/>
+                            <constraint firstAttribute="trailing" secondItem="Wu0-1F-Ked" secondAttribute="trailing" constant="20" symbolic="YES" id="q76-cV-4P3"/>
                             <constraint firstItem="Ift-tr-4xr" firstAttribute="top" secondItem="0Ig-Ud-ydM" secondAttribute="top" constant="20" id="s4S-Yk-Dxd"/>
+                            <constraint firstItem="Wu0-1F-Ked" firstAttribute="leading" secondItem="0Ig-Ud-ydM" secondAttribute="leading" constant="20" symbolic="YES" id="sKp-tx-sgO"/>
+                            <constraint firstItem="Wu0-1F-Ked" firstAttribute="top" secondItem="Ift-tr-4xr" secondAttribute="bottom" constant="8" symbolic="YES" id="tIH-90-l8x"/>
                             <constraint firstAttribute="trailing" secondItem="5CU-FV-L5P" secondAttribute="trailing" constant="20" symbolic="YES" id="xdt-a9-iRq"/>
                         </constraints>
                     </view>
@@ -1237,7 +1292,7 @@ Gw
                 </viewController>
                 <customObject id="l1U-YW-agZ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="956" y="739"/>
+            <point key="canvasLocation" x="956" y="748.5"/>
         </scene>
     </scenes>
 </document>
