@@ -16,17 +16,6 @@ public class LocatableImage: NSObject {
     
     var imageProperties: [String: Any] = [:]
     
-    @objc dynamic var displayName: String? {
-        if let url = url {
-            return url.lastPathComponent
-        }
-        return nil
-    }
-
-    @objc var displayStatus: String? {
-        return status?.description
-    }
-
     init?(url: URL) {
         self.url = url
         
@@ -36,7 +25,7 @@ public class LocatableImage: NSObject {
         guard UTTypeConformsTo((uti?.takeRetainedValue())!, kUTTypeImage) else {
             return nil
         }
-
+        
     }
     
     func loadMetadata() {
@@ -49,128 +38,21 @@ public class LocatableImage: NSObject {
             let properties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil) as? [String: Any] else {
                 return
         }
-
+        
         self.imageProperties = properties
         
     }
     
-    
-    // MARK: - IPTC
-    var iptc: [String: Any] {
-        if let iptc = imageProperties["{IPTC}"] as? [String: Any] {
-            return iptc
+    // MARK: Display Values
+    @objc dynamic var displayName: String? {
+        if let url = url {
+            return url.lastPathComponent
         }
-        
-        return [:]
+        return nil
     }
     
-    @objc var country: String? {
-        get {
-            return iptc["Country/PrimaryLocationName"] as? String
-        }
-        set {
-//            (imageProperties["{IPTC}"] as? [String: Any])["Country/PrimaryLocationName"] = newValue
-        }
-        
-    }
-    @objc var state: String? {
-        get {
-            return iptc["Province/State"] as? String
-        }
-        set {
-            iptc["Province/State"] = newValue
-        }
-        
-    }
-    @objc var city: String? {
-        get {
-            return iptc["City"] as? String
-        }
-        set {
-            iptc["City"] = newValue
-        }
-    }
-    @objc var route: String? {
-        get {
-            return iptc["Route"] as? String
-        }
-        set {
-            iptc["Route"] = newValue
-        }
-    }
-    @objc var neighborhood: String? {
-        get {
-            return iptc["SubLocation"] as? String
-        }
-        set {
-            iptc["SubLocation"] = newValue
-        }
-    }
-    
-    // MARK: - EXIF
-    var exif: [String: Any] {
-        if let exif = imageProperties["{Exif}"] as? [String: Any] {
-            return exif
-        }
-        
-        return [:]
-    }
-    
-    @objc var dateTimeOriginal: Date? {
-        guard let dateString = exif["DateTimeOriginal"] as? String else {
-            return nil
-        }
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY:MM:DD HH:mm:ss"
-        
-        return formatter.date(from: dateString)
-
-    }
-    
-    
-    // MARK: - GPS
-    var gps: [String: Any] {
-        if let gps = imageProperties["{GPS}"] as? [String: Any] {
-            return gps
-        }
-        
-        return [:]
-    }
-    
-    var latitude: Double {
-        guard let number = gps["Latitude", default: 0.0] as? Double else {
-            return 0
-        }
-        
-        return latitudeRef.sign(number)
-    }
-    var longitude: Double {
-        guard let number = gps["Longitude", default: 0.0] as? Double else {
-            return 0
-        }
-        
-        return longitudeRef.sign(number)
-    }
-    
-    var latitudeRef: GPSDirection {
-        guard let direction = gps["LatitudeRef", default: "N"] as? String else {
-            return .north
-        }
-        return GPSDirection(rawValue: direction) ?? .north
-    }
-    var longitudeRef: GPSDirection {
-        guard let direction = gps["LongitudeRef", default: "E"] as? String else {
-            return .east
-        }
-        return GPSDirection(rawValue: direction) ?? .east
-    }
-    
-    var status: GPSStatus? {
-        guard let statusString = gps["Status"] as? String else {
-            return nil
-        }
-        return GPSStatus(rawValue: statusString)
+    @objc var displayStatus: String? {
+        return status?.description
     }
     
     @objc var displayCoordinates: String? {
@@ -181,9 +63,148 @@ public class LocatableImage: NSObject {
     }
     
     
+    // MARK: - Getters
+    func value(for domainKey: MetadataDomain) -> Any? {
+        guard var metadata = imageProperties[domainKey.keyName] as? [String: Any] else { return nil }
+        
+        switch domainKey {
+        case .exif(let dictKey):
+            return metadata[dictKey.keyName]
+        case .iptc(let dictKey):
+            return metadata[dictKey.keyName]
+        case .gps(let dictKey):
+            return metadata[dictKey.keyName]
+        }
+        
+    }
     
+    func date(for domainKey: MetadataDomain) -> Date? {
+        guard let value = self.value(for: domainKey) as? String else { return nil }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
+        
+        return formatter.date(from: value)
+    }
     
+    func string(for domainKey: MetadataDomain) -> String? {
+        return self.value(for: domainKey) as? String
+    }
+    
+    func integer(for domainKey: MetadataDomain) -> Int {
+        guard let value = self.value(for: domainKey) as? Int else { return 0 }
+        
+        return value
+    }
+    
+    func double(for domainKey: MetadataDomain) -> Double {
+        guard let value = self.value(for: domainKey) as? Double else { return 0 }
+        
+        return value
+    }
+    
+    func direction(for domainKey: MetadataDomain) -> GPSDirection? {
+        guard let value = self.value(for: domainKey) as? String else { return nil }
+        
+        return GPSDirection(rawValue: value)
+    }
+    
+    func gpsStatus(for domainKey: MetadataDomain) -> GPSStatus? {
+        guard let value = self.value(for: domainKey) as? String else { return nil }
+        
+        return GPSStatus(rawValue: value)
+    }
+    
+    // MARK: Setters
+    func set(_ value: Any, for domainKey: MetadataDomain) {
+        guard var metadata = imageProperties[domainKey.keyName] as? [String: Any] else { return }
+        
+        switch domainKey {
+        case .exif(let dictKey):
+            metadata[dictKey.keyName] = value
+        case .iptc(let dictKey):
+            metadata[dictKey.keyName] = value
+        case .gps(let dictKey):
+            metadata[dictKey.keyName] = value
+        }
+        
+        imageProperties[domainKey.keyName] = metadata as CFDictionary
+    }
+    
+    // MARK: - IPTC
+    @objc var country: String? {
+        get {
+            return string(for: .iptc(.countryPrimaryLocationName))
+        }
+        set {
+            set(newValue ?? "", for: .iptc(.countryPrimaryLocationName))
+        }
+    }
+    
+    @objc var state: String? {
+        get {
+            return string(for: .iptc(.provinceState))
+        }
+        set {
+            set(newValue ?? "", for: .iptc(.provinceState))
+        }
+    }
+    @objc var city: String? {
+        get {
+            return string(for: .iptc(.city))
+        }
+        set {
+            set(newValue ?? "", for: .iptc(.city))
+        }
+        
+    }
+    @objc var route: String? {
+        return nil
+    }
 
+    @objc var neighborhood: String? {
+        get {
+            return string(for: .iptc(.subLocation))
+        }
+        set {
+            set(newValue ?? "", for: .iptc(.subLocation))
+        }
+    }
+    
+    // MARK: EXIF
+    @objc var dateTimeOriginal: Date? {
+        return date(for: .exif(.date))
+    }
+    
+    
+    // MARK: GPS
+    var latitude: Double {
+        let number = double(for: .gps(.latitude))
+        return latitudeRef.sign(number)
+    }
+    var longitude: Double {
+        let number = double(for: .gps(.longitude))
+        return longitudeRef.sign(number)
+    }
+    
+    var latitudeRef: GPSDirection {
+        guard let direction = direction(for: .gps(.latitudeRef)) else {
+            return .north
+        }
+        return direction
+    }
+    var longitudeRef: GPSDirection {
+        guard let direction = direction(for: .gps(.longitudeRef)) else {
+            return .east
+        }
+        return direction
+    }
+    
+    var status: GPSStatus? {
+        return gpsStatus(for: .gps(.status))
+    }
+    
+    
 }
 
 extension LocatableImage: NSPasteboardWriting {

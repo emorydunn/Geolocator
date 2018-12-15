@@ -20,4 +20,13 @@ public enum GPSStatus: String, Codable, CustomStringConvertible {
             return "Void"
         }
     }
+    
+    var bool: Bool {
+        switch self {
+        case .active:
+            return true
+        case .void:
+            return false
+        }
+    }
 }
