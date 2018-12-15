@@ -14,20 +14,19 @@ class ActivityViewController: NSViewController {
     @IBOutlet weak var progressIndicator: NSProgressIndicator!
     
     @IBOutlet weak var cancelButton: NSButton!
-
-    @objc dynamic var progress: Progress?
+    
+    @objc dynamic var manager: MetadataManager?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
         
-        progress = Progress.current()
-        progress?.resume()
-    
+        manager?.progress.resume()
+
     }
     
     @IBAction override func cancelOperation(_ sender: Any?) {
-        progress?.cancel()
+        manager?.progress.cancel()
         self.dismiss(sender)
     }
 

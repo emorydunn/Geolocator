@@ -191,9 +191,17 @@ class ViewController: NSViewController {
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         guard let dest = segue.destinationController as? ActivityViewController else {
+            NSLog("Could not get destination as ActivityViewController")
             return
         }
+        
+        guard let manager = sender as? MetadataManager else {
+            NSLog("Could not get sender as MetadataManager")
+            return
+        }
+        
         activityView = dest
+        dest.manager = manager
         
         NSLog("Loading activityview")
     }

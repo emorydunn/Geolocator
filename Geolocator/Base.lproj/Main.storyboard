@@ -1228,8 +1228,8 @@
                             <progressIndicator wantsLayer="YES" maxValue="1" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="FSR-a0-gqy">
                                 <rect key="frame" x="20" y="60" width="410" height="20"/>
                                 <connections>
-                                    <binding destination="8G1-3p-clf" name="value" keyPath="self.progress.fractionCompleted" id="qxG-bt-K3A"/>
-                                    <binding destination="8G1-3p-clf" name="isIndeterminate" keyPath="self.progress.isIndeterminate" id="PkU-7Q-HgG"/>
+                                    <binding destination="8G1-3p-clf" name="isIndeterminate" keyPath="self.manager.progress.isIndeterminate" id="fmd-Xe-vVb"/>
+                                    <binding destination="8G1-3p-clf" name="value" keyPath="self.manager.progress.fractionCompleted" id="s0I-AP-Elj"/>
                                 </connections>
                             </progressIndicator>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ift-tr-4xr">
@@ -1240,7 +1240,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="8G1-3p-clf" name="value" keyPath="self.progress.localizedDescription" id="uC6-Xf-RS7"/>
+                                    <binding destination="8G1-3p-clf" name="value" keyPath="self.manager.progress.localizedDescription" id="d3a-oq-QHS"/>
                                 </connections>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5CU-FV-L5P">
@@ -1253,7 +1253,7 @@ Gw
 </string>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="cancelOperation:" target="l1U-YW-agZ" id="mzg-OY-gXw"/>
+                                    <action selector="cancelOperation:" target="8G1-3p-clf" id="mWv-83-qGH"/>
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Wu0-1F-Ked">
@@ -1264,7 +1264,7 @@ Gw
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="8G1-3p-clf" name="value" keyPath="self.progress.localizedAdditionalDescription" id="VLn-VZ-cWU"/>
+                                    <binding destination="8G1-3p-clf" name="value" keyPath="self.manager.progress.localizedAdditionalDescription" id="Fsy-dv-ckQ"/>
                                 </connections>
                             </textField>
                         </subviews>
