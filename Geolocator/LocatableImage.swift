@@ -50,45 +50,7 @@ public class LocatableImage: NSObject {
         }
         return nil
     }
-    
-    var latitude: Double {
-        guard let number = gps["Latitude", default: 0.0] as? Double else {
-            return 0
-        }
-        
-        return latitudeRef.sign(number)
-    }
-    var longitude: Double {
-        guard let number = gps["Longitude", default: 0.0] as? Double else {
-            return 0
-        }
-        
-        return longitudeRef.sign(number)
-    }
-    
-    var latitudeRef: GPSDirection {
-        guard let direction = gps["LatitudeRef", default: "N"] as? String else {
-            return .north
-        }
-        return GPSDirection(rawValue: direction) ?? .north
-    }
-    var longitudeRef: GPSDirection {
-        guard let direction = gps["LongitudeRef", default: "E"] as? String else {
-            return .east
-        }
-        return GPSDirection(rawValue: direction) ?? .east
-    }
-    
-    var status: GPSStatus = .void
-    
-    @objc var displayCoordinates: String? {
-        if latitude != 0 && longitude != 0 {
-            return "\(latitude), \(longitude)"
-        }
-        return nil
-    }
-    
-    
+
     @objc var displayStatus: String {
         return status.rawValue
     }
@@ -137,16 +99,29 @@ public class LocatableImage: NSObject {
         return [:]
     }
     
+    // MARK: - EXIF
     var exif: [String: Any] {
-        if let exif = imageProperties["{EXIF}"] as? [String: Any] {
+        if let exif = imageProperties["{Exif}"] as? [String: Any] {
             return exif
         }
         
         return [:]
     }
     
+    @objc var dateTimeOriginal: Date? {
+        guard let dateString = exif["DateTimeOriginal"] as? String else {
+            return nil
+        }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY:MM:DD HH:mm:ss"
+        
+        return formatter.date(from: dateString)
+
+    }
     
-    // GPS
+    
+    // MARK: - GPS
     var gps: [String: Any] {
         if let gps = imageProperties["{GPS}"] as? [String: Any] {
             return gps
@@ -155,23 +130,45 @@ public class LocatableImage: NSObject {
         return [:]
     }
     
+    var latitude: Double {
+        guard let number = gps["Latitude", default: 0.0] as? Double else {
+            return 0
+        }
+        
+        return latitudeRef.sign(number)
+    }
+    var longitude: Double {
+        guard let number = gps["Longitude", default: 0.0] as? Double else {
+            return 0
+        }
+        
+        return longitudeRef.sign(number)
+    }
+    
+    var latitudeRef: GPSDirection {
+        guard let direction = gps["LatitudeRef", default: "N"] as? String else {
+            return .north
+        }
+        return GPSDirection(rawValue: direction) ?? .north
+    }
+    var longitudeRef: GPSDirection {
+        guard let direction = gps["LongitudeRef", default: "E"] as? String else {
+            return .east
+        }
+        return GPSDirection(rawValue: direction) ?? .east
+    }
+    
+    var status: GPSStatus = .void
+    
+    @objc var displayCoordinates: String? {
+        if latitude != 0 && longitude != 0 {
+            return "\(latitude), \(longitude)"
+        }
+        return nil
+    }
     
     
-//    init(latitude: Double = 0, longitude: Double = 0, status: GPSStatus = .void, country: String? = nil, state: String? = nil, city: String? = nil, route: String? = nil, neighborhood: String? = nil) {
-//        
-//        self.url = nil
-//        
-//        self.latitude = latitude
-//        self.longitude = longitude
-//        self.status = status
-//        
-//        self.country = country
-//        self.state = state
-//        self.city = city
-//        self.route = route
-//        self.neighborhood = neighborhood
-//    }
-    
+
 }
 
 extension LocatableImage: NSPasteboardWriting {
