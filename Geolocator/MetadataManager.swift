@@ -69,28 +69,29 @@ class ReverseGeocodeOperation: CaptureCoreOperation {
     
     override func main() {
         guard isCancelled == false else {
+            executing(false)
             finish(true)
             return
         }
         
         executing(true)
-        
-        manager.progress.completedUnitCount = Int64(index + 1)
         manager.progress.localizedDescription = "Reverse geocoding \(location.displayName ?? "No Name")"
         
         geocoder.reverseGeocodeLocation(location) { message in
-            self.manager.progress.localizedAdditionalDescription = message
+            self.executing(false)
             NSLog(message)
             
+            self.manager.progress.localizedAdditionalDescription = message
+            self.manager.progress.completedUnitCount = Int64(self.index + 1)
+
             if self.manager.progress.fractionCompleted == 1 {
                 NSLog("Progress is 100%, posting notification")
                 NotificationCenter.default.post(name: MetadataManager.notificationName, object: nil)
             }
             
-            self.executing(false)
+            
             self.finish(true)
-            
-            
+
         }
     }
     
@@ -101,12 +102,14 @@ class ReverseGeocodeOperation: CaptureCoreOperation {
 class MetadataManager: NSObject, ProgressReporting {
     static let notificationName = Notification.Name("MetadataManager")
  
-    let queue = OperationQueue.main
+    let queue = OperationQueue()
     
-    var progress: Progress
+    @objc dynamic var progress: Progress
 
     override init() {
         progress = Progress(totalUnitCount: 0)
+        self.queue.qualityOfService = .userInitiated
+        
         super.init()
        
         queue.maxConcurrentOperationCount = 1
@@ -114,33 +117,39 @@ class MetadataManager: NSObject, ProgressReporting {
     }
     
     func progress(for count: Int) -> Progress {
-        self.progress = Progress.discreteProgress(totalUnitCount: Int64(count))
+        // Create new progress
+        let newProgress = Progress.discreteProgress(totalUnitCount: Int64(count))
+
+        newProgress.isCancellable = true
+        newProgress.isPausable = true
+        newProgress.completedUnitCount = 0
         
-        progress.becomeCurrent(withPendingUnitCount: Int64(count))
-        
-        progress.isCancellable = true
-        progress.completedUnitCount = 0
-        
-        progress.pausingHandler = {
+        newProgress.pausingHandler = {
+            NSLog("Pausing queue from progress handler with \(self.queue.operationCount) operations")
             self.queue.isSuspended = true
         }
         
-        progress.resumingHandler = {
+        newProgress.resumingHandler = {
+            NSLog("Resuming queue from progress handler with \(self.queue.operationCount) operations")
             self.queue.isSuspended = false
         }
         
-        progress.cancellationHandler = {
+        newProgress.cancellationHandler = {
+            NSLog("Cancelling queue from progress handler with \(self.queue.operationCount) operations")
             self.queue.cancelAllOperations()
         }
         
-        return progress
+        return newProgress
     }
 
     
     func loadMetatdata(from images: [LocatableImage], manuallyStart: Bool = false) {
 
         self.progress = progress(for: images.count)
-        queue.isSuspended = manuallyStart
+        self.progress.localizedDescription = "Preparing to load metatdata"
+        self.progress.localizedAdditionalDescription = ""
+        
+        progress.pause()
         
         let operations = images.enumerated().map { index, image in
             
@@ -164,8 +173,11 @@ class MetadataManager: NSObject, ProgressReporting {
     
     func reverseGeocode(_ images: [LocatableImage], with geocoder: ReverseGeocoder, manuallyStart: Bool = false) {
         self.progress = progress(for: images.count)
-        queue.isSuspended = manuallyStart
+        self.progress.localizedDescription = "Preparing to reverse geocode"
+        self.progress.localizedAdditionalDescription = ""
         
+        progress.pause()
+
         let operations = images.enumerated().map { index, image in
             
             return ReverseGeocodeOperation(geocoder: geocoder, location: image, index: index, manager: self)
