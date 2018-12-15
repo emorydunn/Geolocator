@@ -117,7 +117,11 @@ public class LocatableImage: NSObject {
     
     // MARK: Setters
     func set(_ value: Any, for domainKey: MetadataDomain) {
-        guard var metadata = imageProperties[domainKey.keyName] as? [String: Any] else { return }
+        var metadata = [String: Any]()
+        
+        if let existingMetadata = imageProperties[domainKey.keyName] as? [String: Any] {
+            metadata = existingMetadata
+        }
         
         switch domainKey {
         case .exif(let dictKey):
