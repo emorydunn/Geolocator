@@ -48,6 +48,55 @@ public class CaptureCoreOperation: Operation {
     
 }
 
+// MARK: - Geocoder Operation
+class ReverseGeocodeOperation: CaptureCoreOperation {
+    
+    let geocoder: ReverseGeocoder
+    let location: LocatableImage
+    
+    
+    let index: Int
+    let manager: MetadataManager
+    
+    
+    init(geocoder: ReverseGeocoder, location: LocatableImage, index: Int, manager: MetadataManager) {
+        self.geocoder = geocoder
+        self.location = location
+        
+        self.index = index
+        self.manager = manager
+    }
+    
+    override func main() {
+        guard isCancelled == false else {
+            finish(true)
+            return
+        }
+        
+        executing(true)
+        
+        manager.progress.completedUnitCount = Int64(index + 1)
+        manager.progress.localizedDescription = "Reverse geocoding \(location.displayName ?? "No Name")"
+        
+        geocoder.reverseGeocodeLocation(location) { message in
+            self.manager.progress.localizedAdditionalDescription = message
+            NSLog(message)
+            
+            if self.manager.progress.fractionCompleted == 1 {
+                NSLog("Progress is 100%, posting notification")
+                NotificationCenter.default.post(name: MetadataManager.notificationName, object: nil)
+            }
+            
+            self.executing(false)
+            self.finish(true)
+            
+            
+        }
+    }
+    
+}
+
+
 
 class MetadataManager: NSObject, ProgressReporting {
     static let notificationName = Notification.Name("MetadataManager")
@@ -97,7 +146,8 @@ class MetadataManager: NSObject, ProgressReporting {
             
             return BlockOperation {
                 self.progress.completedUnitCount = Int64(index + 1)
-                self.progress.localizedAdditionalDescription = "Loading metatdata for \(image.displayName ?? "No Name")"
+                self.progress.localizedDescription = "Loading metatdata for \(image.displayName ?? "No Name")"
+                self.progress.localizedAdditionalDescription = ""
                 image.loadMetadata()
                 
 //                NSLog("Progress: \(self.progress.fractionCompleted). \(self.progress.completedUnitCount) / \(self.progress.totalUnitCount)")
@@ -118,16 +168,8 @@ class MetadataManager: NSObject, ProgressReporting {
         
         let operations = images.enumerated().map { index, image in
             
-            return BlockOperation {
-                self.progress.completedUnitCount = Int64(index + 1)
-                self.progress.localizedAdditionalDescription = "Reverse geocoding \(image.displayName ?? "No Name")"
-                
-                geocoder.reverseGeocodeLocation(image)
+            return ReverseGeocodeOperation(geocoder: geocoder, location: image, index: index, manager: self)
 
-                if self.progress.fractionCompleted == 1 {
-                    NotificationCenter.default.post(name: MetadataManager.notificationName, object: self)
-                }
-            }
         }
         
         queue.addOperations(operations, waitUntilFinished: false)
