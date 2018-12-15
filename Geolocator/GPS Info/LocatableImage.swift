@@ -9,34 +9,6 @@
 import Foundation
 import Cocoa
 
-public enum GPSStatus: String, Codable {
-    case active = "A"
-    case void = "V"
-}
-
-enum GPSDirection: String, Codable {
-    case north = "N"
-    case south = "S"
-    case east = "E"
-    case west = "W"
-    
-    func sign(_ number: Double) -> Double {
-        switch self {
-        case .north, .east:
-            if number > 0 {
-                return number
-            }
-            return -number
-        case .south, .west:
-            if number < 0 {
-                return number
-            }
-            return -number
-            
-        }
-    }
-}
-
 public class LocatableImage: NSObject {
     
     /// File system location
@@ -51,8 +23,8 @@ public class LocatableImage: NSObject {
         return nil
     }
 
-    @objc var displayStatus: String {
-        return status.rawValue
+    @objc var displayStatus: String? {
+        return status?.description
     }
     
     @objc var country: String?
@@ -158,7 +130,12 @@ public class LocatableImage: NSObject {
         return GPSDirection(rawValue: direction) ?? .east
     }
     
-    var status: GPSStatus = .void
+    var status: GPSStatus? {
+        guard let statusString = gps["Status"] as? String else {
+            return nil
+        }
+        return GPSStatus(rawValue: statusString)
+    }
     
     @objc var displayCoordinates: String? {
         if latitude != 0 && longitude != 0 {

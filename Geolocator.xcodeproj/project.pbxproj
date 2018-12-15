@@ -17,6 +17,8 @@
 		D207460121C0C88800D0423C /* FolderLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D207460021C0C88800D0423C /* FolderLoader.swift */; };
 		D297F20021C2210100DBA825 /* ReverseGeocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D297F1FF21C2210100DBA825 /* ReverseGeocoder.swift */; };
 		D297F20321C2212B00DBA825 /* IPTCLocatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D297F20221C2212B00DBA825 /* IPTCLocatable.swift */; };
+		D297F20721C48CB400DBA825 /* GPSStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D297F20621C48CB400DBA825 /* GPSStatus.swift */; };
+		D297F20921C48EBB00DBA825 /* GPSDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D297F20821C48EBB00DBA825 /* GPSDirection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,8 @@
 		D207460021C0C88800D0423C /* FolderLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderLoader.swift; sourceTree = "<group>"; };
 		D297F1FF21C2210100DBA825 /* ReverseGeocoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseGeocoder.swift; sourceTree = "<group>"; };
 		D297F20221C2212B00DBA825 /* IPTCLocatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPTCLocatable.swift; sourceTree = "<group>"; };
+		D297F20621C48CB400DBA825 /* GPSStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSStatus.swift; sourceTree = "<group>"; };
+		D297F20821C48EBB00DBA825 /* GPSDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSDirection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,13 +69,12 @@
 		D20745ED21C0BABF00D0423C /* Geolocator */ = {
 			isa = PBXGroup;
 			children = (
+				D297F20521C48C9F00DBA825 /* GPS Info */,
 				D297F20421C2217400DBA825 /* View Controllers */,
 				D297F20121C2211E00DBA825 /* Protocols */,
 				D20745EE21C0BABF00D0423C /* AppDelegate.swift */,
 				D207460021C0C88800D0423C /* FolderLoader.swift */,
 				620DFCE721C18E5900D1CD98 /* MetadataManager.swift */,
-				D297F1FF21C2210100DBA825 /* ReverseGeocoder.swift */,
-				D20745FE21C0BC5700D0423C /* LocatableImage.swift */,
 				D20745F221C0BAC100D0423C /* Assets.xcassets */,
 				D20745F421C0BAC100D0423C /* Main.storyboard */,
 				D20745F721C0BAC100D0423C /* Info.plist */,
@@ -95,6 +98,17 @@
 				D20745F021C0BABF00D0423C /* ViewController.swift */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		D297F20521C48C9F00DBA825 /* GPS Info */ = {
+			isa = PBXGroup;
+			children = (
+				D297F1FF21C2210100DBA825 /* ReverseGeocoder.swift */,
+				D20745FE21C0BC5700D0423C /* LocatableImage.swift */,
+				D297F20821C48EBB00DBA825 /* GPSDirection.swift */,
+				D297F20621C48CB400DBA825 /* GPSStatus.swift */,
+			);
+			path = "GPS Info";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,6 +184,8 @@
 				620DFCE821C18E5900D1CD98 /* MetadataManager.swift in Sources */,
 				620DFCEC21C1AAA200D1CD98 /* ActivityViewController.swift in Sources */,
 				D297F20021C2210100DBA825 /* ReverseGeocoder.swift in Sources */,
+				D297F20721C48CB400DBA825 /* GPSStatus.swift in Sources */,
+				D297F20921C48EBB00DBA825 /* GPSDirection.swift in Sources */,
 				D207460121C0C88800D0423C /* FolderLoader.swift in Sources */,
 				D20745F121C0BABF00D0423C /* ViewController.swift in Sources */,
 				D297F20321C2212B00DBA825 /* IPTCLocatable.swift in Sources */,
