@@ -13,10 +13,14 @@ class ViewController: NSViewController {
     @objc dynamic var dataArray = [LocatableImage]()
     @IBOutlet var dataArrayController: NSArrayController!
     
+    var geocoders = [ReverseGeocoder]()
+    
     var activityView: NSViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loadGeocoders()
 
         dataArrayController.sortDescriptors = [
             NSSortDescriptor(key: "displayName", ascending: true)
@@ -45,6 +49,26 @@ class ViewController: NSViewController {
         }
 
     }
+    
+    func loadGeocoders() {
+        // Load Apple
+        geocoders.append(AppleGeocoder())
+        
+        // Load Google
+        guard
+            let url = Bundle.main.url(forResource: "APIKeys", withExtension: "plist"),
+            let keys = NSDictionary(contentsOf: url),
+            let mapsKey = keys["googleMapsAPIKey"] as? String
+        else {
+            NSLog("Could not load Google Maps API key")
+            return
+            
+        }
+        
+        geocoders.append(GoogleGeocoder(apiKey: mapsKey))
+        
+    }
+    
     override func viewDidAppear() {
         view.window?.titleVisibility = .hidden
         promptForFiles()
@@ -75,18 +99,19 @@ class ViewController: NSViewController {
     @IBAction func loadMetatdata(_ sender: Any) {
         let manager = MetadataManager()
         manager.loadMetatdata(from: dataArray, manuallyStart: true)
+        let showActivityView = UserDefaults.standard.bool(forKey: "showActivityView")
         
-        NotificationCenter.default.addObserver(forName: MetadataManager.notificationName, object: manager, queue: OperationQueue.main) { _ in
+        NotificationCenter.default.addObserver(forName: MetadataManager.notificationName, object: nil, queue: OperationQueue.main) { _ in
             self.reloadData(sender)
             if self.activityView != nil {
                 self.dismiss(self.activityView!)
                 self.activityView = nil
             }
             
-            NotificationCenter.default.removeObserver(self, name: MetadataManager.notificationName, object: manager)
+            NotificationCenter.default.removeObserver(self, name: MetadataManager.notificationName, object: nil)
         }
         
-        if dataArray.count > 100 {
+        if dataArray.count > 100 || showActivityView {
             NSLog("Performing Segue")
             performSegue(withIdentifier: NSStoryboardSegue.Identifier("ActivityProgressSegue"), sender: manager)
         } else {
@@ -97,21 +122,27 @@ class ViewController: NSViewController {
     
     @IBAction func reverseGeocode(_ sender: Any) {
         let manager = MetadataManager()
-        let geocoder = AppleGeocoder()
         
-        manager.reverseGeocode(dataArray, with: geocoder)
+        let showActivityView = UserDefaults.standard.bool(forKey: "showActivityView")
         
-        NotificationCenter.default.addObserver(forName: MetadataManager.notificationName, object: manager, queue: OperationQueue.main) { _ in
+        let selectionIndex = UserDefaults.standard.integer(forKey: "geocoderSelection")
+        let geocoder = geocoders[selectionIndex]
+
+        manager.reverseGeocode(dataArray, with: geocoder, manuallyStart: true)
+        
+        var token: NSObjectProtocol?
+        token = NotificationCenter.default.addObserver(forName: MetadataManager.notificationName, object: nil, queue: OperationQueue.main) { _ in
+            NSLog("MetadataManager notification received")
             self.reloadData(sender)
             if self.activityView != nil {
                 self.dismiss(self.activityView!)
                 self.activityView = nil
             }
             
-            NotificationCenter.default.removeObserver(self, name: MetadataManager.notificationName, object: manager)
+            NotificationCenter.default.removeObserver(token!)
         }
         
-        if dataArray.count > 100 {
+        if dataArray.count > geocoder.showActivityCount || showActivityView {
             NSLog("Performing Segue")
             performSegue(withIdentifier: NSStoryboardSegue.Identifier("ActivityProgressSegue"), sender: manager)
         } else {
