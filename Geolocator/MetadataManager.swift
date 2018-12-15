@@ -81,15 +81,16 @@ class ReverseGeocodeOperation: CaptureCoreOperation {
             self.executing(false)
             NSLog(message)
             
-            self.manager.progress.localizedAdditionalDescription = message
-            self.manager.progress.completedUnitCount = Int64(self.index + 1)
-
-            if self.manager.progress.fractionCompleted == 1 {
-                NSLog("Progress is 100%, posting notification")
-                NotificationCenter.default.post(name: MetadataManager.notificationName, object: nil)
+            DispatchQueue.main.async {
+                self.manager.progress.localizedAdditionalDescription = message
+                self.manager.progress.completedUnitCount = Int64(self.index + 1)
+                
+                if self.manager.progress.fractionCompleted == 1 {
+                    NSLog("Progress is 100%, posting notification")
+                    NotificationCenter.default.post(name: MetadataManager.notificationName, object: nil)
+                }
             }
-            
-            
+
             self.finish(true)
 
         }
@@ -109,6 +110,7 @@ class MetadataManager: NSObject, ProgressReporting {
     override init() {
         progress = Progress(totalUnitCount: 0)
         self.queue.qualityOfService = .userInitiated
+        self.queue.underlyingQueue = DispatchQueue.main
         
         super.init()
        
