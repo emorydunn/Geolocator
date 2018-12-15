@@ -17,7 +17,7 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         dataArrayController.sortDescriptors = [
             NSSortDescriptor(key: "displayName", ascending: true)
         ]
@@ -46,6 +46,7 @@ class ViewController: NSViewController {
 
     }
     override func viewDidAppear() {
+        view.window?.titleVisibility = .hidden
         promptForFiles()
     }
 
@@ -110,7 +111,7 @@ class ViewController: NSViewController {
             NotificationCenter.default.removeObserver(self, name: MetadataManager.notificationName, object: manager)
         }
         
-        if dataArray.count > 1 {
+        if dataArray.count > 100 {
             NSLog("Performing Segue")
             performSegue(withIdentifier: NSStoryboardSegue.Identifier("ActivityProgressSegue"), sender: manager)
         } else {
