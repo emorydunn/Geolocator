@@ -26,14 +26,7 @@ public class LocatableImage: NSObject {
     @objc var displayStatus: String? {
         return status?.description
     }
-    
-    @objc var country: String?
-    @objc var state: String?
-    @objc var city: String?
-    @objc var route: String?
-    @objc var neighborhood: String?
-    
-    
+
     init?(url: URL) {
         self.url = url
         
@@ -56,19 +49,62 @@ public class LocatableImage: NSObject {
             let properties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil) as? [String: Any] else {
                 return
         }
-        
+
         self.imageProperties = properties
         
     }
     
     
-    
+    // MARK: - IPTC
     var iptc: [String: Any] {
         if let iptc = imageProperties["{IPTC}"] as? [String: Any] {
             return iptc
         }
         
         return [:]
+    }
+    
+    @objc var country: String? {
+        get {
+            return iptc["Country/PrimaryLocationName"] as? String
+        }
+        set {
+//            (imageProperties["{IPTC}"] as? [String: Any])["Country/PrimaryLocationName"] = newValue
+        }
+        
+    }
+    @objc var state: String? {
+        get {
+            return iptc["Province/State"] as? String
+        }
+        set {
+            iptc["Province/State"] = newValue
+        }
+        
+    }
+    @objc var city: String? {
+        get {
+            return iptc["City"] as? String
+        }
+        set {
+            iptc["City"] = newValue
+        }
+    }
+    @objc var route: String? {
+        get {
+            return iptc["Route"] as? String
+        }
+        set {
+            iptc["Route"] = newValue
+        }
+    }
+    @objc var neighborhood: String? {
+        get {
+            return iptc["SubLocation"] as? String
+        }
+        set {
+            iptc["SubLocation"] = newValue
+        }
     }
     
     // MARK: - EXIF
@@ -143,6 +179,8 @@ public class LocatableImage: NSObject {
         }
         return nil
     }
+    
+    
     
     
 

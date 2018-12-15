@@ -31,76 +31,80 @@ public class AppleGeocoder: ReverseGeocoder {
             }
             
             // Assign location information
-            location.country = firstLocation.country
-            location.state = firstLocation.state
-            location.city = firstLocation.city
-            location.route = firstLocation.route
-            location.neighborhood = firstLocation.neighborhood
+//            location.country = firstLocation.country
+//            location.state = firstLocation.state
+//            location.city = firstLocation.city
+//            location.route = firstLocation.route
+//            location.neighborhood = firstLocation.neighborhood
         }
     }
 }
 
-//public class GoogleGeocoder: ReverseGeocoder {
-//
-//    public init() {
-//
-//    }
-//
-//    public func reverseGeocodeLocation(_ location: LocatableImage, completionHandler: @escaping (LocatableImage?) -> Void) {
-//
-//        guard let url = URL(string: "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(location.latitude),\(location.longitude)") else {
-//            completionHandler(nil)
-//            return
-//        }
-//
-//        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-//            guard let data = data, let dict = try! JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-//                completionHandler(nil)
-//                return
-//            }
-//
+public class GoogleGeocoder: ReverseGeocoder {
+
+    public init() {
+
+    }
+
+    public func reverseGeocodeLocation(_ location: LocatableImage) {
+
+        guard let url = URL(string: "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(location.latitude),\(location.longitude)") else {
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data, let dict = try! JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+                return
+            }
+            
+            guard let place = self.extractPlace(from: dict) else {
+                return
+            }
+            
+            
+
 //            completionHandler(self.extractPlace(from: dict))
-//        }
-//        //        NSLog("Fetching Location from \(url.path)")
-//        task.resume()
-//
-//    }
-//
-//    func extractPlace(from json: [String: Any]) -> IPTCLocatable? {
-//
-//        guard let results = json["results"] as? [[String: Any]], let firstResult = results.first else {
-//            return nil
-//        }
-//
-//        guard let addressComponents = firstResult["address_components"] as? [[String: Any]] else {
-//            return nil
-//        }
-//
-//        let places = addressComponents.compactMap { json in
-//            GooglePlace(fromJSONDict: json)
-//        }
-//
-//        var location = IPTCLocation(country: nil, state: nil, city: nil, route: nil, neighborhood: nil)
-//        places.forEach { place in
-//            if place.types.contains("country") {
-//                location.country = place.longName
-//            } else if place.types.contains("administrative_area_level_1") {
-//                location.state = place.longName
-//            } else if place.types.contains("locality") {
-//                location.city = place.longName
-//            } else if place.types.contains("route") {
-//                location.route = place.longName
-//            } else if place.types.contains("neighborhood") {
-//                location.neighborhood = place.longName
-//            }
-//
-//
-//        }
-//        return location
-//
-//    }
-//
-//}
+        }
+        //        NSLog("Fetching Location from \(url.path)")
+        task.resume()
+
+    }
+
+    func extractPlace(from json: [String: Any]) -> IPTCLocatable? {
+
+        guard let results = json["results"] as? [[String: Any]], let firstResult = results.first else {
+            return nil
+        }
+
+        guard let addressComponents = firstResult["address_components"] as? [[String: Any]] else {
+            return nil
+        }
+
+        let places = addressComponents.compactMap { json in
+            GooglePlace(fromJSONDict: json)
+        }
+
+        var location = IPTCLocation(country: nil, state: nil, city: nil, route: nil, neighborhood: nil)
+        places.forEach { place in
+            if place.types.contains("country") {
+                location.country = place.longName
+            } else if place.types.contains("administrative_area_level_1") {
+                location.state = place.longName
+            } else if place.types.contains("locality") {
+                location.city = place.longName
+            } else if place.types.contains("route") {
+                location.route = place.longName
+            } else if place.types.contains("neighborhood") {
+                location.neighborhood = place.longName
+            }
+
+
+        }
+        return location
+
+    }
+
+}
 
 struct GooglePlace: Decodable {
     let longName: String
