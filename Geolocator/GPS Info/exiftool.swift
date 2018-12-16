@@ -48,12 +48,12 @@ public class Exiftool: ExiftoolProtocol {
     public var exiftoolLocation: String
     public var trace: TraceFunction?
     
-    public convenience init?() {
+    public convenience init?(trace: TraceFunction?) {
         guard let url = Bundle.main.url(forResource: "exiftool", withExtension: nil) else {
             return nil
         }
         
-        self.init(exiftool: url.path)
+        self.init(exiftool: url.path, trace: trace)
     }
     
     public required init(exiftool: String = "/usr/local/bin/exiftool", trace: TraceFunction?) {
