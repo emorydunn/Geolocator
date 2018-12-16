@@ -23,9 +23,10 @@ class LocatableImage: NSObject, ImageMetadata {
             return nil
         }
         
-        guard let exiftool = Exiftool() else {
+        guard let exiftool = Exiftool(trace: nil) else {
             return nil
         }
+        
         self.exiftool = exiftool
     }
     
