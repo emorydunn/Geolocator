@@ -151,6 +151,30 @@ class ViewController: NSViewController {
         
     }
     
+    @IBAction func writeMetatdata(_ sender: Any) {
+        let manager = MetadataManager()
+        manager.writeMetadata(for: dataArray, manuallyStart: true)
+        let showActivityView = UserDefaults.standard.bool(forKey: "showActivityView")
+        
+        NotificationCenter.default.addObserver(forName: MetadataManager.notificationName, object: nil, queue: OperationQueue.main) { _ in
+            self.reloadData(sender)
+            if self.activityView != nil {
+                self.dismiss(self.activityView!)
+                self.activityView = nil
+            }
+            
+            NotificationCenter.default.removeObserver(self, name: MetadataManager.notificationName, object: nil)
+        }
+        
+        if dataArray.count > 100 || showActivityView {
+            NSLog("Performing Segue")
+            performSegue(withIdentifier: NSStoryboardSegue.Identifier("ActivityProgressSegue"), sender: manager)
+        } else {
+            manager.progress.resume()
+        }
+        
+    }
+    
     @IBAction func reloadData(_ sender: Any) {
         print("Reloading array controller")
         dataArrayController.rearrangeObjects()
