@@ -91,7 +91,7 @@
                                         </menuItem>
                                         <menuItem title="Save…" keyEquivalent="s" id="pxx-59-PXV">
                                             <connections>
-                                                <action selector="saveDocument:" target="Ady-hI-5gd" id="teZ-XB-qJY"/>
+                                                <action selector="writeMetatdata:" target="Ady-hI-5gd" id="5bJ-rL-4ZH"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Save As…" hidden="YES" enabled="NO" keyEquivalent="S" id="Bw7-FT-i3A">
@@ -732,6 +732,20 @@
                                         </connections>
                                     </button>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="6A6E667E-1CB0-42B8-9858-8951F2EAD2A4" label="Write Metadata" paletteLabel="Write Metadata" sizingBehavior="auto" id="d4Y-Dd-it6">
+                                    <nil key="toolTip"/>
+                                    <button key="view" verticalHuggingPriority="750" id="bm8-tl-NUv">
+                                        <rect key="frame" x="3" y="14" width="82" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" title="Save" bezelStyle="texturedRounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nOa-YR-RNC">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="writeMetatdata:" target="Oky-zY-oP4" id="kop-kb-aYm"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="6F584D80-BF1D-4806-BB84-A87AC9682D4D" label="Geocoder" paletteLabel="Geocoder" sizingBehavior="auto" id="fav-0I-cly">
                                     <nil key="toolTip"/>
                                     <popUpButton key="view" verticalHuggingPriority="750" id="eVT-7S-HKP">
@@ -775,8 +789,10 @@
                                 <toolbarItem reference="fav-0I-cly"/>
                                 <toolbarItem reference="3OA-pB-urV"/>
                                 <toolbarItem reference="9S9-wz-Uac"/>
-                                <toolbarItem reference="4jn-0P-YYf"/>
                                 <toolbarItem reference="H4S-bE-iLR"/>
+                                <toolbarItem reference="ZWS-db-hHt"/>
+                                <toolbarItem reference="4jn-0P-YYf"/>
+                                <toolbarItem reference="d4Y-Dd-it6"/>
                             </defaultToolbarItems>
                         </toolbar>
                         <connections>
