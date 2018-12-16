@@ -18,6 +18,14 @@ class LocatableImage: NSObject, ImageMetadata {
     init?(url: URL) {
         self.url = url
         
+        let ext = url.pathExtension as CFString
+        let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext, nil)
+        
+        // Only open image files
+        guard UTTypeConformsTo((uti?.takeRetainedValue())!, kUTTypeImage) else {
+            return nil
+        }
+        
         // Ignore exiftool backups
         guard !url.lastPathComponent.hasSuffix("_original") else {
             return nil
