@@ -13,8 +13,12 @@
 		D20745F121C0BABF00D0423C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20745F021C0BABF00D0423C /* ViewController.swift */; };
 		D20745F321C0BAC100D0423C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D20745F221C0BAC100D0423C /* Assets.xcassets */; };
 		D20745F621C0BAC100D0423C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D20745F421C0BAC100D0423C /* Main.storyboard */; };
-		D20745FF21C0BC5700D0423C /* LocatableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20745FE21C0BC5700D0423C /* LocatableImage.swift */; };
 		D207460121C0C88800D0423C /* FolderLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D207460021C0C88800D0423C /* FolderLoader.swift */; };
+		D26491DC21C5B93E005E3FB6 /* exiftool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26491DB21C5B93E005E3FB6 /* exiftool.swift */; };
+		D26491DE21C5BBD5005E3FB6 /* LocatableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26491DD21C5BBD5005E3FB6 /* LocatableImage.swift */; };
+		D264939D21C5C551005E3FB6 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = D264939B21C5C551005E3FB6 /* lib */; };
+		D264939E21C5C551005E3FB6 /* exiftool in Resources */ = {isa = PBXBuildFile; fileRef = D264939C21C5C551005E3FB6 /* exiftool */; };
+		D264939F21C5CDE2005E3FB6 /* ImageMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20745FE21C0BC5700D0423C /* ImageMetadata.swift */; };
 		D2677F7321C579CD001607D3 /* MetadataDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2677F7221C579CD001607D3 /* MetadataDomain.swift */; };
 		D2677F7521C58CFE001607D3 /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = D2677F7421C58CFE001607D3 /* APIKeys.plist */; };
 		D297F20021C2210100DBA825 /* ReverseGeocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D297F1FF21C2210100DBA825 /* ReverseGeocoder.swift */; };
@@ -33,8 +37,12 @@
 		D20745F521C0BAC100D0423C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D20745F721C0BAC100D0423C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D20745F821C0BAC100D0423C /* Geolocator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Geolocator.entitlements; sourceTree = "<group>"; };
-		D20745FE21C0BC5700D0423C /* LocatableImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatableImage.swift; sourceTree = "<group>"; };
+		D20745FE21C0BC5700D0423C /* ImageMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMetadata.swift; sourceTree = "<group>"; };
 		D207460021C0C88800D0423C /* FolderLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderLoader.swift; sourceTree = "<group>"; };
+		D26491DB21C5B93E005E3FB6 /* exiftool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = exiftool.swift; sourceTree = "<group>"; };
+		D26491DD21C5BBD5005E3FB6 /* LocatableImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatableImage.swift; sourceTree = "<group>"; };
+		D264939B21C5C551005E3FB6 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
+		D264939C21C5C551005E3FB6 /* exiftool */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = exiftool; sourceTree = "<group>"; };
 		D2677F7221C579CD001607D3 /* MetadataDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataDomain.swift; sourceTree = "<group>"; };
 		D2677F7421C58CFE001607D3 /* APIKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = APIKeys.plist; path = Geolocator/APIKeys.plist; sourceTree = SOURCE_ROOT; };
 		D297F1FF21C2210100DBA825 /* ReverseGeocoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseGeocoder.swift; sourceTree = "<group>"; };
@@ -73,6 +81,7 @@
 		D20745ED21C0BABF00D0423C /* Geolocator */ = {
 			isa = PBXGroup;
 			children = (
+				D26491E121C5C4CF005E3FB6 /* exiftool */,
 				D297F20521C48C9F00DBA825 /* GPS Info */,
 				D297F20421C2217400DBA825 /* View Controllers */,
 				D297F20121C2211E00DBA825 /* Protocols */,
@@ -86,6 +95,15 @@
 				D20745F821C0BAC100D0423C /* Geolocator.entitlements */,
 			);
 			path = Geolocator;
+			sourceTree = "<group>";
+		};
+		D26491E121C5C4CF005E3FB6 /* exiftool */ = {
+			isa = PBXGroup;
+			children = (
+				D264939C21C5C551005E3FB6 /* exiftool */,
+				D264939B21C5C551005E3FB6 /* lib */,
+			);
+			path = exiftool;
 			sourceTree = "<group>";
 		};
 		D297F20121C2211E00DBA825 /* Protocols */ = {
@@ -109,7 +127,9 @@
 			isa = PBXGroup;
 			children = (
 				D297F1FF21C2210100DBA825 /* ReverseGeocoder.swift */,
-				D20745FE21C0BC5700D0423C /* LocatableImage.swift */,
+				D20745FE21C0BC5700D0423C /* ImageMetadata.swift */,
+				D26491DD21C5BBD5005E3FB6 /* LocatableImage.swift */,
+				D26491DB21C5B93E005E3FB6 /* exiftool.swift */,
 				D2677F7221C579CD001607D3 /* MetadataDomain.swift */,
 				D297F20821C48EBB00DBA825 /* GPSDirection.swift */,
 				D297F20621C48CB400DBA825 /* GPSStatus.swift */,
@@ -182,6 +202,8 @@
 			files = (
 				D2677F7521C58CFE001607D3 /* APIKeys.plist in Resources */,
 				D20745F321C0BAC100D0423C /* Assets.xcassets in Resources */,
+				D264939E21C5C551005E3FB6 /* exiftool in Resources */,
+				D264939D21C5C551005E3FB6 /* lib in Resources */,
 				D20745F621C0BAC100D0423C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -193,6 +215,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D26491DE21C5BBD5005E3FB6 /* LocatableImage.swift in Sources */,
 				620DFCE821C18E5900D1CD98 /* MetadataManager.swift in Sources */,
 				620DFCEC21C1AAA200D1CD98 /* ActivityViewController.swift in Sources */,
 				D297F20021C2210100DBA825 /* ReverseGeocoder.swift in Sources */,
@@ -202,8 +225,9 @@
 				D20745F121C0BABF00D0423C /* ViewController.swift in Sources */,
 				D2677F7321C579CD001607D3 /* MetadataDomain.swift in Sources */,
 				D297F20321C2212B00DBA825 /* IPTCLocatable.swift in Sources */,
-				D20745FF21C0BC5700D0423C /* LocatableImage.swift in Sources */,
 				D20745EF21C0BABF00D0423C /* AppDelegate.swift in Sources */,
+				D26491DC21C5B93E005E3FB6 /* exiftool.swift in Sources */,
+				D264939F21C5CDE2005E3FB6 /* ImageMetadata.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
