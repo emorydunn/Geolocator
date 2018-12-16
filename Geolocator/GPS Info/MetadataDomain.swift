@@ -12,16 +12,16 @@ import ImageIO
 enum MetadataDomain {
     case iptc(IPTCDictionaryKey)
     case exif(EXIFDictionaryKey)
-    case gps(GPSDictionaryKey)
+    case composite(CompositeDictionaryKey)
     
     var keyName: String {
         switch self {
         case .iptc:
-            return kCGImagePropertyIPTCDictionary as String
+            return "IPTC"
         case .exif:
-            return kCGImagePropertyExifDictionary as String
-        case .gps:
-            return kCGImagePropertyGPSDictionary as String
+            return "EXIF"
+        case .composite:
+            return "Composite"
         }
     }
 }
@@ -35,13 +35,13 @@ enum IPTCDictionaryKey {
     var keyName: String {
         switch self {
         case .countryPrimaryLocationName:
-            return kCGImagePropertyIPTCCountryPrimaryLocationName as String
+            return "Country-PrimaryLocationName"
         case .provinceState:
-            return kCGImagePropertyIPTCProvinceState as String
+            return "Province-State"
         case .city:
-            return kCGImagePropertyIPTCCity as String
+            return "City"
         case .subLocation:
-            return kCGImagePropertyIPTCSubLocation as String
+            return "Sub-Location"
         }
     }
 }
@@ -49,16 +49,6 @@ enum IPTCDictionaryKey {
 enum EXIFDictionaryKey {
     case date
     
-    var keyName: String {
-        switch self {
-        case .date:
-            return kCGImagePropertyExifDateTimeOriginal as String
-            
-        }
-    }
-}
-
-enum GPSDictionaryKey {
     case latitudeRef
     case longitudeRef
     case latitude
@@ -67,17 +57,36 @@ enum GPSDictionaryKey {
     
     var keyName: String {
         switch self {
-        case .latitudeRef:
-            return kCGImagePropertyGPSLatitudeRef as String
-        case .longitudeRef:
-            return kCGImagePropertyGPSLongitudeRef as String
-        case .latitude:
-            return kCGImagePropertyGPSLatitude as String
-        case .longitude:
-            return kCGImagePropertyGPSLongitude as String
-        case .status:
-            return kCGImagePropertyGPSStatus as String
+        case .date:
+            return "DateTimeOriginal"
             
+        case .latitudeRef:
+            return "GPSLatitudeRef"
+        case .longitudeRef:
+            return "GPSLongitudeRef"
+        case .latitude:
+            return "GPSLatitude"
+        case .longitude:
+            return "GPSLongitude"
+        case .status:
+            return "GPSStatus"
+            
+        }
+    }
+}
+
+enum CompositeDictionaryKey {
+    case latitude
+    case longitude
+
+    var keyName: String {
+        switch self {
+        case .latitude:
+            return "GPSLatitude"
+        case .longitude:
+            return "GPSLongitude"
+        
+
         }
     }
 }

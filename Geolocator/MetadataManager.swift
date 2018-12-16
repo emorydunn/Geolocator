@@ -75,7 +75,7 @@ class ReverseGeocodeOperation: CaptureCoreOperation {
         }
         
         executing(true)
-        manager.progress.localizedDescription = "Reverse geocoding \(location.displayName ?? "No Name")"
+        manager.progress.localizedDescription = "Reverse geocoding \(location.displayName)"
         
         geocoder.reverseGeocodeLocation(location) { message in
             self.executing(false)
@@ -157,7 +157,7 @@ class MetadataManager: NSObject, ProgressReporting {
             
             return BlockOperation {
                 self.progress.completedUnitCount = Int64(index + 1)
-                self.progress.localizedDescription = "Loading metatdata for \(image.displayName ?? "No Name")"
+                self.progress.localizedDescription = "Loading metatdata for \(image.displayName)"
                 self.progress.localizedAdditionalDescription = ""
                 image.loadMetadata()
                 
@@ -187,6 +187,34 @@ class MetadataManager: NSObject, ProgressReporting {
         }
         
         queue.addOperations(operations, waitUntilFinished: false)
+    }
+    
+    func writeMetadata(for images: [LocatableImage], manuallyStart: Bool = false) {
+        
+        self.progress = progress(for: images.count)
+        self.progress.localizedDescription = "Preparing to write metatdata"
+        self.progress.localizedAdditionalDescription = ""
+        
+        progress.pause()
+        
+        let operations = images.enumerated().map { index, image in
+            
+            return BlockOperation {
+                self.progress.completedUnitCount = Int64(index + 1)
+                self.progress.localizedDescription = "Writing metatdata for \(image.displayName)"
+                self.progress.localizedAdditionalDescription = ""
+                image.writeMetadata()
+                
+                //                NSLog("Progress: \(self.progress.fractionCompleted). \(self.progress.completedUnitCount) / \(self.progress.totalUnitCount)")
+                
+                if self.progress.fractionCompleted == 1 {
+                    NotificationCenter.default.post(name: MetadataManager.notificationName, object: self)
+                }
+            }
+        }
+        
+        queue.addOperations(operations, waitUntilFinished: false)
+        
     }
 
 }
