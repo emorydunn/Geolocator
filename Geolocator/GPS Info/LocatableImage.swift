@@ -50,6 +50,12 @@ class LocatableImage: NSObject, ImageMetadata {
         
     }
     func writeMetadata() {
+        
+        guard status?.bool == true else {
+            NSLog("GPS status is false, skipping write")
+            return
+        }
+
         var arguments = [
             url.path,
             "-m"
