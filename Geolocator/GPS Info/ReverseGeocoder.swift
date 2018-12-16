@@ -9,26 +9,23 @@
 import Foundation
 import CoreLocation
 
-public protocol ReverseGeocoder {
+protocol ReverseGeocoder {
     var showActivityCount: Int { get }
-    
-    
+        
     func reverseGeocodeLocation(_ location: LocatableImage, complete: @escaping (_ message: String) -> Void)
-    
-//    func operation(for location: LocatableImage) -> ReverseGeocodeOperation
-    
+
 }
 
-public class AppleGeocoder: ReverseGeocoder {
+class AppleGeocoder: ReverseGeocoder {
     
-    public let showActivityCount: Int = 100
+    let showActivityCount: Int = 100
     
-    public init() {
+    init() {
         
     }
     
-    public func reverseGeocodeLocation(_ location: LocatableImage, complete: @escaping (_ message: String) -> Void) {
-        NSLog("Begin reverse geocode for \(location.displayName ?? "No Name")")
+    func reverseGeocodeLocation(_ location: LocatableImage, complete: @escaping (_ message: String) -> Void) {
+        NSLog("Begin reverse geocode for \(location.displayName)")
         
         guard location.status?.bool == true else {
             complete("GPS status is false")
@@ -43,7 +40,7 @@ public class AppleGeocoder: ReverseGeocoder {
                 return
             }
             guard let firstLocation = placemarks?[0] else {
-                complete("No location found for \(location.displayName ?? "No Name")")
+                complete("No location found for \(location.displayName)")
                 return
             }
             
@@ -54,23 +51,23 @@ public class AppleGeocoder: ReverseGeocoder {
 //            location.route = firstLocation.route
             location.neighborhood = firstLocation.neighborhood
             
-            complete("Assigning location information to \(location.displayName ?? "No Name")")
+            complete("Assigning location information to \(location.displayName)")
         }
     }
     
 }
 
-public class GoogleGeocoder: ReverseGeocoder {
+class GoogleGeocoder: ReverseGeocoder {
     
-    public let showActivityCount: Int = 50
-    public let apiKey: String
+    let showActivityCount: Int = 50
+    let apiKey: String
 
-    public init(apiKey: String) {
+    init(apiKey: String) {
         self.apiKey = apiKey
     }
 
-    public func reverseGeocodeLocation(_ location: LocatableImage, complete: @escaping (_ message: String) -> Void) {
-        NSLog("Begin reverse geocode for \(location.displayName ?? "No Name")")
+    func reverseGeocodeLocation(_ location: LocatableImage, complete: @escaping (_ message: String) -> Void) {
+        NSLog("Begin reverse geocode for \(location.displayName)")
         
         guard location.status?.bool == true else {
             complete("GPS status is false")
@@ -101,7 +98,7 @@ public class GoogleGeocoder: ReverseGeocoder {
 //            location.route = place.route
             location.neighborhood = place.neighborhood
             
-            complete("Assigning location information to \(location.displayName ?? "No Name")")
+            complete("Assigning location information to \(location.displayName)")
 
         }
         
