@@ -48,6 +48,7 @@ class ViewController: NSViewController {
                 
                 if let images = self.open(urls: urls) {
                     self.dataArray = images
+                    self.loadMetatdata(self)
                 }
                 
             }
@@ -211,7 +212,9 @@ class ViewController: NSViewController {
             case .OK:
                 if let images = self.open(urls: openPanel.urls) {
                     self.dataArray = images
+                    self.loadMetatdata(self)
                 }
+                
             default:
                 break
             }
