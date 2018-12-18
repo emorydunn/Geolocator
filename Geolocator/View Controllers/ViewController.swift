@@ -8,6 +8,13 @@
 
 import Cocoa
 
+struct InterfaceIdentifiers {
+    static let geocodeMenuItem = NSUserInterfaceItemIdentifier("geocodeMenuItem")
+    static let loadMetadataMenuItem = NSUserInterfaceItemIdentifier("loadMetadataMenuItem")
+    static let geocoderApple = NSUserInterfaceItemIdentifier("geocoderApple")
+    static let geocoderGoogle = NSUserInterfaceItemIdentifier("geocoderGoogle")
+}
+
 class ViewController: NSViewController {
     
     @objc dynamic var dataArray = [LocatableImage]()
@@ -229,7 +236,48 @@ class ViewController: NSViewController {
         
         NSLog("Loading activityview")
     }
+    
+    @IBAction func setGeocoder(_ sender: NSMenuItem) {
+        
+        UserDefaults.standard.set(sender.tag, forKey: "geocoderSelection")
+
+    }
 
 
 }
 
+
+extension ViewController: NSUserInterfaceValidations {
+    
+    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
+        
+        switch item.action {
+        case #selector(reverseGeocode(_:)):
+            return !dataArray.isEmpty
+        case #selector(loadMetatdata(_:)):
+            return !dataArray.isEmpty
+        case #selector(setGeocoder(_:)):
+            let selectionIndex = UserDefaults.standard.integer(forKey: "geocoderSelection")
+            if let item = item as? NSMenuItem {
+                item.state = NSControl.StateValue(item.tag == selectionIndex)
+            }
+            fallthrough
+        default:
+            return true
+        }
+        
+    }
+}
+
+extension NSControl.StateValue {
+    
+    init(_ bool: Bool) {
+        switch bool {
+        case true:
+            self = .on
+        case false:
+            self = .off
+        }
+    
+    }
+}
