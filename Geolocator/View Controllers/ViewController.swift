@@ -48,7 +48,7 @@ class ViewController: NSViewController {
                 
                 if let images = self.open(urls: urls) {
                     self.dataArray = images
-                    self.loadMetatdata(self)
+                    self.loadMetatdata(nil)
                 }
                 
             }
@@ -104,22 +104,30 @@ class ViewController: NSViewController {
         promptForFiles()
     }
     
-    @IBAction func loadMetatdata(_ sender: Any) {
+    @IBAction func loadMetatdata(_ sender: Any?) {
         let manager = MetadataManager()
         manager.loadMetatdata(from: dataArray, manuallyStart: true)
-        let showActivityView = UserDefaults.standard.bool(forKey: "showActivityView")
         
-        NotificationCenter.default.addObserver(forName: MetadataManager.notificationName, object: nil, queue: OperationQueue.main) { _ in
+        var showActivityView = UserDefaults.standard.bool(forKey: "showActivityView")
+        
+        // If the sender is nil this was called directly, so show activity
+        if sender == nil {
+            showActivityView = true
+        }
+        
+        
+        var token: NSObjectProtocol?
+        token = NotificationCenter.default.addObserver(forName: MetadataManager.notificationName, object: nil, queue: OperationQueue.main) { _ in
             self.reloadData(sender)
             if self.activityView != nil {
                 self.dismiss(self.activityView!)
                 self.activityView = nil
             }
             
-            NotificationCenter.default.removeObserver(self, name: MetadataManager.notificationName, object: nil)
+            NotificationCenter.default.removeObserver(token!)
         }
         
-        if dataArray.count > 100 || showActivityView {
+        if dataArray.count > 50 || showActivityView {
             NSLog("Performing Segue")
             performSegue(withIdentifier: NSStoryboardSegue.Identifier("ActivityProgressSegue"), sender: manager)
         } else {
@@ -183,7 +191,7 @@ class ViewController: NSViewController {
         
     }
     
-    @IBAction func reloadData(_ sender: Any) {
+    @IBAction func reloadData(_ sender: Any?) {
         print("Reloading array controller")
         dataArrayController.rearrangeObjects()
     }
@@ -212,7 +220,7 @@ class ViewController: NSViewController {
             case .OK:
                 if let images = self.open(urls: openPanel.urls) {
                     self.dataArray = images
-                    self.loadMetatdata(self)
+                    self.loadMetatdata(nil)
                 }
                 
             default:
