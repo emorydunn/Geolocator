@@ -40,14 +40,20 @@ class ViewController: NSViewController {
             
             if let images = info["Images"] as? [LocatableImage] {
                 NSLog("Setting data array to images from notification")
-                self.dataArray = images
+//                self.dataArray.append(contentsOf: images)
+                self.dataArray.append(contentsOf: images.filter { image in
+                    !self.dataArray.contains(image)
+                })
             }
             
             if let urls = info["URLs"] as? [URL] {
                 NSLog("Opening images from URLs")
                 
                 if let images = self.open(urls: urls) {
-                    self.dataArray = images
+                    self.dataArray.append(contentsOf: images.filter { image in
+                        !self.dataArray.contains(image)
+                    })
+//                    self.dataArray.append(contentsOf: images)
                     self.loadMetatdata(nil)
                 }
                 
@@ -105,29 +111,36 @@ class ViewController: NSViewController {
     }
     
     @IBAction func loadMetatdata(_ sender: Any?) {
-        let manager = MetadataManager()
+        let manager = MetadataManager.shared
         manager.loadMetatdata(from: dataArray, manuallyStart: true)
         
         var showActivityView = UserDefaults.standard.bool(forKey: "showActivityView")
         
         // If the sender is nil this was called directly, so show activity
-        if sender == nil {
+        if dataArray.isEmpty {
+            showActivityView = false
+        } else if sender == nil {
+            showActivityView = true
+        } else if dataArray.count > 50 {
             showActivityView = true
         }
         
-        
         var token: NSObjectProtocol?
         token = NotificationCenter.default.addObserver(forName: MetadataManager.notificationName, object: nil, queue: OperationQueue.main) { _ in
-            self.reloadData(sender)
+            NotificationCenter.default.removeObserver(token!)
+            
             if self.activityView != nil {
+                print("Dismissing activity view")
                 self.dismiss(self.activityView!)
                 self.activityView = nil
             }
             
-            NotificationCenter.default.removeObserver(token!)
+            manager.resetProgress()
+            self.reloadData(sender)
+            
         }
         
-        if dataArray.count > 50 || showActivityView {
+        if showActivityView && self.activityView == nil {
             NSLog("Performing Segue")
             performSegue(withIdentifier: NSStoryboardSegue.Identifier("ActivityProgressSegue"), sender: manager)
         } else {
@@ -137,7 +150,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func reverseGeocode(_ sender: Any) {
-        let manager = MetadataManager()
+        let manager = MetadataManager.shared
         
         let showActivityView = UserDefaults.standard.bool(forKey: "showActivityView")
         
@@ -149,11 +162,14 @@ class ViewController: NSViewController {
         var token: NSObjectProtocol?
         token = NotificationCenter.default.addObserver(forName: MetadataManager.notificationName, object: nil, queue: OperationQueue.main) { _ in
             NSLog("MetadataManager notification received")
-            self.reloadData(sender)
+            
             if self.activityView != nil {
                 self.dismiss(self.activityView!)
                 self.activityView = nil
             }
+            
+            manager.resetProgress()
+            self.reloadData(sender)
             
             NotificationCenter.default.removeObserver(token!)
         }
@@ -168,18 +184,21 @@ class ViewController: NSViewController {
     }
     
     @IBAction func writeMetatdata(_ sender: Any) {
-        let manager = MetadataManager()
+        let manager = MetadataManager.shared
         manager.writeMetadata(for: dataArray, manuallyStart: true)
         let showActivityView = UserDefaults.standard.bool(forKey: "showActivityView")
         
-        NotificationCenter.default.addObserver(forName: MetadataManager.notificationName, object: nil, queue: OperationQueue.main) { _ in
-            self.reloadData(sender)
+        var token: NSObjectProtocol?
+        token = NotificationCenter.default.addObserver(forName: MetadataManager.notificationName, object: nil, queue: OperationQueue.main) { _ in
+            
             if self.activityView != nil {
                 self.dismiss(self.activityView!)
                 self.activityView = nil
             }
+            manager.resetProgress()
+            self.reloadData(sender)
             
-            NotificationCenter.default.removeObserver(self, name: MetadataManager.notificationName, object: nil)
+            NotificationCenter.default.removeObserver(token!)
         }
         
         if dataArray.count > 100 || showActivityView {
@@ -219,7 +238,10 @@ class ViewController: NSViewController {
             switch response {
             case .OK:
                 if let images = self.open(urls: openPanel.urls) {
-                    self.dataArray = images
+//                    self.dataArray = images
+                    self.dataArray.append(contentsOf: images.filter { image in
+                        !self.dataArray.contains(image)
+                    })
                     self.loadMetatdata(nil)
                 }
                 
@@ -236,16 +258,9 @@ class ViewController: NSViewController {
             NSLog("Could not get destination as ActivityViewController")
             return
         }
-        
-        guard let manager = sender as? MetadataManager else {
-            NSLog("Could not get sender as MetadataManager")
-            return
-        }
-        
+
         activityView = dest
-        dest.manager = manager
-        
-        NSLog("Loading activityview")
+
     }
     
     @IBAction func setGeocoder(_ sender: NSMenuItem) {

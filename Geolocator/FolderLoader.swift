@@ -27,8 +27,16 @@ struct ImageLoader {
     }
     
     static func contents(of urls: [URL]) throws -> [URL] {
-        NSLog("Getting contents for \(urls.count) directories")
+//        NSLog("Getting contents for \(urls.count) directories")
         return try urls.reduce([]) { (previous, url) in
+            var isDir: ObjCBool = false
+            FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir)
+            
+            guard isDir.boolValue else {
+                NSLog("URL \(url.lastPathComponent) is file")
+                return previous + [url]
+            }
+            
             return try previous + contents(of: url)
         }
     }
@@ -41,6 +49,7 @@ struct ImageLoader {
         }
         
         guard let contents = try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles) else {
+            NSLog("Failed to get contents of \(url.lastPathComponent)")
             return []
         }
 
