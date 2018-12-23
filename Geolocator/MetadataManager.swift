@@ -86,7 +86,7 @@ class ReverseGeocodeOperation: CaptureCoreOperation {
                 self.manager.progress.completedUnitCount = Int64(self.index + 1)
                 
                 if self.manager.progress.fractionCompleted == 1 {
-                    NSLog("Progress is 100%, posting notification")
+                    NSLog("Progress is complete, posting notification")
                     NotificationCenter.default.post(name: MetadataManager.notificationName, object: nil)
                 }
             }
@@ -100,19 +100,23 @@ class ReverseGeocodeOperation: CaptureCoreOperation {
 
 
 
-class MetadataManager: NSObject, ProgressReporting {
+class MetadataManager: NSObject {
     static let notificationName = Notification.Name("MetadataManager")
+    
+    static let shared = MetadataManager()
  
     let queue = OperationQueue()
     
-    @objc dynamic var progress: Progress
+    @objc dynamic var progress: Progress!
 
-    override init() {
-        progress = Progress(totalUnitCount: 0)
+    fileprivate override init() {
+        super.init()
+        
+        self.progress = self.progress(for: 0)
         self.queue.qualityOfService = .userInitiated
         self.queue.underlyingQueue = DispatchQueue.main
         
-        super.init()
+        
        
         queue.maxConcurrentOperationCount = 1
 
@@ -143,27 +147,31 @@ class MetadataManager: NSObject, ProgressReporting {
         
         return newProgress
     }
+    
+    func resetProgress() {
+        self.progress.totalUnitCount = 0
+        self.progress.completedUnitCount = 0
+    }
 
     
     func loadMetatdata(from images: [LocatableImage], manuallyStart: Bool = false) {
 
-        self.progress = progress(for: images.count)
-        self.progress.localizedDescription = "Preparing to load metatdata"
-        self.progress.localizedAdditionalDescription = ""
+        self.progress.totalUnitCount += Int64(images.count)
         
         progress.pause()
         
         let operations = images.enumerated().map { index, image in
             
             return BlockOperation {
-                self.progress.completedUnitCount = Int64(index + 1)
+                self.progress.completedUnitCount += 1
                 self.progress.localizedDescription = "Loading metatdata for \(image.displayName)"
                 self.progress.localizedAdditionalDescription = ""
                 image.loadMetadata()
                 
-//                NSLog("Progress: \(self.progress.fractionCompleted). \(self.progress.completedUnitCount) / \(self.progress.totalUnitCount)")
+                NSLog("Progress: \(self.progress.fractionCompleted). \(self.progress.completedUnitCount) / \(self.progress.totalUnitCount)")
 
                 if self.progress.fractionCompleted == 1 {
+                    NSLog("Progress is complete, posting notification")
                     NotificationCenter.default.post(name: MetadataManager.notificationName, object: self)
                 }
             }
@@ -174,9 +182,8 @@ class MetadataManager: NSObject, ProgressReporting {
     }
     
     func reverseGeocode(_ images: [LocatableImage], with geocoder: ReverseGeocoder, manuallyStart: Bool = false) {
-        self.progress = progress(for: images.count)
-        self.progress.localizedDescription = "Preparing to reverse geocode"
-        self.progress.localizedAdditionalDescription = ""
+
+        self.progress.totalUnitCount += Int64(images.count)
         
         progress.pause()
 
@@ -191,16 +198,14 @@ class MetadataManager: NSObject, ProgressReporting {
     
     func writeMetadata(for images: [LocatableImage], manuallyStart: Bool = false) {
         
-        self.progress = progress(for: images.count)
-        self.progress.localizedDescription = "Preparing to write metatdata"
-        self.progress.localizedAdditionalDescription = ""
+        self.progress.totalUnitCount += Int64(images.count)
         
         progress.pause()
         
         let operations = images.enumerated().map { index, image in
             
             return BlockOperation {
-                self.progress.completedUnitCount = Int64(index + 1)
+                self.progress.completedUnitCount += 1
                 self.progress.localizedDescription = "Writing metatdata for \(image.displayName)"
                 self.progress.localizedAdditionalDescription = ""
                 image.writeMetadata()
