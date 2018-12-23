@@ -162,11 +162,14 @@ class ViewController: NSViewController {
         var token: NSObjectProtocol?
         token = NotificationCenter.default.addObserver(forName: MetadataManager.notificationName, object: nil, queue: OperationQueue.main) { _ in
             NSLog("MetadataManager notification received")
-            self.reloadData(sender)
+            
             if self.activityView != nil {
                 self.dismiss(self.activityView!)
                 self.activityView = nil
             }
+            
+            manager.resetProgress()
+            self.reloadData(sender)
             
             NotificationCenter.default.removeObserver(token!)
         }
@@ -185,14 +188,17 @@ class ViewController: NSViewController {
         manager.writeMetadata(for: dataArray, manuallyStart: true)
         let showActivityView = UserDefaults.standard.bool(forKey: "showActivityView")
         
-        NotificationCenter.default.addObserver(forName: MetadataManager.notificationName, object: nil, queue: OperationQueue.main) { _ in
-            self.reloadData(sender)
+        var token: NSObjectProtocol?
+        token = NotificationCenter.default.addObserver(forName: MetadataManager.notificationName, object: nil, queue: OperationQueue.main) { _ in
+            
             if self.activityView != nil {
                 self.dismiss(self.activityView!)
                 self.activityView = nil
             }
+            manager.resetProgress()
+            self.reloadData(sender)
             
-            NotificationCenter.default.removeObserver(self, name: MetadataManager.notificationName, object: nil)
+            NotificationCenter.default.removeObserver(token!)
         }
         
         if dataArray.count > 100 || showActivityView {
@@ -253,15 +259,8 @@ class ViewController: NSViewController {
             return
         }
 
-//        guard let manager = sender as? MetadataManager else {
-//            NSLog("Could not get sender as MetadataManager")
-//            return
-//        }
-
         activityView = dest
-//        dest.manager = manager
 
-        NSLog("Loading activityview: \(self.activityView)")
     }
     
     @IBAction func setGeocoder(_ sender: NSMenuItem) {
