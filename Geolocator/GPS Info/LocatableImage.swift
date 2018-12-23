@@ -167,6 +167,10 @@ class LocatableImage: NSObject, ImageMetadata {
     var status: GPSStatus? {
         return gpsStatus(for: .exif(.status))
     }
+
+    override func isEqual(_ object: Any?) -> Bool {
+        return self.url == (object as? LocatableImage)?.url
+    }
     
     
 }
