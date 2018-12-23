@@ -40,14 +40,20 @@ class ViewController: NSViewController {
             
             if let images = info["Images"] as? [LocatableImage] {
                 NSLog("Setting data array to images from notification")
-                self.dataArray = images
+//                self.dataArray.append(contentsOf: images)
+                self.dataArray.append(contentsOf: images.filter { image in
+                    !self.dataArray.contains(image)
+                })
             }
             
             if let urls = info["URLs"] as? [URL] {
                 NSLog("Opening images from URLs")
                 
                 if let images = self.open(urls: urls) {
-                    self.dataArray = images
+                    self.dataArray.append(contentsOf: images.filter { image in
+                        !self.dataArray.contains(image)
+                    })
+//                    self.dataArray.append(contentsOf: images)
                     self.loadMetatdata(nil)
                 }
                 
@@ -219,7 +225,10 @@ class ViewController: NSViewController {
             switch response {
             case .OK:
                 if let images = self.open(urls: openPanel.urls) {
-                    self.dataArray = images
+//                    self.dataArray = images
+                    self.dataArray.append(contentsOf: images.filter { image in
+                        !self.dataArray.contains(image)
+                    })
                     self.loadMetatdata(nil)
                 }
                 
