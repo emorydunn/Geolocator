@@ -83,7 +83,7 @@ class ReverseGeocodeOperation: CaptureCoreOperation {
             
             DispatchQueue.main.async {
                 self.manager.progress.localizedAdditionalDescription = message
-                self.manager.progress.completedUnitCount = Int64(self.index + 1)
+                self.manager.progress.completedUnitCount += 1
                 
                 if self.manager.progress.fractionCompleted == 1 {
                     NSLog("Progress is complete, posting notification")
@@ -149,6 +149,7 @@ class MetadataManager: NSObject {
     }
     
     func resetProgress() {
+        NSLog("Resetting MetadataManager progress")
         self.progress.totalUnitCount = 0
         self.progress.completedUnitCount = 0
     }
@@ -160,7 +161,7 @@ class MetadataManager: NSObject {
         
         progress.pause()
         
-        let operations = images.enumerated().map { index, image in
+        let operations = images.map { image in
             
             return BlockOperation {
                 self.progress.completedUnitCount += 1
