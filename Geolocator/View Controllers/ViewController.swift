@@ -111,29 +111,36 @@ class ViewController: NSViewController {
     }
     
     @IBAction func loadMetatdata(_ sender: Any?) {
-        let manager = MetadataManager()
+        let manager = MetadataManager.shared
         manager.loadMetatdata(from: dataArray, manuallyStart: true)
         
         var showActivityView = UserDefaults.standard.bool(forKey: "showActivityView")
         
         // If the sender is nil this was called directly, so show activity
-        if sender == nil {
+        if dataArray.isEmpty {
+            showActivityView = false
+        } else if sender == nil {
+            showActivityView = true
+        } else if dataArray.count > 50 {
             showActivityView = true
         }
         
-        
         var token: NSObjectProtocol?
         token = NotificationCenter.default.addObserver(forName: MetadataManager.notificationName, object: nil, queue: OperationQueue.main) { _ in
-            self.reloadData(sender)
+            NotificationCenter.default.removeObserver(token!)
+            
             if self.activityView != nil {
+                print("Dismissing activity view")
                 self.dismiss(self.activityView!)
                 self.activityView = nil
             }
             
-            NotificationCenter.default.removeObserver(token!)
+            manager.resetProgress()
+            self.reloadData(sender)
+            
         }
         
-        if dataArray.count > 50 || showActivityView {
+        if showActivityView && self.activityView == nil {
             NSLog("Performing Segue")
             performSegue(withIdentifier: NSStoryboardSegue.Identifier("ActivityProgressSegue"), sender: manager)
         } else {
@@ -143,7 +150,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func reverseGeocode(_ sender: Any) {
-        let manager = MetadataManager()
+        let manager = MetadataManager.shared
         
         let showActivityView = UserDefaults.standard.bool(forKey: "showActivityView")
         
@@ -174,7 +181,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func writeMetatdata(_ sender: Any) {
-        let manager = MetadataManager()
+        let manager = MetadataManager.shared
         manager.writeMetadata(for: dataArray, manuallyStart: true)
         let showActivityView = UserDefaults.standard.bool(forKey: "showActivityView")
         
@@ -245,16 +252,16 @@ class ViewController: NSViewController {
             NSLog("Could not get destination as ActivityViewController")
             return
         }
-        
-        guard let manager = sender as? MetadataManager else {
-            NSLog("Could not get sender as MetadataManager")
-            return
-        }
-        
+
+//        guard let manager = sender as? MetadataManager else {
+//            NSLog("Could not get sender as MetadataManager")
+//            return
+//        }
+
         activityView = dest
-        dest.manager = manager
-        
-        NSLog("Loading activityview")
+//        dest.manager = manager
+
+        NSLog("Loading activityview: \(self.activityView)")
     }
     
     @IBAction func setGeocoder(_ sender: NSMenuItem) {
