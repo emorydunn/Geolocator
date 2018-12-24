@@ -134,6 +134,7 @@ extension GeolocatorPlugin: COOpenWithPlugin {
             
             // Update progress while waiting for completion
             while MetadataManager.shared.progress.fractionCompleted < 1 {
+                NSLog("Progress: \(MetadataManager.shared.progress!.completedUnitCount) / \(MetadataManager.shared.progress!.totalUnitCount)")
                 progress(
                     task,
                     UInt(MetadataManager.shared.progress!.completedUnitCount),
@@ -142,7 +143,7 @@ extension GeolocatorPlugin: COOpenWithPlugin {
                 )
                 sleep(1)
             }
-
+            NSLog("Progress reached 1, returning to C1")
             
             return COPluginActionOpenWithResult(status: true)
         }
