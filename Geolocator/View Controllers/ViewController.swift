@@ -85,7 +85,9 @@ class ViewController: NSViewController {
     
     override func viewDidAppear() {
         view.window?.titleVisibility = .hidden
-        promptForFiles()
+        if dataArray.isEmpty {
+            promptForFiles()
+        }
     }
 
     override var representedObject: Any? {
