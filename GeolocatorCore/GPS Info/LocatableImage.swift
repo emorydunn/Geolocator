@@ -70,7 +70,8 @@ public class LocatableImage: NSObject, ImageMetadata {
 
         var arguments = [
             url.path,
-            "-m"
+            "-m",
+            "-overwrite_original_in_place"
         ]
         
         // IPTC Location
