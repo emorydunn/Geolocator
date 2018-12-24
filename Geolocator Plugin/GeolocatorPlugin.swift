@@ -73,7 +73,7 @@ extension GeolocatorPlugin: COSettings {
                 callback(.refresh, nil)
                 return
             }
-            
+            NSLog("Set geolocator to index \(index)")
             defaults?.set(index, forKey: identifier)
             callback(.refresh, nil)
         }
@@ -141,8 +141,8 @@ extension GeolocatorPlugin: COOpenWithPlugin {
                     UInt(MetadataManager.shared.progress!.totalUnitCount),
                     MetadataManager.shared.progress.localizedDescription
                 )
+                sleep(1)
             }
-            
             NSLog("Progress reached 1, returning to C1")
             
             return COPluginActionOpenWithResult(status: true)
