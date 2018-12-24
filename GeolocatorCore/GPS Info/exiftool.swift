@@ -48,8 +48,12 @@ public class Exiftool: ExiftoolProtocol {
     public var exiftoolLocation: String
     public var trace: TraceFunction?
     
+    static let bundle = Bundle(for: Exiftool.self)
+    
     public convenience init?(trace: TraceFunction?) {
-        guard let url = Bundle.main.url(forResource: "exiftool", withExtension: nil) else {
+        
+        guard let url = Exiftool.bundle.url(forResource: "exiftool", withExtension: nil) else {
+            NSLog("Could not find exiftool in resources of \(Exiftool.bundle.bundleURL.path)")
             return nil
         }
         
