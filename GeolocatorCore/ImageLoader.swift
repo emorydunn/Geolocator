@@ -8,25 +8,25 @@
 
 import Foundation
 
-struct ImageLoader {
+public struct ImageLoader {
     
-    static let notificationName = Notification.Name("ImageLoader")
+    public static let notificationName = Notification.Name("ImageLoader")
     
     fileprivate init() { }
     
-    static func postNotification(_ images: [LocatableImage]) {
+    public static func postNotification(_ images: [LocatableImage]) {
         NotificationCenter.default.post(name: ImageLoader.notificationName, object: nil, userInfo: ["Images" : images])
     }
     
-    static func postNotification(_ images: [URL]) {
+    public static func postNotification(_ images: [URL]) {
         NotificationCenter.default.post(name: ImageLoader.notificationName, object: nil, userInfo: ["URLs" : images])
     }
     
-    static func loadImages(from urls: [URL]) -> [LocatableImage] {
+    public static func loadImages(from urls: [URL]) -> [LocatableImage] {
         return urls.compactMap { LocatableImage(url: $0) }
     }
     
-    static func contents(of urls: [URL]) throws -> [URL] {
+    public static func contents(of urls: [URL]) throws -> [URL] {
 //        NSLog("Getting contents for \(urls.count) directories")
         return try urls.reduce([]) { (previous, url) in
             var isDir: ObjCBool = false
@@ -41,7 +41,7 @@ struct ImageLoader {
         }
     }
     
-    static func contents(of url: URL) throws -> [URL] {
+    public static func contents(of url: URL) throws -> [URL] {
         
         if let dcim = dcimContents(at: url) {
             NSLog("Opening \(url.lastPathComponent) as DCIM directory")
@@ -66,7 +66,7 @@ struct ImageLoader {
     ///
     /// - Parameter url: URL to return the DCIM contents of
     /// - Returns: The valid DCIM contents, or `nil` if the folder does not contains a DCIM directory.
-    static func dcimContents(at url: URL) -> [URL]? {
+    public static func dcimContents(at url: URL) -> [URL]? {
         
         // Path of potential DCIM directory
         let dcimURL = url.appendingPathComponent("DCIM")

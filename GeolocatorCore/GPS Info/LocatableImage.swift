@@ -9,13 +9,13 @@
 import Foundation
 import Cocoa
 
-class LocatableImage: NSObject, ImageMetadata {
-    var url: URL
+public class LocatableImage: NSObject, ImageMetadata {
+    public var url: URL
     let exiftool: ExiftoolProtocol
     
-    var imageProperties = [String: Any]()
+    public var imageProperties = [String: Any]()
     
-    init?(url: URL) {
+    public init?(url: URL) {
         self.url = url
         
         let ext = url.pathExtension as CFString
@@ -38,7 +38,7 @@ class LocatableImage: NSObject, ImageMetadata {
         self.exiftool = exiftool
     }
     
-    func loadMetadata() {
+    public func loadMetadata() {
         do {
             let result = try exiftool.execute(arguments: [
                 url.path,
@@ -58,7 +58,7 @@ class LocatableImage: NSObject, ImageMetadata {
         
         
     }
-    func writeMetadata() {
+    public func writeMetadata() {
         
         guard status?.bool == true else {
             NSLog("GPS status is false, skipping write")
@@ -97,13 +97,13 @@ class LocatableImage: NSObject, ImageMetadata {
     }
     
     // MARK: Display Values
-    @objc var displayName: String {
+    @objc public var displayName: String {
         return url.lastPathComponent
     }
-    @objc var displayStatus: String? {
+    @objc public var displayStatus: String? {
         return status?.description
     }
-    @objc var displayCoordinates: String? {
+    @objc public var displayCoordinates: String? {
         if latitude != 0 && longitude != 0 {
             return "\(latitude), \(longitude)"
         }
@@ -111,7 +111,7 @@ class LocatableImage: NSObject, ImageMetadata {
     }
     
     // MARK: - IPTC
-    @objc var country: String? {
+    @objc public var country: String? {
         get {
             return string(for: .iptc(.countryPrimaryLocationName))
         }
@@ -120,7 +120,7 @@ class LocatableImage: NSObject, ImageMetadata {
         }
     }
 
-    @objc var state: String? {
+    @objc public var state: String? {
         get {
             return string(for: .iptc(.provinceState))
         }
@@ -128,7 +128,7 @@ class LocatableImage: NSObject, ImageMetadata {
             set(newValue ?? "", for: .iptc(.provinceState))
         }
     }
-    @objc var city: String? {
+    @objc public var city: String? {
         get {
             return string(for: .iptc(.city))
         }
@@ -137,11 +137,11 @@ class LocatableImage: NSObject, ImageMetadata {
         }
 
     }
-    @objc var route: String? {
+    @objc public var route: String? {
         return nil
     }
 
-    @objc var neighborhood: String? {
+    @objc public var neighborhood: String? {
         get {
             return string(for: .iptc(.subLocation))
         }
@@ -151,24 +151,24 @@ class LocatableImage: NSObject, ImageMetadata {
     }
 
     // MARK: EXIF
-    @objc var dateTimeOriginal: Date? {
+    @objc public var dateTimeOriginal: Date? {
         return date(for: .exif(.date))
     }
 
 
     // MARK: GPS
-    var latitude: Double {
+    public var latitude: Double {
         return double(for: .composite(.latitude))
     }
-    var longitude: Double {
+    public var longitude: Double {
         return double(for: .composite(.longitude))
     }
 
-    var status: GPSStatus? {
+    public var status: GPSStatus? {
         return gpsStatus(for: .exif(.status))
     }
 
-    override func isEqual(_ object: Any?) -> Bool {
+    override public func isEqual(_ object: Any?) -> Bool {
         return self.url == (object as? LocatableImage)?.url
     }
     

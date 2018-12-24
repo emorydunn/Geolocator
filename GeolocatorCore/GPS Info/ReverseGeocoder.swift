@@ -9,22 +9,22 @@
 import Foundation
 import CoreLocation
 
-protocol ReverseGeocoder {
+public protocol ReverseGeocoder {
     var showActivityCount: Int { get }
         
     func reverseGeocodeLocation(_ location: LocatableImage, complete: @escaping (_ message: String) -> Void)
 
 }
 
-class AppleGeocoder: ReverseGeocoder {
+public class AppleGeocoder: ReverseGeocoder {
     
-    let showActivityCount: Int = 100
+    public let showActivityCount: Int = 100
     
-    init() {
+    public init() {
         
     }
     
-    func reverseGeocodeLocation(_ location: LocatableImage, complete: @escaping (_ message: String) -> Void) {
+    public func reverseGeocodeLocation(_ location: LocatableImage, complete: @escaping (_ message: String) -> Void) {
         NSLog("Begin reverse geocode for \(location.displayName)")
         
         guard location.status?.bool == true else {
@@ -57,16 +57,16 @@ class AppleGeocoder: ReverseGeocoder {
     
 }
 
-class GoogleGeocoder: ReverseGeocoder {
+public class GoogleGeocoder: ReverseGeocoder {
     
-    let showActivityCount: Int = 50
-    let apiKey: String
+    public let showActivityCount: Int = 50
+    public let apiKey: String
 
-    init(apiKey: String) {
+    public init(apiKey: String) {
         self.apiKey = apiKey
     }
 
-    func reverseGeocodeLocation(_ location: LocatableImage, complete: @escaping (_ message: String) -> Void) {
+    public func reverseGeocodeLocation(_ location: LocatableImage, complete: @escaping (_ message: String) -> Void) {
         NSLog("Begin reverse geocode for \(location.displayName)")
         
         guard location.status?.bool == true else {
@@ -107,7 +107,7 @@ class GoogleGeocoder: ReverseGeocoder {
     }
 
 
-    func extractPlace(from json: [String: Any]) -> IPTCLocatable? {
+    public func extractPlace(from json: [String: Any]) -> IPTCLocatable? {
 
         guard let results = json["results"] as? [[String: Any]], let firstResult = results.first else {
             NSLog("JSON did not contain a `results` key")

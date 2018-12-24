@@ -100,16 +100,16 @@ class ReverseGeocodeOperation: CaptureCoreOperation {
 
 
 
-class MetadataManager: NSObject {
-    static let notificationName = Notification.Name("MetadataManager")
+public class MetadataManager: NSObject {
+    public static let notificationName = Notification.Name("MetadataManager")
     
-    static let shared = MetadataManager()
+    public static let shared = MetadataManager()
  
     let queue = OperationQueue()
     
-    @objc dynamic var progress: Progress!
+    @objc public dynamic var progress: Progress!
 
-    fileprivate override init() {
+    override init() {
         super.init()
         
         self.progress = self.progress(for: 0)
@@ -148,14 +148,14 @@ class MetadataManager: NSObject {
         return newProgress
     }
     
-    func resetProgress() {
+    public func resetProgress() {
         NSLog("Resetting MetadataManager progress")
         self.progress.totalUnitCount = 0
         self.progress.completedUnitCount = 0
     }
 
     
-    func loadMetatdata(from images: [LocatableImage], manuallyStart: Bool = false) {
+    public func loadMetatdata(from images: [LocatableImage], manuallyStart: Bool = false) {
 
         self.progress.totalUnitCount += Int64(images.count)
         
@@ -182,7 +182,7 @@ class MetadataManager: NSObject {
 
     }
     
-    func reverseGeocode(_ images: [LocatableImage], with geocoder: ReverseGeocoder, manuallyStart: Bool = false) {
+    public func reverseGeocode(_ images: [LocatableImage], with geocoder: ReverseGeocoder, manuallyStart: Bool = false) {
 
         self.progress.totalUnitCount += Int64(images.count)
         
@@ -197,7 +197,7 @@ class MetadataManager: NSObject {
         queue.addOperations(operations, waitUntilFinished: false)
     }
     
-    func writeMetadata(for images: [LocatableImage], manuallyStart: Bool = false) {
+    public func writeMetadata(for images: [LocatableImage], manuallyStart: Bool = false) {
         
         self.progress.totalUnitCount += Int64(images.count)
         

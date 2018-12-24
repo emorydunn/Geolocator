@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import GeolocatorCore
 
 struct InterfaceIdentifiers {
     static let geocodeMenuItem = NSUserInterfaceItemIdentifier("geocodeMenuItem")

@@ -9,12 +9,12 @@
 import Foundation
 import ImageIO
 
-enum MetadataDomain {
+public enum MetadataDomain {
     case iptc(IPTCDictionaryKey)
     case exif(EXIFDictionaryKey)
     case composite(CompositeDictionaryKey)
     
-    var keyName: String {
+    public var keyName: String {
         switch self {
         case .iptc:
             return "IPTC"
@@ -26,7 +26,7 @@ enum MetadataDomain {
     }
 }
 
-enum IPTCDictionaryKey {
+public enum IPTCDictionaryKey {
     case countryPrimaryLocationName
     case provinceState
     case city
@@ -46,7 +46,7 @@ enum IPTCDictionaryKey {
     }
 }
 
-enum EXIFDictionaryKey {
+public enum EXIFDictionaryKey {
     case date
     
     case latitudeRef
@@ -55,7 +55,7 @@ enum EXIFDictionaryKey {
     case longitude
     case status
     
-    var keyName: String {
+    public var keyName: String {
         switch self {
         case .date:
             return "DateTimeOriginal"
@@ -75,11 +75,11 @@ enum EXIFDictionaryKey {
     }
 }
 
-enum CompositeDictionaryKey {
+public enum CompositeDictionaryKey {
     case latitude
     case longitude
 
-    var keyName: String {
+    public var keyName: String {
         switch self {
         case .latitude:
             return "GPSLatitude"

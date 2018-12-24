@@ -21,7 +21,7 @@ public enum GPSStatus: String, Codable, CustomStringConvertible {
         }
     }
     
-    var bool: Bool {
+    public var bool: Bool {
         switch self {
         case .active:
             return true
