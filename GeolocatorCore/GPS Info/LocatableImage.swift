@@ -23,15 +23,18 @@ public class LocatableImage: NSObject, ImageMetadata {
         
         // Only open image files
         guard UTTypeConformsTo((uti?.takeRetainedValue())!, kUTTypeImage) else {
+            NSLog("\(url.lastPathComponent) does not conform to image")
             return nil
         }
         
         // Ignore exiftool backups
         guard !url.lastPathComponent.hasSuffix("_original") else {
+            NSLog("\(url.lastPathComponent) is an exiftool original")
             return nil
         }
         
         guard let exiftool = Exiftool(trace: nil) else {
+            NSLog("Could not init exiftool")
             return nil
         }
         
