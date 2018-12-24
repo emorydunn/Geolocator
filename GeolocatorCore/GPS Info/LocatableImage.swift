@@ -94,6 +94,7 @@ public class LocatableImage: NSObject, ImageMetadata {
         
         do {
             _ = try exiftool.execute(arguments: arguments)
+            NSLog("Wrote metadata for \(url.lastPathComponent)")
         } catch {
             NSLog(error.localizedDescription)
         }
