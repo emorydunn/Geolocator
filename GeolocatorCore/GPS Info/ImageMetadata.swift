@@ -9,7 +9,7 @@
 import Foundation
 import Cocoa
 
-protocol ImageMetadata: AnyObject {
+public protocol ImageMetadata: AnyObject {
     var imageProperties: [String: Any] { get set }
     
     func loadMetadata()
@@ -20,7 +20,7 @@ protocol ImageMetadata: AnyObject {
 extension ImageMetadata {
     
     // MARK: - Getters
-    func value(for domainKey: MetadataDomain) -> Any? {
+    public func value(for domainKey: MetadataDomain) -> Any? {
         guard var metadata = imageProperties[domainKey.keyName] as? [String: Any] else { return nil }
 
         switch domainKey {
@@ -34,7 +34,7 @@ extension ImageMetadata {
 
     }
 
-    func date(for domainKey: MetadataDomain) -> Date? {
+    public func date(for domainKey: MetadataDomain) -> Date? {
         guard let value = self.value(for: domainKey) as? String else { return nil }
 
         let formatter = DateFormatter()
@@ -43,36 +43,36 @@ extension ImageMetadata {
         return formatter.date(from: value)
     }
 
-    func string(for domainKey: MetadataDomain) -> String? {
+    public func string(for domainKey: MetadataDomain) -> String? {
         return self.value(for: domainKey) as? String
     }
 
-    func integer(for domainKey: MetadataDomain) -> Int {
+    public func integer(for domainKey: MetadataDomain) -> Int {
         guard let value = self.value(for: domainKey) as? Int else { return 0 }
 
         return value
     }
 
-    func double(for domainKey: MetadataDomain) -> Double {
+    public func double(for domainKey: MetadataDomain) -> Double {
         guard let value = self.value(for: domainKey) as? Double else { return 0 }
 
         return value
     }
 
-    func direction(for domainKey: MetadataDomain) -> GPSDirection? {
+    public func direction(for domainKey: MetadataDomain) -> GPSDirection? {
         guard let value = self.value(for: domainKey) as? String else { return nil }
 
         return GPSDirection(rawValue: value)
     }
 
-    func gpsStatus(for domainKey: MetadataDomain) -> GPSStatus? {
+    public func gpsStatus(for domainKey: MetadataDomain) -> GPSStatus? {
         guard let value = self.value(for: domainKey) as? String else { return nil }
 
         return GPSStatus(rawValue: value)
     }
 
     // MARK: Setters
-    func set(_ value: Any, for domainKey: MetadataDomain) {
+    public func set(_ value: Any, for domainKey: MetadataDomain) {
         var metadata = [String: Any]()
 
         if let existingMetadata = imageProperties[domainKey.keyName] as? [String: Any] {

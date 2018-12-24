@@ -8,13 +8,13 @@
 
 import Foundation
 
-enum GPSDirection: String, Codable {
+public enum GPSDirection: String, Codable {
     case north = "N"
     case south = "S"
     case east = "E"
     case west = "W"
     
-    func sign(_ number: Double) -> Double {
+    public func sign(_ number: Double) -> Double {
         switch self {
         case .north, .east:
             if number > 0 {

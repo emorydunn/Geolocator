@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import GeolocatorCore
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {

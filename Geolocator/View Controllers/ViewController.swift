@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import GeolocatorCore
 
 struct InterfaceIdentifiers {
     static let geocodeMenuItem = NSUserInterfaceItemIdentifier("geocodeMenuItem")
@@ -85,7 +86,9 @@ class ViewController: NSViewController {
     
     override func viewDidAppear() {
         view.window?.titleVisibility = .hidden
-        promptForFiles()
+        if dataArray.isEmpty {
+            promptForFiles()
+        }
     }
 
     override var representedObject: Any? {
