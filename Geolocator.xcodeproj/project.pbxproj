@@ -29,6 +29,9 @@
 		D24DCB3721D0609300F796DC /* GPSStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D297F20621C48CB400DBA825 /* GPSStatus.swift */; };
 		D24DCB3821D060A200F796DC /* lib in Resources */ = {isa = PBXBuildFile; fileRef = D264939B21C5C551005E3FB6 /* lib */; };
 		D24DCB3921D060A500F796DC /* exiftool in Resources */ = {isa = PBXBuildFile; fileRef = D264939C21C5C551005E3FB6 /* exiftool */; };
+		D24DCB3B21D06C0400F796DC /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = D2677F7421C58CFE001607D3 /* APIKeys.plist */; };
+		D24DCB3C21D06CB600F796DC /* GeolocatorCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D24DCB2121D0603700F796DC /* GeolocatorCore.framework */; };
+		D24DCB3E21D06CDF00F796DC /* GeolocatorCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D24DCB2121D0603700F796DC /* GeolocatorCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D2677F7521C58CFE001607D3 /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = D2677F7421C58CFE001607D3 /* APIKeys.plist */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +53,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 				D24DCB2921D0603700F796DC /* GeolocatorCore.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D24DCB3D21D06CD600F796DC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D24DCB3E21D06CDF00F796DC /* GeolocatorCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,6 +115,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D24DCB1921D0590300F796DC /* CaptureOnePlugins.framework in Frameworks */,
+				D24DCB3C21D06CB600F796DC /* GeolocatorCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +276,7 @@
 				D24DCB0D21D058D000F796DC /* Sources */,
 				D24DCB0E21D058D000F796DC /* Frameworks */,
 				D24DCB0F21D058D000F796DC /* Resources */,
+				D24DCB3D21D06CD600F796DC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -351,6 +367,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D24DCB3B21D06C0400F796DC /* APIKeys.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
