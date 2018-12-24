@@ -41,7 +41,7 @@ enum IPTCDictionaryKey {
         case .city:
             return "City"
         case .subLocation:
-            return "Sub-Location"
+            return "Sub-location"
         }
     }
 }
