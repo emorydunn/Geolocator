@@ -141,8 +141,8 @@ extension GeolocatorPlugin: COOpenWithPlugin {
                     UInt(MetadataManager.shared.progress!.totalUnitCount),
                     MetadataManager.shared.progress.localizedDescription
                 )
-                sleep(1)
             }
+            
             NSLog("Progress reached 1, returning to C1")
             
             return COPluginActionOpenWithResult(status: true)
