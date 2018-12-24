@@ -14,6 +14,8 @@
 		D20745F321C0BAC100D0423C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D20745F221C0BAC100D0423C /* Assets.xcassets */; };
 		D20745F621C0BAC100D0423C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D20745F421C0BAC100D0423C /* Main.storyboard */; };
 		D207460121C0C88800D0423C /* FolderLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D207460021C0C88800D0423C /* FolderLoader.swift */; };
+		D24DCB1921D0590300F796DC /* CaptureOnePlugins.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D24DCB1821D0590300F796DC /* CaptureOnePlugins.framework */; };
+		D24DCB1B21D0594300F796DC /* GeolocatorPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24DCB1A21D0594300F796DC /* GeolocatorPlugin.swift */; };
 		D26491DC21C5B93E005E3FB6 /* exiftool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26491DB21C5B93E005E3FB6 /* exiftool.swift */; };
 		D26491DE21C5BBD5005E3FB6 /* LocatableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26491DD21C5BBD5005E3FB6 /* LocatableImage.swift */; };
 		D264939D21C5C551005E3FB6 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = D264939B21C5C551005E3FB6 /* lib */; };
@@ -39,6 +41,10 @@
 		D20745F821C0BAC100D0423C /* Geolocator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Geolocator.entitlements; sourceTree = "<group>"; };
 		D20745FE21C0BC5700D0423C /* ImageMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMetadata.swift; sourceTree = "<group>"; };
 		D207460021C0C88800D0423C /* FolderLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderLoader.swift; sourceTree = "<group>"; };
+		D24DCB1121D058D000F796DC /* Geolocator Plugin.coplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Geolocator Plugin.coplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D24DCB1321D058D000F796DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D24DCB1821D0590300F796DC /* CaptureOnePlugins.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CaptureOnePlugins.framework; path = Frameworks/CaptureOnePlugins.framework; sourceTree = "<group>"; };
+		D24DCB1A21D0594300F796DC /* GeolocatorPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeolocatorPlugin.swift; sourceTree = "<group>"; };
 		D26491DB21C5B93E005E3FB6 /* exiftool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = exiftool.swift; sourceTree = "<group>"; };
 		D26491DD21C5BBD5005E3FB6 /* LocatableImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatableImage.swift; sourceTree = "<group>"; };
 		D264939B21C5C551005E3FB6 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
@@ -59,6 +65,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D24DCB0E21D058D000F796DC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D24DCB1921D0590300F796DC /* CaptureOnePlugins.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -66,7 +80,9 @@
 			isa = PBXGroup;
 			children = (
 				D20745ED21C0BABF00D0423C /* Geolocator */,
+				D24DCB1221D058D000F796DC /* Geolocator Plugin */,
 				D20745EC21C0BABF00D0423C /* Products */,
+				D24DCB1721D0590300F796DC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				D20745EB21C0BABF00D0423C /* Geolocator.app */,
+				D24DCB1121D058D000F796DC /* Geolocator Plugin.coplugin */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,6 +112,23 @@
 				D20745F821C0BAC100D0423C /* Geolocator.entitlements */,
 			);
 			path = Geolocator;
+			sourceTree = "<group>";
+		};
+		D24DCB1221D058D000F796DC /* Geolocator Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				D24DCB1321D058D000F796DC /* Info.plist */,
+				D24DCB1A21D0594300F796DC /* GeolocatorPlugin.swift */,
+			);
+			path = "Geolocator Plugin";
+			sourceTree = "<group>";
+		};
+		D24DCB1721D0590300F796DC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D24DCB1821D0590300F796DC /* CaptureOnePlugins.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D26491E121C5C4CF005E3FB6 /* exiftool */ = {
@@ -158,6 +192,23 @@
 			productReference = D20745EB21C0BABF00D0423C /* Geolocator.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D24DCB1021D058D000F796DC /* Geolocator Plugin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D24DCB1421D058D000F796DC /* Build configuration list for PBXNativeTarget "Geolocator Plugin" */;
+			buildPhases = (
+				D24DCB0D21D058D000F796DC /* Sources */,
+				D24DCB0E21D058D000F796DC /* Frameworks */,
+				D24DCB0F21D058D000F796DC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Geolocator Plugin";
+			productName = "Geolocator Plugin";
+			productReference = D24DCB1121D058D000F796DC /* Geolocator Plugin.coplugin */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -176,6 +227,10 @@
 							};
 						};
 					};
+					D24DCB1021D058D000F796DC = {
+						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
+					};
 				};
 			};
 			buildConfigurationList = D20745E621C0BABF00D0423C /* Build configuration list for PBXProject "Geolocator" */;
@@ -192,6 +247,7 @@
 			projectRoot = "";
 			targets = (
 				D20745EA21C0BABF00D0423C /* Geolocator */,
+				D24DCB1021D058D000F796DC /* Geolocator Plugin */,
 			);
 		};
 /* End PBXProject section */
@@ -206,6 +262,13 @@
 				D264939E21C5C551005E3FB6 /* exiftool in Resources */,
 				D264939D21C5C551005E3FB6 /* lib in Resources */,
 				D20745F621C0BAC100D0423C /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D24DCB0F21D058D000F796DC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +313,14 @@
 				D20745EF21C0BABF00D0423C /* AppDelegate.swift in Sources */,
 				D26491DC21C5B93E005E3FB6 /* exiftool.swift in Sources */,
 				D264939F21C5CDE2005E3FB6 /* ImageMetadata.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D24DCB0D21D058D000F796DC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D24DCB1B21D0594300F796DC /* GeolocatorPlugin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,6 +491,61 @@
 			};
 			name = Release;
 		};
+		D24DCB1521D058D000F796DC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = A76BV63T8L;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				INFOPLIST_FILE = "Geolocator Plugin/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "coffee.emory.Geolocator-Plugin";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				WRAPPER_EXTENSION = coplugin;
+			};
+			name = Debug;
+		};
+		D24DCB1621D058D000F796DC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = A76BV63T8L;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				INFOPLIST_FILE = "Geolocator Plugin/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "coffee.emory.Geolocator-Plugin";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				WRAPPER_EXTENSION = coplugin;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -437,6 +563,15 @@
 			buildConfigurations = (
 				D20745FC21C0BAC100D0423C /* Debug */,
 				D20745FD21C0BAC100D0423C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D24DCB1421D058D000F796DC /* Build configuration list for PBXNativeTarget "Geolocator Plugin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D24DCB1521D058D000F796DC /* Debug */,
+				D24DCB1621D058D000F796DC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
