@@ -116,7 +116,7 @@ extension ExiftoolProtocol {
             \(process.launchPath!) \
             \(process.arguments!.joined(separator: " "))
             """, nil)
-        
+    
         process.launch()
         
         // Process Pipe into Data
@@ -144,6 +144,9 @@ extension ExiftoolProtocol {
     
     
     func exiftoolExists(at path: String) -> Bool {
-        return FileManager.default.fileExists(atPath: path)
+        let isExec = FileManager.default.isExecutableFile(atPath: path)
+        let exists = FileManager.default.fileExists(atPath: path)
+        
+        return isExec && exists
     }
 }
