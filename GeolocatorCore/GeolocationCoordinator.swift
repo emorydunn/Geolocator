@@ -27,16 +27,24 @@ public class GeolocationCoordinator {
     }
     
     public func writeImages() throws {
-        try reader.write()
+        let fileName = "\(UUID().uuidString).json"
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent("Geolocator").appendingPathComponent(fileName)
+        
+        try reader.writeJSON(to: url)
+        try reader.write(from: url)
     }
     
     public func reverseGeocode(progress: @escaping (_ current: Int, _ total: Int, _ message: String) -> Void) {
         let total = reader.images.count
+        var current: Int = 0
         reader.images.enumerated().forEach { index, image in
             geocoder.reverseGeocodeLocation(image) { message in
-                progress(index + 1, total, message)
+                current += 1
+                progress(current, total, message)
             }
         }
+        
+//        completion()
         
     }
     
