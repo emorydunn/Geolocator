@@ -92,19 +92,27 @@ public enum CompositeDictionaryKey {
     }
 }
 
-extension TagGroup {
-    
-    public struct File {
-        public static let FileName = Exiftag<String>("File:FileName")
-    }
-    
-    public struct Composite {
-        fileprivate init() { }
-        
-        public static let GPSAltitude  = Exiftag<Double>("Composite:GPSAltitude")
-        public static let GPSDateTime  = Exiftag<Date>("Composite:GPSDateTime")
-        public static let GPSLatitude  = Exiftag<Double>("Composite:GPSLatitude")
-        public static let GPSLongitude = Exiftag<Double>("Composite:GPSLongitude")
-        public static let GPSPosition  = Exiftag<String>("Composite:GPSPosition")
-    }
-}
+//extension TagGroup {
+//    
+//    public struct File {
+//        public static let FileName = Exiftag<String>("File:FileName")
+//    }
+//    
+//    public struct Composite {
+//        fileprivate init() { }
+//        
+//        public static let Aperture         = Exiftag<Double>("Composite:Aperture")
+//        public static let CFAPattern       = Exiftag<String>("Composite:CFAPattern")
+//        public static let FocalLength35efl = Exiftag<Double>("Composite:FocalLength35efl")
+//        public static let GPSAltitude      = Exiftag<Double>("Composite:GPSAltitude")
+//        public static let GPSDateTime      = Exiftag<Date>("Composite:GPSDateTime")
+//        public static let GPSLatitude      = Exiftag<Double>("Composite:GPSLatitude")
+//        public static let GPSLongitude     = Exiftag<Double>("Composite:GPSLongitude")
+//        public static let GPSPosition      = Exiftag<String>("Composite:GPSPosition")
+//        public static let ImageSize        = Exiftag<String>("Composite:ImageSize")
+//        public static let LensID           = Exiftag<String>("Composite:LensID")
+//        public static let LightValue       = Exiftag<Double>("Composite:LightValue")
+//        public static let Megapixels       = Exiftag<Double>("Composite:Megapixels")
+//        public static let ShutterSpeed     = Exiftag<Double>("Composite:ShutterSpeed")
+//    }
+//}

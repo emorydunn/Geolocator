@@ -20,7 +20,6 @@
 		D24DCB2821D0603700F796DC /* GeolocatorCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D24DCB2121D0603700F796DC /* GeolocatorCore.framework */; };
 		D24DCB2921D0603700F796DC /* GeolocatorCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D24DCB2121D0603700F796DC /* GeolocatorCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D24DCB3121D0609300F796DC /* ReverseGeocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D297F1FF21C2210100DBA825 /* ReverseGeocoder.swift */; };
-		D24DCB3521D0609300F796DC /* MetadataDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2677F7221C579CD001607D3 /* MetadataDomain.swift */; };
 		D24DCB3621D0609300F796DC /* GPSDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D297F20821C48EBB00DBA825 /* GPSDirection.swift */; };
 		D24DCB3721D0609300F796DC /* GPSStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D297F20621C48CB400DBA825 /* GPSStatus.swift */; };
 		D24DCB3821D060A200F796DC /* lib in Resources */ = {isa = PBXBuildFile; fileRef = D264939B21C5C551005E3FB6 /* lib */; };
@@ -442,7 +441,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D24DCB3521D0609300F796DC /* MetadataDomain.swift in Sources */,
 				D24DCB3121D0609300F796DC /* ReverseGeocoder.swift in Sources */,
 				D24DCB3621D0609300F796DC /* GPSDirection.swift in Sources */,
 				D24DCB3721D0609300F796DC /* GPSStatus.swift in Sources */,
