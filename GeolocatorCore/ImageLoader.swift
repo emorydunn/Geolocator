@@ -14,17 +14,17 @@ public struct ImageLoader {
     
     fileprivate init() { }
     
-    public static func postNotification(_ images: [LocatableImage]) {
-        NotificationCenter.default.post(name: ImageLoader.notificationName, object: nil, userInfo: ["Images" : images])
-    }
+//    public static func postNotification(_ images: [LocatableImage]) {
+//        NotificationCenter.default.post(name: ImageLoader.notificationName, object: nil, userInfo: ["Images" : images])
+//    }
     
     public static func postNotification(_ images: [URL]) {
         NotificationCenter.default.post(name: ImageLoader.notificationName, object: nil, userInfo: ["URLs" : images])
     }
     
-    public static func loadImages(from urls: [URL]) -> [LocatableImage] {
-        return urls.compactMap { LocatableImage(url: $0) }
-    }
+//    public static func loadImages(from urls: [URL]) -> [LocatableImage] {
+//        return urls.compactMap { LocatableImage(url: $0) }
+//    }
     
     public static func contents(of urls: [URL]) throws -> [URL] {
 //        NSLog("Getting contents for \(urls.count) directories")

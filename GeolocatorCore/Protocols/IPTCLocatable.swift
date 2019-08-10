@@ -33,23 +33,23 @@ struct IPTCLocation: IPTCLocatable {
     var neighborhood: String?
 }
 
-extension CLPlacemark: IPTCLocatable {
-    
-    public var state: String? {
-        return self.administrativeArea
-    }
-    
-    public var city: String? {
-        return self.locality
-    }
-    
-    
-    public var route: String? {
-        return self.thoroughfare
-    }
-    
-    public var neighborhood: String? {
-        return self.subLocality
-    }
-    
-}
+//extension CLPlacemark: IPTCLocatable {
+//
+//    public var state: String? {
+//        return self.administrativeArea
+//    }
+//
+//    public var city: String? {
+//        return self.locality
+//    }
+//
+//
+//    public var route: String? {
+//        return self.thoroughfare
+//    }
+//
+//    public var neighborhood: String? {
+//        return self.subLocality
+//    }
+//
+//}

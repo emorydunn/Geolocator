@@ -8,6 +8,7 @@
 
 import Foundation
 import ImageIO
+import SwiftEXIF
 
 public enum MetadataDomain {
     case iptc(IPTCDictionaryKey)
@@ -88,5 +89,22 @@ public enum CompositeDictionaryKey {
         
 
         }
+    }
+}
+
+extension TagGroup {
+    
+    public struct File {
+        public static let FileName = Exiftag<String>("File:FileName")
+    }
+    
+    public struct Composite {
+        fileprivate init() { }
+        
+        public static let GPSAltitude  = Exiftag<Double>("Composite:GPSAltitude")
+        public static let GPSDateTime  = Exiftag<Date>("Composite:GPSDateTime")
+        public static let GPSLatitude  = Exiftag<Double>("Composite:GPSLatitude")
+        public static let GPSLongitude = Exiftag<Double>("Composite:GPSLongitude")
+        public static let GPSPosition  = Exiftag<String>("Composite:GPSPosition")
     }
 }

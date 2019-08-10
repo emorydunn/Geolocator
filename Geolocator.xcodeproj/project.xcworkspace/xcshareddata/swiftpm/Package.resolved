@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "LostCauseExtensions",
+        "repositoryURL": "https://emorydunn@git.emory.coffee/emorydunn/lost-cause-extensions.git",
+        "state": {
+          "branch": "master",
+          "revision": "23ad325d1932f26fbcd14d867da893e10f3bdb9f",
+          "version": null
+        }
+      },
+      {
+        "package": "SwiftEXIF",
+        "repositoryURL": "https://git.emory.coffee/emorydunn/SwiftEXIF.git",
+        "state": {
+          "branch": "master",
+          "revision": "9ffb683f2fd88d84886932314650eb5184f6b201",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

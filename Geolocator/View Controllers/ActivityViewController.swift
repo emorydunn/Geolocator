@@ -16,17 +16,17 @@ class ActivityViewController: NSViewController {
     
     @IBOutlet weak var cancelButton: NSButton!
     
-    @objc dynamic var manager = MetadataManager.shared
+//    @objc dynamic var manager = MetadataManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
-        manager.progress.resume()
+//        manager.progress.resume()
 
     }
     
     @IBAction override func cancelOperation(_ sender: Any?) {
-        manager.progress.cancel()
+//        manager.progress.cancel()
         self.dismiss(sender)
     }
 

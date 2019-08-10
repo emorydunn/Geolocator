@@ -7,10 +7,24 @@
 //
 
 import Foundation
+import SwiftEXIF
 
 public enum GPSStatus: String, Codable, CustomStringConvertible {
     case active = "A"
     case void = "V"
+    
+    public init?(image: ExifImage) {
+        let status = image[TagGroup.EXIF.GPSStatus]
+
+        switch status {
+        case "A":
+            self = .active
+        case "V":
+            self = .void
+        default:
+            return nil
+        }
+    }
     
     public var description: String {
         switch self {

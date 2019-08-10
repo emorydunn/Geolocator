@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,18 +12,14 @@
 		D20745F121C0BABF00D0423C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20745F021C0BABF00D0423C /* ViewController.swift */; };
 		D20745F321C0BAC100D0423C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D20745F221C0BAC100D0423C /* Assets.xcassets */; };
 		D20745F621C0BAC100D0423C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D20745F421C0BAC100D0423C /* Main.storyboard */; };
-		D24DCB1921D0590300F796DC /* CaptureOnePlugins.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D24DCB1821D0590300F796DC /* CaptureOnePlugins.framework */; };
+		D23D0CF622FE459700B711AC /* SwiftEXIF in Frameworks */ = {isa = PBXBuildFile; productRef = D23D0CF522FE459700B711AC /* SwiftEXIF */; };
+		D23D0CF722FE46FF00B711AC /* exiftool in Resources */ = {isa = PBXBuildFile; fileRef = D264939C21C5C551005E3FB6 /* exiftool */; };
+		D23D0CF822FE470200B711AC /* lib in Resources */ = {isa = PBXBuildFile; fileRef = D264939B21C5C551005E3FB6 /* lib */; };
 		D24DCB1B21D0594300F796DC /* GeolocatorPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24DCB1A21D0594300F796DC /* GeolocatorPlugin.swift */; };
 		D24DCB2521D0603700F796DC /* GeolocatorCore.h in Headers */ = {isa = PBXBuildFile; fileRef = D24DCB2321D0603700F796DC /* GeolocatorCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D24DCB2821D0603700F796DC /* GeolocatorCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D24DCB2121D0603700F796DC /* GeolocatorCore.framework */; };
 		D24DCB2921D0603700F796DC /* GeolocatorCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D24DCB2121D0603700F796DC /* GeolocatorCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D24DCB2E21D0605000F796DC /* MetadataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620DFCE721C18E5900D1CD98 /* MetadataManager.swift */; };
-		D24DCB2F21D0605000F796DC /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D207460021C0C88800D0423C /* ImageLoader.swift */; };
-		D24DCB3021D0608C00F796DC /* IPTCLocatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D297F20221C2212B00DBA825 /* IPTCLocatable.swift */; };
 		D24DCB3121D0609300F796DC /* ReverseGeocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D297F1FF21C2210100DBA825 /* ReverseGeocoder.swift */; };
-		D24DCB3221D0609300F796DC /* ImageMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20745FE21C0BC5700D0423C /* ImageMetadata.swift */; };
-		D24DCB3321D0609300F796DC /* LocatableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26491DD21C5BBD5005E3FB6 /* LocatableImage.swift */; };
-		D24DCB3421D0609300F796DC /* exiftool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26491DB21C5B93E005E3FB6 /* exiftool.swift */; };
 		D24DCB3521D0609300F796DC /* MetadataDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2677F7221C579CD001607D3 /* MetadataDomain.swift */; };
 		D24DCB3621D0609300F796DC /* GPSDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D297F20821C48EBB00DBA825 /* GPSDirection.swift */; };
 		D24DCB3721D0609300F796DC /* GPSStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D297F20621C48CB400DBA825 /* GPSStatus.swift */; };
@@ -33,6 +29,11 @@
 		D24DCB3C21D06CB600F796DC /* GeolocatorCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D24DCB2121D0603700F796DC /* GeolocatorCore.framework */; };
 		D24DCB3E21D06CDF00F796DC /* GeolocatorCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D24DCB2121D0603700F796DC /* GeolocatorCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D2677F7521C58CFE001607D3 /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = D2677F7421C58CFE001607D3 /* APIKeys.plist */; };
+		D2F724CE22FE2F5C00D79797 /* SwiftEXIF in Frameworks */ = {isa = PBXBuildFile; productRef = D2F724CD22FE2F5C00D79797 /* SwiftEXIF */; };
+		D2F724D022FE365C00D79797 /* IPTCLocatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D297F20221C2212B00DBA825 /* IPTCLocatable.swift */; };
+		D2F724D222FE3A1A00D79797 /* LocatableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F724D122FE3A1A00D79797 /* LocatableImage.swift */; };
+		D2F724D422FE3F3D00D79797 /* GeolocationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F724D322FE3F3D00D79797 /* GeolocationCoordinator.swift */; };
+		D2F724D522FE425D00D79797 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D207460021C0C88800D0423C /* ImageLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,7 +85,6 @@
 		D207460021C0C88800D0423C /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		D24DCB1121D058D000F796DC /* Geolocator Plugin.coplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Geolocator Plugin.coplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D24DCB1321D058D000F796DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D24DCB1821D0590300F796DC /* CaptureOnePlugins.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CaptureOnePlugins.framework; path = Frameworks/CaptureOnePlugins.framework; sourceTree = "<group>"; };
 		D24DCB1A21D0594300F796DC /* GeolocatorPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeolocatorPlugin.swift; sourceTree = "<group>"; };
 		D24DCB2121D0603700F796DC /* GeolocatorCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GeolocatorCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D24DCB2321D0603700F796DC /* GeolocatorCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeolocatorCore.h; sourceTree = "<group>"; };
@@ -99,6 +99,8 @@
 		D297F20221C2212B00DBA825 /* IPTCLocatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPTCLocatable.swift; sourceTree = "<group>"; };
 		D297F20621C48CB400DBA825 /* GPSStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSStatus.swift; sourceTree = "<group>"; };
 		D297F20821C48EBB00DBA825 /* GPSDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSDirection.swift; sourceTree = "<group>"; };
+		D2F724D122FE3A1A00D79797 /* LocatableImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatableImage.swift; sourceTree = "<group>"; };
+		D2F724D322FE3F3D00D79797 /* GeolocationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeolocationCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2F724CE22FE2F5C00D79797 /* SwiftEXIF in Frameworks */,
 				D24DCB2821D0603700F796DC /* GeolocatorCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -114,7 +117,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D24DCB1921D0590300F796DC /* CaptureOnePlugins.framework in Frameworks */,
 				D24DCB3C21D06CB600F796DC /* GeolocatorCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -123,6 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D23D0CF622FE459700B711AC /* SwiftEXIF in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,7 +139,7 @@
 				D24DCB1221D058D000F796DC /* Geolocator Plugin */,
 				D24DCB2221D0603700F796DC /* GeolocatorCore */,
 				D20745EC21C0BABF00D0423C /* Products */,
-				D24DCB1721D0590300F796DC /* Frameworks */,
+				D23D0CF422FE459700B711AC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -153,6 +156,7 @@
 		D20745ED21C0BABF00D0423C /* Geolocator */ = {
 			isa = PBXGroup;
 			children = (
+				D2F724D122FE3A1A00D79797 /* LocatableImage.swift */,
 				D297F20421C2217400DBA825 /* View Controllers */,
 				D20745EE21C0BABF00D0423C /* AppDelegate.swift */,
 				D20745F221C0BAC100D0423C /* Assets.xcassets */,
@@ -164,6 +168,13 @@
 			path = Geolocator;
 			sourceTree = "<group>";
 		};
+		D23D0CF422FE459700B711AC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D24DCB1221D058D000F796DC /* Geolocator Plugin */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,19 +184,12 @@
 			path = "Geolocator Plugin";
 			sourceTree = "<group>";
 		};
-		D24DCB1721D0590300F796DC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D24DCB1821D0590300F796DC /* CaptureOnePlugins.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		D24DCB2221D0603700F796DC /* GeolocatorCore */ = {
 			isa = PBXGroup;
 			children = (
 				D207460021C0C88800D0423C /* ImageLoader.swift */,
 				620DFCE721C18E5900D1CD98 /* MetadataManager.swift */,
+				D2F724D322FE3F3D00D79797 /* GeolocationCoordinator.swift */,
 				D26491E121C5C4CF005E3FB6 /* exiftool */,
 				D297F20521C48C9F00DBA825 /* GPS Info */,
 				D297F20121C2211E00DBA825 /* Protocols */,
@@ -265,6 +269,9 @@
 				D24DCB2721D0603700F796DC /* PBXTargetDependency */,
 			);
 			name = Geolocator;
+			packageProductDependencies = (
+				D2F724CD22FE2F5C00D79797 /* SwiftEXIF */,
+			);
 			productName = Geolocator;
 			productReference = D20745EB21C0BABF00D0423C /* Geolocator.app */;
 			productType = "com.apple.product-type.application";
@@ -301,6 +308,9 @@
 			dependencies = (
 			);
 			name = GeolocatorCore;
+			packageProductDependencies = (
+				D23D0CF522FE459700B711AC /* SwiftEXIF */,
+			);
 			productName = GeolocatorCore;
 			productReference = D24DCB2121D0603700F796DC /* GeolocatorCore.framework */;
 			productType = "com.apple.product-type.framework";
@@ -341,6 +351,9 @@
 				Base,
 			);
 			mainGroup = D20745E221C0BABF00D0423C;
+			packageReferences = (
+				D2F724CC22FE2F5C00D79797 /* XCRemoteSwiftPackageReference "SwiftEXIF" */,
+			);
 			productRefGroup = D20745EC21C0BABF00D0423C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -360,6 +373,8 @@
 				D2677F7521C58CFE001607D3 /* APIKeys.plist in Resources */,
 				D20745F321C0BAC100D0423C /* Assets.xcassets in Resources */,
 				D20745F621C0BAC100D0423C /* Main.storyboard in Resources */,
+				D23D0CF722FE46FF00B711AC /* exiftool in Resources */,
+				D23D0CF822FE470200B711AC /* lib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +424,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				620DFCEC21C1AAA200D1CD98 /* ActivityViewController.swift in Sources */,
+				D2F724D222FE3A1A00D79797 /* LocatableImage.swift in Sources */,
 				D20745F121C0BABF00D0423C /* ViewController.swift in Sources */,
 				D20745EF21C0BABF00D0423C /* AppDelegate.swift in Sources */,
 			);
@@ -427,15 +443,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D24DCB3521D0609300F796DC /* MetadataDomain.swift in Sources */,
-				D24DCB3221D0609300F796DC /* ImageMetadata.swift in Sources */,
-				D24DCB3321D0609300F796DC /* LocatableImage.swift in Sources */,
 				D24DCB3121D0609300F796DC /* ReverseGeocoder.swift in Sources */,
-				D24DCB2F21D0605000F796DC /* ImageLoader.swift in Sources */,
-				D24DCB3421D0609300F796DC /* exiftool.swift in Sources */,
 				D24DCB3621D0609300F796DC /* GPSDirection.swift in Sources */,
-				D24DCB3021D0608C00F796DC /* IPTCLocatable.swift in Sources */,
 				D24DCB3721D0609300F796DC /* GPSStatus.swift in Sources */,
-				D24DCB2E21D0605000F796DC /* MetadataManager.swift in Sources */,
+				D2F724D022FE365C00D79797 /* IPTCLocatable.swift in Sources */,
+				D2F724D522FE425D00D79797 /* ImageLoader.swift in Sources */,
+				D2F724D422FE3F3D00D79797 /* GeolocationCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,7 +605,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = coffee.emory.Geolocator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -612,7 +625,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = coffee.emory.Geolocator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -694,7 +707,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = coffee.emory.GeolocatorCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -723,7 +736,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = coffee.emory.GeolocatorCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -769,6 +782,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D2F724CC22FE2F5C00D79797 /* XCRemoteSwiftPackageReference "SwiftEXIF" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://git.emory.coffee/emorydunn/SwiftEXIF.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D23D0CF522FE459700B711AC /* SwiftEXIF */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D2F724CC22FE2F5C00D79797 /* XCRemoteSwiftPackageReference "SwiftEXIF" */;
+			productName = SwiftEXIF;
+		};
+		D2F724CD22FE2F5C00D79797 /* SwiftEXIF */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D2F724CC22FE2F5C00D79797 /* XCRemoteSwiftPackageReference "SwiftEXIF" */;
+			productName = SwiftEXIF;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D20745E321C0BABF00D0423C /* Project object */;
 }

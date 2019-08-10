@@ -8,12 +8,38 @@
 
 import Foundation
 import CoreLocation
+import SwiftEXIF
+
+typealias GPSPosition = (latitude: Double, longitude: Double)
 
 public protocol ReverseGeocoder {
     var showActivityCount: Int { get }
         
-    func reverseGeocodeLocation(_ location: LocatableImage, complete: @escaping (_ message: String) -> Void)
+    func reverseGeocodeLocation(_ location: ExifImage, complete: @escaping (_ message: String) -> Void)
+    
+}
 
+extension ReverseGeocoder {
+    
+    func signedCoordinates(of image: ExifImage) -> GPSPosition {
+        
+        let latitude = image[TagGroup.EXIF.GPSLatitude] ?? 0
+        let latRef = image[TagGroup.EXIF.GPSLatitudeRef] ?? ""
+        let latDir = GPSDirection(rawValue: latRef)
+        let signedLat = latDir?.sign(latitude) ?? 0
+        
+        
+        let longitude = image[TagGroup.EXIF.GPSLongitude] ?? 0
+        let longRef = image[TagGroup.EXIF.GPSLongitudeRef] ?? ""
+        let longDir = GPSDirection(rawValue: longRef)
+        let signedLong = longDir?.sign(longitude) ?? 0
+        
+        
+        return GPSPosition(signedLat, signedLong)
+//        return GPSDirection(rawValue: latRef)
+        
+    }
+    
 }
 
 public class AppleGeocoder: ReverseGeocoder {
@@ -24,34 +50,38 @@ public class AppleGeocoder: ReverseGeocoder {
         
     }
     
-    public func reverseGeocodeLocation(_ location: LocatableImage, complete: @escaping (_ message: String) -> Void) {
-        NSLog("Begin reverse geocode for \(location.displayName)")
+    public func reverseGeocodeLocation(_ location: ExifImage, complete: @escaping (_ message: String) -> Void) {
+        NSLog("Begin reverse geocode for \(location[TagGroup.File.FileName]!)")
         
-        guard location.status?.bool == true else {
+        
+        guard GPSStatus(image: location)?.bool == true else {
             complete("GPS status is false")
             return
         }
         
         let geocoder = CLGeocoder()
-        let coreLocation = CLLocation(latitude: location.latitude, longitude: location.longitude)
+        
+        let latitude = location[TagGroup.Composite.GPSLatitude] ?? 0
+        let longitude = location[TagGroup.Composite.GPSLongitude] ?? 0
+        let coreLocation = CLLocation(latitude: latitude, longitude: longitude)
         geocoder.reverseGeocodeLocation(coreLocation) { (placemarks, error) in
             guard error == nil else {
                 complete(error!.localizedDescription)
                 return
             }
             guard let firstLocation = placemarks?[0] else {
-                complete("No location found for \(location.displayName)")
+                complete("No location found for \(location[TagGroup.File.FileName]!)")
                 return
             }
             
             // Assign location information
-            location.country = firstLocation.country
-            location.state = firstLocation.state
-            location.city = firstLocation.city
+            location[TagGroup.IPTC.CountryPrimaryLocationName] = firstLocation.country
+            location[TagGroup.IPTC.ProvinceState] = firstLocation.locality
+            location[TagGroup.IPTC.City] = firstLocation.locality
 //            location.route = firstLocation.route
-            location.neighborhood = firstLocation.neighborhood
+            location[TagGroup.IPTC.Sublocation] = firstLocation.subLocality
             
-            complete("Assigning location information to \(location.displayName)")
+            complete("Assigning location information to \(location[TagGroup.File.FileName]!)")
         }
     }
     
@@ -66,15 +96,18 @@ public class GoogleGeocoder: ReverseGeocoder {
         self.apiKey = apiKey
     }
 
-    public func reverseGeocodeLocation(_ location: LocatableImage, complete: @escaping (_ message: String) -> Void) {
-        NSLog("Begin reverse geocode for \(location.displayName)")
+    public func reverseGeocodeLocation(_ location: ExifImage, complete: @escaping (_ message: String) -> Void) {
+        NSLog("Begin reverse geocode for \(location[TagGroup.File.FileName]!)")
         
-        guard location.status?.bool == true else {
+        guard GPSStatus(image: location)?.bool == true else {
             complete("GPS status is false")
             return
         }
+        
+        let latitude = location[TagGroup.Composite.GPSLatitude] ?? 0
+        let longitude = location[TagGroup.Composite.GPSLongitude] ?? 0
 
-        let urlString = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(location.latitude),\(location.longitude)&key=\(apiKey)"
+        let urlString = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(latitude),\(longitude)&key=\(apiKey)"
         guard let url = URL(string: urlString) else {
             complete("Could not construct Google geocode URL")
             return
@@ -92,13 +125,13 @@ public class GoogleGeocoder: ReverseGeocoder {
             }
             
             // Assign location information
-            location.country = place.country
-            location.state = place.state
-            location.city = place.city
+            location[TagGroup.IPTC.CountryPrimaryLocationName] = place.country
+            location[TagGroup.IPTC.ProvinceState] = place.state
+            location[TagGroup.IPTC.City] = place.city
 //            location.route = place.route
-            location.neighborhood = place.neighborhood
+            location[TagGroup.IPTC.Sublocation] = place.neighborhood
             
-            complete("Assigning location information to \(location.displayName)")
+            complete("Assigning location information to \(location[TagGroup.File.FileName]!)")
 
         }
         
