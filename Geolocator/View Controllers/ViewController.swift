@@ -121,8 +121,8 @@ class ViewController: NSViewController {
         }
         
         NSPasteboard.general.clearContents()
-//        let success = NSPasteboard.general.writeObjects(selectedRecords)
-//        NSLog("\(success ? "Wrote" : "Failed to write") \(selectedRecords.count) records to paste board")
+        let success = NSPasteboard.general.writeObjects(selectedRecords)
+        NSLog("\(success ? "Wrote" : "Failed to write") \(selectedRecords.count) records to paste board")
     }
 
     

@@ -109,3 +109,36 @@ class LocatableImage: NSObject {
     
     
 }
+
+extension LocatableImage: NSPasteboardWriting {
+    public func writableTypes(for pasteboard: NSPasteboard) -> [NSPasteboard.PasteboardType] {
+        return [NSPasteboard.PasteboardType.string]
+    }
+
+
+    public func pasteboardPropertyList(forType type: NSPasteboard.PasteboardType) -> Any? {
+        switch type {
+        case .string:
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+
+            guard JSONSerialization.isValidJSONObject(self.image.metadata) else {
+                NSLog("Properties of \(self.displayName) are not JSON encodable")
+                return nil
+            }
+
+            do {
+                let data = try JSONSerialization.data(withJSONObject: self.image.metadata, options: JSONSerialization.WritingOptions.prettyPrinted)
+
+                return String(data: data, encoding: .utf8)
+            } catch {
+                NSLog(error.localizedDescription)
+                return nil
+            }
+
+        default:
+            return nil
+        }
+    }
+
+}
