@@ -192,17 +192,35 @@ class ViewController: NSViewController {
         let selectionIndex = UserDefaults.standard.integer(forKey: "geocoderSelection")
         coordinator.geocoder = geocoders[selectionIndex]
         
-        coordinator.reverseGeocode { (current, total, message) in
-            print("\(current) / \(total)", message)
+        
+        let activity = ActivityConfiguration { progress in
             
-            if current == total {
+            progress.localizedDescription = "Reverse Geocoding Images"
+            progress.localizedAdditionalDescription = ""
+
+            self.coordinator.reverseGeocode { (current, total, message) in
+                
                 DispatchQueue.main.async {
-                    self.reloadData(sender)
-                    self.view.window?.isDocumentEdited = true
+                    progress.completedUnitCount = Int64(current)
+                    progress.totalUnitCount = Int64(total)
+                    progress.localizedAdditionalDescription = "\(message)"
+                    print("\(current) / \(total)", message)
                 }
                 
+                
+                if current == total {
+                    DispatchQueue.main.async {
+                        self.reloadData(sender)
+                        self.activityView?.dismiss(nil)
+                        self.view.window?.isDocumentEdited = true
+                    }
+                    
+                }
             }
+                
         }
+        
+        performSegue(withIdentifier: NSStoryboardSegue.Identifier("ActivityProgressSegue"), sender: activity)
         
         
 //        let manager = MetadataManager.shared
