@@ -197,6 +197,7 @@ class ViewController: NSViewController {
             
             progress.localizedDescription = "Reverse Geocoding Images"
             progress.localizedAdditionalDescription = ""
+            progress.isCancellable = false
 
             self.coordinator.reverseGeocode { (current, total, message) in
                 
@@ -264,6 +265,7 @@ class ViewController: NSViewController {
             progress.localizedAdditionalDescription = ""
             progress.totalUnitCount = 0
             progress.completedUnitCount = 0
+            progress.isCancellable = false
             
            self.coordinator.writeImages(onQueue: DispatchQueue.global(qos: .utility)) { result in
                 switch result {
