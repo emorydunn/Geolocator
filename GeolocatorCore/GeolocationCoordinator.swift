@@ -30,10 +30,11 @@ public class GeolocationCoordinator {
         try reader.write()
     }
     
-    public func reverseGeocode() {
-        reader.images.forEach {
-            geocoder.reverseGeocodeLocation($0) { message in
-                print(message)
+    public func reverseGeocode(progress: @escaping (_ current: Int, _ total: Int, _ message: String) -> Void) {
+        let total = reader.images.count
+        reader.images.enumerated().forEach { index, image in
+            geocoder.reverseGeocodeLocation(image) { message in
+                progress(index + 1, total, message)
             }
         }
         
