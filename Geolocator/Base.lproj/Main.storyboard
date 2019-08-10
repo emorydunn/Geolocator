@@ -220,7 +220,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="lrh-UQ-PhU"/>
-                                        <menuItem title="Open in Maps…" keyEquivalent="M" identifier="geocodeMenuItem" id="Yo4-jm-plh">
+                                        <menuItem title="Open in Maps…" keyEquivalent="M" id="Yo4-jm-plh">
                                             <connections>
                                                 <action selector="openInMaps:" target="Ady-hI-5gd" id="2ua-bq-dgU"/>
                                             </connections>
@@ -481,12 +481,12 @@
                                                     <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="displayStatus"/>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView misplaced="YES" id="GGa-wG-FyC">
+                                                        <tableCellView id="GGa-wG-FyC">
                                                             <rect key="frame" x="1" y="1" width="0.0" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="U5G-T4-IMR">
-                                                                    <rect key="frame" x="1" y="1" width="4" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="1" width="4" height="16"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="HEF-Z0-EnI">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -498,9 +498,9 @@
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstItem="U5G-T4-IMR" firstAttribute="centerX" secondItem="GGa-wG-FyC" secondAttribute="centerX" id="AO7-qb-Ee1"/>
-                                                                <constraint firstItem="U5G-T4-IMR" firstAttribute="centerY" secondItem="GGa-wG-FyC" secondAttribute="centerY" id="ejO-5T-4tr"/>
-                                                                <constraint firstItem="U5G-T4-IMR" firstAttribute="leading" secondItem="GGa-wG-FyC" secondAttribute="leading" constant="2" id="kZM-Bx-g9W"/>
+                                                                <constraint firstAttribute="trailing" secondItem="U5G-T4-IMR" secondAttribute="trailing" constant="-2" id="9gk-q5-VNS"/>
+                                                                <constraint firstItem="U5G-T4-IMR" firstAttribute="centerY" secondItem="GGa-wG-FyC" secondAttribute="centerY" id="nxh-BO-0kM"/>
+                                                                <constraint firstItem="U5G-T4-IMR" firstAttribute="leading" secondItem="GGa-wG-FyC" secondAttribute="leading" constant="2" id="rFL-l1-TgB"/>
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="textField" destination="U5G-T4-IMR" id="qrD-3A-xkA"/>
@@ -791,12 +791,12 @@
                                                     <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="route"/>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView misplaced="YES" id="85r-Uo-khc">
+                                                        <tableCellView id="85r-Uo-khc">
                                                             <rect key="frame" x="1" y="1" width="0.0" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="opb-ak-74Y">
-                                                                    <rect key="frame" x="1" y="1" width="4" height="16"/>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="opb-ak-74Y">
+                                                                    <rect key="frame" x="0.0" y="1" width="4" height="16"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="gdV-eU-nm3">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -808,9 +808,9 @@
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstItem="opb-ak-74Y" firstAttribute="centerX" secondItem="85r-Uo-khc" secondAttribute="centerX" id="5tI-to-dDd"/>
-                                                                <constraint firstItem="opb-ak-74Y" firstAttribute="centerY" secondItem="85r-Uo-khc" secondAttribute="centerY" id="hW2-YV-Kcw"/>
-                                                                <constraint firstItem="opb-ak-74Y" firstAttribute="leading" secondItem="85r-Uo-khc" secondAttribute="leading" constant="2" id="uft-x6-5pv"/>
+                                                                <constraint firstItem="opb-ak-74Y" firstAttribute="centerY" secondItem="85r-Uo-khc" secondAttribute="centerY" id="HON-tF-8Se"/>
+                                                                <constraint firstAttribute="trailing" secondItem="opb-ak-74Y" secondAttribute="trailing" constant="-2" id="rFP-B2-sP2"/>
+                                                                <constraint firstItem="opb-ak-74Y" firstAttribute="leading" secondItem="85r-Uo-khc" secondAttribute="leading" constant="2" id="xyn-nx-3kc"/>
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="textField" destination="opb-ak-74Y" id="mz8-g1-sHx"/>
@@ -929,11 +929,10 @@
                                 </rows>
                                 <columns>
                                     <gridColumn id="j3A-d5-hjE"/>
-                                    <gridColumn width="254" id="PHW-cb-pjU"/>
                                 </columns>
                                 <gridCells>
-                                    <gridCell row="vUo-XH-h7f" column="j3A-d5-hjE" headOfMergedCell="oRL-PT-cbe" id="oRL-PT-cbe">
-                                        <textField key="contentView" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ift-tr-4xr">
+                                    <gridCell row="vUo-XH-h7f" column="j3A-d5-hjE" id="oRL-PT-cbe">
+                                        <textField key="contentView" horizontalHuggingPriority="251" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="Ift-tr-4xr">
                                             <rect key="frame" x="-2" y="104" width="74" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Description" id="Y6t-NX-JJa">
                                                 <font key="font" metaFont="system"/>
@@ -945,9 +944,8 @@
                                             </connections>
                                         </textField>
                                     </gridCell>
-                                    <gridCell row="vUo-XH-h7f" column="PHW-cb-pjU" headOfMergedCell="oRL-PT-cbe" id="7Xd-Wz-cb9"/>
-                                    <gridCell row="ed7-eU-5fL" column="j3A-d5-hjE" headOfMergedCell="YGW-YV-5TP" id="YGW-YV-5TP">
-                                        <textField key="contentView" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wu0-1F-Ked">
+                                    <gridCell row="ed7-eU-5fL" column="j3A-d5-hjE" id="YGW-YV-5TP">
+                                        <textField key="contentView" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="Wu0-1F-Ked">
                                             <rect key="frame" x="-2" y="82" width="138" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Additional Description" id="30a-j0-as6">
                                                 <font key="font" metaFont="system"/>
@@ -959,9 +957,8 @@
                                             </connections>
                                         </textField>
                                     </gridCell>
-                                    <gridCell row="ed7-eU-5fL" column="PHW-cb-pjU" headOfMergedCell="YGW-YV-5TP" id="IG0-7G-m36"/>
-                                    <gridCell row="LZ0-m9-jkF" column="j3A-d5-hjE" headOfMergedCell="unK-sX-Lwm" id="unK-sX-Lwm">
-                                        <progressIndicator key="contentView" wantsLayer="YES" ambiguous="YES" maxValue="5" doubleValue="2" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="FSR-a0-gqy">
+                                    <gridCell row="LZ0-m9-jkF" column="j3A-d5-hjE" id="unK-sX-Lwm">
+                                        <progressIndicator key="contentView" wantsLayer="YES" ambiguous="YES" verifyAmbiguity="off" maxValue="5" doubleValue="2" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="FSR-a0-gqy">
                                             <rect key="frame" x="0.0" y="57" width="100" height="20"/>
                                             <connections>
                                                 <binding destination="8G1-3p-clf" name="animate" keyPath="self.config.progress.isPaused" id="gNQ-OR-5Wj">
@@ -975,10 +972,8 @@
                                             </connections>
                                         </progressIndicator>
                                     </gridCell>
-                                    <gridCell row="LZ0-m9-jkF" column="PHW-cb-pjU" headOfMergedCell="unK-sX-Lwm" id="nr5-As-UHu"/>
-                                    <gridCell row="SQP-r1-Qmk" column="j3A-d5-hjE" id="ApL-VI-fIL"/>
-                                    <gridCell row="SQP-r1-Qmk" column="PHW-cb-pjU" xPlacement="trailing" id="pU7-f4-YAU">
-                                        <button key="contentView" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5CU-FV-L5P">
+                                    <gridCell row="SQP-r1-Qmk" column="j3A-d5-hjE" xPlacement="trailing" id="ApL-VI-fIL">
+                                        <button key="contentView" verticalHuggingPriority="750" ambiguous="YES" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="5CU-FV-L5P">
                                             <rect key="frame" x="324" y="-7" width="82" height="32"/>
                                             <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aIa-qV-ag7">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
