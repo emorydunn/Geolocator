@@ -239,12 +239,61 @@ class ViewController: NSViewController {
     }
     
     @IBAction func writeMetatdata(_ sender: Any? = nil) {
-        
-        do {
-            try coordinator.writeImages()
-        } catch {
-            presentError(error)
+
+        let activity = ActivityConfiguration { progress in
+            
+            progress.localizedDescription = "Writing metadata to images"
+            progress.localizedAdditionalDescription = ""
+            progress.totalUnitCount = 0
+            progress.completedUnitCount = 0
+            
+           self.coordinator.writeImages(onQueue: DispatchQueue.global(qos: .utility)) { result in
+                switch result {
+                case .success(let message):
+                    NSLog(message)
+                    
+                    DispatchQueue.main.async {
+                        self.activityView?.dismiss(nil)
+                        self.loadMetatdata(nil)
+                        self.view.window?.isDocumentEdited = false
+                    }
+                    
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self.presentError(error)
+                    }
+                }
+            }
         }
+        
+        performSegue(withIdentifier: NSStoryboardSegue.Identifier("ActivityProgressSegue"), sender: activity)
+        
+//        activity.resume()
+//        self.coordinator.writeImages(onQueue: DispatchQueue.global(qos: .utility)) { result in
+//            switch result {
+//            case .success(let message):
+//                NSLog(message)
+//
+////                DispatchQueue.main.async {
+////                    let alert = NSAlert()
+////                    alert.messageText = message
+////
+////                    alert.beginSheetModal(for: self.view.window!)
+////                    self.loadMetatdata(nil)
+////                    self.view.window?.isDocumentEdited = false
+////                }
+//
+//                self.loadMetatdata(nil)
+//                self.view.window?.isDocumentEdited = false
+//
+//            case .failure(let error):
+//                DispatchQueue.main.async {
+//                    self.presentError(error)
+//                }
+//            }
+//        }
+//        }
+
         
 //        let manager = MetadataManager.shared
 //        manager.writeMetadata(for: dataArray, manuallyStart: true)

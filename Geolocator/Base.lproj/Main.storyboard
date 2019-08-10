@@ -913,8 +913,13 @@
                             <progressIndicator wantsLayer="YES" maxValue="1" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="FSR-a0-gqy">
                                 <rect key="frame" x="20" y="60" width="410" height="22"/>
                                 <connections>
-                                    <binding destination="8G1-3p-clf" name="value" keyPath="self.manager.progress.fractionCompleted" id="s0I-AP-Elj"/>
-                                    <binding destination="8G1-3p-clf" name="isIndeterminate" keyPath="self.manager.progress.isIndeterminate" id="fmd-Xe-vVb"/>
+                                    <binding destination="8G1-3p-clf" name="animate" keyPath="self.config.progress.isPaused" id="gNQ-OR-5Wj">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                    <binding destination="8G1-3p-clf" name="isIndeterminate" keyPath="self.config.progress.isIndeterminate" previousBinding="gNQ-OR-5Wj" id="qNj-Bx-pMw"/>
+                                    <binding destination="8G1-3p-clf" name="value" keyPath="self.config.progress.fractionCompleted" id="DG0-3B-wla"/>
                                 </connections>
                             </progressIndicator>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ift-tr-4xr">
@@ -925,12 +930,12 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="8G1-3p-clf" name="value" keyPath="self.manager.progress.localizedDescription" id="d3a-oq-QHS"/>
+                                    <binding destination="8G1-3p-clf" name="value" keyPath="self.config.progress.localizedDescription" id="VkC-eF-rNE"/>
                                 </connections>
                             </textField>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5CU-FV-L5P">
+                            <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5CU-FV-L5P">
                                 <rect key="frame" x="354" y="13" width="82" height="32"/>
-                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aIa-qV-ag7">
+                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aIa-qV-ag7">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                     <string key="keyEquivalent" base64-UTF8="YES">
@@ -949,7 +954,7 @@ Gw
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="8G1-3p-clf" name="value" keyPath="self.manager.progress.localizedAdditionalDescription" id="Fsy-dv-ckQ"/>
+                                    <binding destination="8G1-3p-clf" name="value" keyPath="self.config.progress.localizedAdditionalDescription" id="jXt-Bc-H7W"/>
                                 </connections>
                             </textField>
                         </subviews>

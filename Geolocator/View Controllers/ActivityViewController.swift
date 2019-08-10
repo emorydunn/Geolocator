@@ -9,6 +9,21 @@
 import Cocoa
 import GeolocatorCore
 
+class ActivityConfiguration: NSObject {
+    @objc dynamic let progress: Progress
+
+    init(activity: @escaping (Progress) -> Void) {
+        self.progress = Progress()
+
+        super.init()
+        self.progress.resumingHandler = {
+            activity(self.progress)
+        }
+        
+    }
+
+}
+
 class ActivityViewController: NSViewController {
 
     @IBOutlet weak var statusTextField: NSTextField!
@@ -16,12 +31,14 @@ class ActivityViewController: NSViewController {
     
     @IBOutlet weak var cancelButton: NSButton!
     
-//    @objc dynamic var manager = MetadataManager.shared
+    @objc dynamic var config: ActivityConfiguration!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        config.resume()
         // Do view setup here.
-//        manager.progress.resume()
+        config.progress.resume()
 
     }
     
