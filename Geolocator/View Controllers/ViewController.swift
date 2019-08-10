@@ -187,6 +187,7 @@ class ViewController: NSViewController {
             if current == total {
                 DispatchQueue.main.async {
                     self.reloadData(sender)
+                    self.view.window?.isDocumentEdited = true
                 }
                 
             }
