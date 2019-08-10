@@ -76,7 +76,7 @@ public class AppleGeocoder: ReverseGeocoder {
             
             // Assign location information
             location[TagGroup.IPTC.CountryPrimaryLocationName] = firstLocation.country
-            location[TagGroup.IPTC.ProvinceState] = firstLocation.locality
+            location[TagGroup.IPTC.ProvinceState] = firstLocation.administrativeArea
             location[TagGroup.IPTC.City] = firstLocation.locality
 //            location.route = firstLocation.route
             location[TagGroup.IPTC.Sublocation] = firstLocation.subLocality
