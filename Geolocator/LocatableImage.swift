@@ -27,8 +27,8 @@ class LocatableImage: NSObject {
         return image[TagGroup.File.FileName]!
     }
     
-    @objc public var displayStatus: String? {
-        return status?.description
+    @objc public var displayStatus: String {
+        return status.description
     }
     
     @objc public var displayCoordinates: String? {
@@ -98,9 +98,8 @@ class LocatableImage: NSObject {
         return image[TagGroup.Composite.GPSLongitude] ?? 0
     }
 
-    public var status: GPSStatus? {
-        let stat = GPSStatus(image: image)
-        return stat
+    public var status: GPSStatus {
+        return GPSStatus(image: image) ?? .void
     }
 
     override public func isEqual(_ object: Any?) -> Bool {

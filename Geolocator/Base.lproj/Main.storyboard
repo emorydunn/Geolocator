@@ -189,9 +189,9 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Images" id="Kza-RW-lMk">
+                            <menuItem title="Image" id="Kza-RW-lMk">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Images" id="PtT-S5-TYN">
+                                <menu key="submenu" title="Image" id="PtT-S5-TYN">
                                     <items>
                                         <menuItem title="Geolocator" enabled="NO" id="rGT-za-Kbh">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -217,6 +217,12 @@
                                         <menuItem title="Geocode" keyEquivalent="g" identifier="geocodeMenuItem" id="viK-GV-pqK">
                                             <connections>
                                                 <action selector="reverseGeocode:" target="Ady-hI-5gd" id="aCi-ww-bds"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="lrh-UQ-PhU"/>
+                                        <menuItem title="Open in Maps…" keyEquivalent="M" identifier="geocodeMenuItem" id="Yo4-jm-plh">
+                                            <connections>
+                                                <action selector="openInMaps:" target="Ady-hI-5gd" id="2ua-bq-dgU"/>
                                             </connections>
                                         </menuItem>
                                     </items>

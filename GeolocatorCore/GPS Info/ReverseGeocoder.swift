@@ -9,8 +9,37 @@
 import Foundation
 import CoreLocation
 import SwiftEXIF
+import MapKit
 
 typealias GPSPosition = (latitude: Double, longitude: Double)
+
+enum ReverseGeocoderError: Error, LocalizedError {
+    case imageHasNoCoordinates(_ image: ExifImage, description: String)
+    case imageGPSStatusIsVoid(_ image: ExifImage, description: String)
+    
+    var errorDescription: String? {
+        switch self {
+        case .imageGPSStatusIsVoid(_, let description):
+            return description
+        case .imageHasNoCoordinates(_, let description):
+            return description
+        }
+    }
+    
+    var failureReason: String? {
+        switch self {
+        case .imageGPSStatusIsVoid(let image, _):
+            return "The GPS Status of \(image[TagGroup.File.FileName]!) is void."
+        case .imageHasNoCoordinates(let image, _):
+            return "\(image[TagGroup.File.FileName]!) has no GPS coordinates."
+        }
+    }
+    
+    var recoverySuggestion: String? {
+        return failureReason
+    }
+    
+}
 
 public protocol ReverseGeocoder {
     var showActivityCount: Int { get }
@@ -38,6 +67,38 @@ extension ReverseGeocoder {
         return GPSPosition(signedLat, signedLong)
 //        return GPSDirection(rawValue: latRef)
         
+    }
+    
+    
+    /// Opens the specified image on a map.
+    ///
+    /// Modified from https://stackoverflow.com/a/28622266
+    /// - Parameter image: The image to open
+    public func openMapForPlace(image: ExifImage) throws {
+        
+        guard GPSStatus(image: image)?.bool == true else {
+            throw ReverseGeocoderError.imageGPSStatusIsVoid(image, description: "Could not open image on a map.")
+        }
+
+        guard
+            let latitude = image[TagGroup.Composite.GPSLatitude],
+            let longitude = image[TagGroup.Composite.GPSLongitude]
+        else {
+            throw ReverseGeocoderError.imageHasNoCoordinates(image, description: "Could not open image on a map.")
+        }
+
+        let regionDistance:CLLocationDistance = 10000
+        let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
+        let regionSpan = MKCoordinateRegion(center: coordinates, latitudinalMeters: regionDistance, longitudinalMeters: regionDistance)
+        let options = [
+            MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
+            MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)
+        ]
+        let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = image[TagGroup.File.FileName]!
+        mapItem.openInMaps(launchOptions: options)
+
     }
     
 }

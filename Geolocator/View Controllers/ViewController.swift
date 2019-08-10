@@ -112,6 +112,22 @@ class ViewController: NSViewController {
         let success = NSPasteboard.general.writeObjects(selectedRecords)
         NSLog("\(success ? "Wrote" : "Failed to write") \(selectedRecords.count) records to paste board")
     }
+    
+    @IBAction func openInMaps(_ sender: Any? = nil) {
+        
+        guard let selectedRecord = dataArrayController.selectedObjects.first as? LocatableImage else {
+            NSLog("No selection to copy")
+            return
+        }
+        
+        do {
+            try coordinator.geocoder.openMapForPlace(image: selectedRecord.image)
+        } catch {
+            presentError(error)
+        }
+        
+        
+    }
 
     
     @IBAction func open(_ sender: Any? = nil) {
@@ -273,6 +289,14 @@ extension ViewController: NSUserInterfaceValidations {
             return !dataArray.isEmpty
         case #selector(loadMetatdata(_:)):
             return !dataArray.isEmpty
+        case #selector(openInMaps(_:)):
+            
+            guard let selectedRecord = dataArrayController.selectedObjects.first as? LocatableImage else {
+                return false
+            }
+            let objectCount = dataArrayController.selectedObjects.count == 1
+            
+            return selectedRecord.status.bool && objectCount
         case #selector(setGeocoder(_:)):
             let selectionIndex = UserDefaults.standard.integer(forKey: "geocoderSelection")
             if let item = item as? NSMenuItem {
