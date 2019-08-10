@@ -31,14 +31,13 @@ class ActivityViewController: NSViewController {
     
     @IBOutlet weak var cancelButton: NSButton!
     
-    @objc dynamic var config: ActivityConfiguration!
+    @objc dynamic var config: ActivityConfiguration?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        config.resume()
+
         // Do view setup here.
-        config.progress.resume()
+        config?.progress.resume()
 
     }
     
