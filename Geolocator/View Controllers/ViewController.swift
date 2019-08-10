@@ -181,9 +181,18 @@ class ViewController: NSViewController {
         let selectionIndex = UserDefaults.standard.integer(forKey: "geocoderSelection")
         coordinator.geocoder = geocoders[selectionIndex]
         
-        coordinator.reverseGeocode()
+        coordinator.reverseGeocode { (current, total, message) in
+            print("\(current) / \(total)", message)
+            
+            if current == total {
+                DispatchQueue.main.async {
+                    self.reloadData(sender)
+                }
+                
+            }
+        }
         
-        reloadData(sender)
+        
 //        let manager = MetadataManager.shared
 //
 //        let showActivityView = UserDefaults.standard.bool(forKey: "showActivityView")
@@ -253,7 +262,11 @@ class ViewController: NSViewController {
     
     @IBAction func reloadData(_ sender: Any? = nil) {
         print("Reloading array controller")
+        // Save current selection
+        let currentSelection = dataArrayController.selectionIndexes
         dataArrayController.rearrangeObjects()
+        dataArrayController.setSelectionIndexes(currentSelection)
+//        dataArrayController.selectionIndexes = currentSelection
     }
     
 //    func open(urls: [URL]) -> [LocatableImage]? {
