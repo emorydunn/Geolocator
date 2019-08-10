@@ -51,22 +51,21 @@ class ViewController: NSViewController {
             NSSortDescriptor(key: "displayName", ascending: true)
         ]
 
-//        NotificationCenter.default.addObserver(forName: ImageLoader.notificationName, object: nil, queue: nil) { notification in
-//            guard let info = notification.userInfo else {
-//                return
-//            }
-//
-//            if let images = info["Images"] as? [LocatableImage] {
-//                NSLog("Setting data array to images from notification")
-////                self.dataArray.append(contentsOf: images)
-//                self.dataArray.append(contentsOf: images.filter { image in
-//                    !self.dataArray.contains(image)
-//                })
-//            }
-//
-//            if let urls = info["URLs"] as? [URL] {
-//                NSLog("Opening images from URLs")
-//
+        NotificationCenter.default.addObserver(forName: ImageLoader.notificationName, object: nil, queue: nil) { notification in
+            guard let info = notification.userInfo else {
+                return
+            }
+
+            if let urls = info["URLs"] as? [URL] {
+                NSLog("Opening images from URLs")
+                
+                do {
+                    try self.coordinator.openURLs(urls)
+                    self.loadMetatdata(nil)
+                } catch {
+                    self.presentError(error)
+                }
+
 //                if let images = self.open(urls: urls) {
 //                    self.dataArray.append(contentsOf: images.filter { image in
 //                        !self.dataArray.contains(image)
@@ -74,11 +73,11 @@ class ViewController: NSViewController {
 ////                    self.dataArray.append(contentsOf: images)
 //                    self.loadMetatdata(nil)
 //                }
-//
-//            }
-//
-//
-//        }
+
+            }
+
+
+        }
 
     }
     
