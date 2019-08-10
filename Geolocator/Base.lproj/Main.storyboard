@@ -907,71 +907,102 @@
             <objects>
                 <viewController showSeguePresentationStyle="single" id="8G1-3p-clf" customClass="ActivityViewController" customModule="Geolocator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="0Ig-Ud-ydM">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="149"/>
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="160"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <progressIndicator wantsLayer="YES" maxValue="1" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="FSR-a0-gqy">
-                                <rect key="frame" x="20" y="60" width="410" height="22"/>
-                                <connections>
-                                    <binding destination="8G1-3p-clf" name="animate" keyPath="self.config.progress.isPaused" id="gNQ-OR-5Wj">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
-                                    <binding destination="8G1-3p-clf" name="isIndeterminate" keyPath="self.config.progress.isIndeterminate" previousBinding="gNQ-OR-5Wj" id="qNj-Bx-pMw"/>
-                                    <binding destination="8G1-3p-clf" name="value" keyPath="self.config.progress.fractionCompleted" id="DG0-3B-wla"/>
-                                </connections>
-                            </progressIndicator>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ift-tr-4xr">
-                                <rect key="frame" x="18" y="113" width="74" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Description" id="Y6t-NX-JJa">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <binding destination="8G1-3p-clf" name="value" keyPath="self.config.progress.localizedDescription" id="VkC-eF-rNE"/>
-                                </connections>
-                            </textField>
-                            <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5CU-FV-L5P">
-                                <rect key="frame" x="354" y="13" width="82" height="32"/>
-                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aIa-qV-ag7">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                    <string key="keyEquivalent" base64-UTF8="YES">
+                            <gridView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" xPlacement="leading" yPlacement="top" rowAlignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="Yhr-cG-l5K">
+                                <rect key="frame" x="20" y="20" width="400" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="400" id="1mB-ul-VX4"/>
+                                </constraints>
+                                <rows>
+                                    <gridRow id="vUo-XH-h7f"/>
+                                    <gridRow id="ed7-eU-5fL"/>
+                                    <gridRow id="LZ0-m9-jkF"/>
+                                    <gridRow topPadding="20" id="SQP-r1-Qmk"/>
+                                </rows>
+                                <columns>
+                                    <gridColumn id="j3A-d5-hjE"/>
+                                    <gridColumn width="254" id="PHW-cb-pjU"/>
+                                </columns>
+                                <gridCells>
+                                    <gridCell row="vUo-XH-h7f" column="j3A-d5-hjE" headOfMergedCell="oRL-PT-cbe" id="oRL-PT-cbe">
+                                        <textField key="contentView" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ift-tr-4xr">
+                                            <rect key="frame" x="-2" y="104" width="74" height="16"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Description" id="Y6t-NX-JJa">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <binding destination="8G1-3p-clf" name="value" keyPath="self.config.progress.localizedDescription" id="VkC-eF-rNE"/>
+                                            </connections>
+                                        </textField>
+                                    </gridCell>
+                                    <gridCell row="vUo-XH-h7f" column="PHW-cb-pjU" headOfMergedCell="oRL-PT-cbe" id="7Xd-Wz-cb9"/>
+                                    <gridCell row="ed7-eU-5fL" column="j3A-d5-hjE" headOfMergedCell="YGW-YV-5TP" id="YGW-YV-5TP">
+                                        <textField key="contentView" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wu0-1F-Ked">
+                                            <rect key="frame" x="-2" y="82" width="138" height="16"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Additional Description" id="30a-j0-as6">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <binding destination="8G1-3p-clf" name="value" keyPath="self.config.progress.localizedAdditionalDescription" id="jXt-Bc-H7W"/>
+                                            </connections>
+                                        </textField>
+                                    </gridCell>
+                                    <gridCell row="ed7-eU-5fL" column="PHW-cb-pjU" headOfMergedCell="YGW-YV-5TP" id="IG0-7G-m36"/>
+                                    <gridCell row="LZ0-m9-jkF" column="j3A-d5-hjE" headOfMergedCell="unK-sX-Lwm" id="unK-sX-Lwm">
+                                        <progressIndicator key="contentView" wantsLayer="YES" ambiguous="YES" maxValue="5" doubleValue="2" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="FSR-a0-gqy">
+                                            <rect key="frame" x="0.0" y="57" width="100" height="20"/>
+                                            <connections>
+                                                <binding destination="8G1-3p-clf" name="animate" keyPath="self.config.progress.isPaused" id="gNQ-OR-5Wj">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                    </dictionary>
+                                                </binding>
+                                                <binding destination="8G1-3p-clf" name="isIndeterminate" keyPath="self.config.progress.isIndeterminate" previousBinding="gNQ-OR-5Wj" id="qNj-Bx-pMw"/>
+                                                <binding destination="8G1-3p-clf" name="maxValue" keyPath="self.config.progress.totalUnitCount" id="8QS-ro-GWO"/>
+                                                <binding destination="8G1-3p-clf" name="value" keyPath="self.config.progress.completedUnitCount" previousBinding="8QS-ro-GWO" id="R5i-hv-4ij"/>
+                                            </connections>
+                                        </progressIndicator>
+                                    </gridCell>
+                                    <gridCell row="LZ0-m9-jkF" column="PHW-cb-pjU" headOfMergedCell="unK-sX-Lwm" id="nr5-As-UHu"/>
+                                    <gridCell row="SQP-r1-Qmk" column="j3A-d5-hjE" id="ApL-VI-fIL"/>
+                                    <gridCell row="SQP-r1-Qmk" column="PHW-cb-pjU" xPlacement="trailing" id="pU7-f4-YAU">
+                                        <button key="contentView" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5CU-FV-L5P">
+                                            <rect key="frame" x="324" y="-7" width="82" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aIa-qV-ag7">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                                <string key="keyEquivalent" base64-UTF8="YES">
 Gw
 </string>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="cancelOperation:" target="8G1-3p-clf" id="mWv-83-qGH"/>
-                                </connections>
-                            </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Wu0-1F-Ked">
-                                <rect key="frame" x="18" y="89" width="414" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Additional Description" id="30a-j0-as6">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <binding destination="8G1-3p-clf" name="value" keyPath="self.config.progress.localizedAdditionalDescription" id="jXt-Bc-H7W"/>
-                                </connections>
-                            </textField>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="cancelOperation:" target="8G1-3p-clf" id="mWv-83-qGH"/>
+                                                <binding destination="8G1-3p-clf" name="enabled" keyPath="self.config.progress.isCancellable" id="JCm-Cb-oYX">
+                                                    <dictionary key="options">
+                                                        <integer key="NSMultipleValuesPlaceholder" value="0"/>
+                                                        <integer key="NSNoSelectionPlaceholder" value="0"/>
+                                                        <integer key="NSNotApplicablePlaceholder" value="0"/>
+                                                        <integer key="NSNullPlaceholder" value="0"/>
+                                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </button>
+                                    </gridCell>
+                                </gridCells>
+                            </gridView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="5CU-FV-L5P" firstAttribute="top" secondItem="FSR-a0-gqy" secondAttribute="bottom" constant="20" symbolic="YES" id="0ZP-vh-ZRS"/>
-                            <constraint firstItem="FSR-a0-gqy" firstAttribute="leading" secondItem="0Ig-Ud-ydM" secondAttribute="leading" constant="20" id="1vd-cR-NA9"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ift-tr-4xr" secondAttribute="trailing" constant="20" symbolic="YES" id="28r-Qi-R58"/>
-                            <constraint firstItem="5CU-FV-L5P" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0Ig-Ud-ydM" secondAttribute="leading" constant="20" symbolic="YES" id="8OO-76-RU1"/>
-                            <constraint firstItem="FSR-a0-gqy" firstAttribute="top" secondItem="Wu0-1F-Ked" secondAttribute="bottom" constant="8" symbolic="YES" id="EKM-Fr-d3u"/>
-                            <constraint firstItem="Ift-tr-4xr" firstAttribute="leading" secondItem="0Ig-Ud-ydM" secondAttribute="leading" constant="20" id="VwB-6h-nCW"/>
-                            <constraint firstAttribute="trailing" secondItem="FSR-a0-gqy" secondAttribute="trailing" constant="20" id="Y5E-qz-yDO"/>
-                            <constraint firstAttribute="bottom" secondItem="5CU-FV-L5P" secondAttribute="bottom" constant="20" symbolic="YES" id="dNQ-nA-B9N"/>
-                            <constraint firstAttribute="trailing" secondItem="Wu0-1F-Ked" secondAttribute="trailing" constant="20" symbolic="YES" id="q76-cV-4P3"/>
-                            <constraint firstItem="Ift-tr-4xr" firstAttribute="top" secondItem="0Ig-Ud-ydM" secondAttribute="top" constant="20" id="s4S-Yk-Dxd"/>
-                            <constraint firstItem="Wu0-1F-Ked" firstAttribute="leading" secondItem="0Ig-Ud-ydM" secondAttribute="leading" constant="20" symbolic="YES" id="sKp-tx-sgO"/>
-                            <constraint firstItem="Wu0-1F-Ked" firstAttribute="top" secondItem="Ift-tr-4xr" secondAttribute="bottom" constant="8" symbolic="YES" id="tIH-90-l8x"/>
-                            <constraint firstAttribute="trailing" secondItem="5CU-FV-L5P" secondAttribute="trailing" constant="20" symbolic="YES" id="xdt-a9-iRq"/>
+                            <constraint firstItem="Yhr-cG-l5K" firstAttribute="leading" secondItem="0Ig-Ud-ydM" secondAttribute="leading" constant="20" id="0UZ-Xe-XHx"/>
+                            <constraint firstAttribute="trailing" secondItem="Yhr-cG-l5K" secondAttribute="trailing" constant="20" id="CQM-hq-LM5"/>
+                            <constraint firstAttribute="bottom" secondItem="Yhr-cG-l5K" secondAttribute="bottom" constant="20" id="Lr6-pZ-YKM"/>
+                            <constraint firstItem="Yhr-cG-l5K" firstAttribute="top" secondItem="0Ig-Ud-ydM" secondAttribute="top" constant="20" id="fGQ-Tu-3DO"/>
                         </constraints>
                     </view>
                     <connections>
@@ -982,7 +1013,7 @@ Gw
                 </viewController>
                 <customObject id="l1U-YW-agZ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="956" y="748.5"/>
+            <point key="canvasLocation" x="956" y="754"/>
         </scene>
     </scenes>
 </document>
