@@ -72,10 +72,18 @@ extension ReverseGeocoder {
     
     /// Opens the specified image on a map.
     ///
-    /// Modified from https://stackoverflow.com/a/28622266
+    /// Modified from https://stackoverflow.com/a/28622266 & https://stackoverflow.com/a/32484331
     /// - Parameter image: The image to open
-    public func openMapForPlace(image: ExifImage) throws {
+    public func openMapForPlace(images: [ExifImage]) throws {
         
+        // Make MapItems
+        let mapItems = images.compactMap { try? makeMapItem(forImage: $0) }
+
+        MKMapItem.openMaps(with: mapItems)
+    
+    }
+    
+    func makeMapItem(forImage image: ExifImage) throws -> MKMapItem {
         guard GPSStatus(image: image)?.bool == true else {
             throw ReverseGeocoderError.imageGPSStatusIsVoid(image, description: "Could not open image on a map.")
         }
@@ -87,18 +95,12 @@ extension ReverseGeocoder {
             throw ReverseGeocoderError.imageHasNoCoordinates(image, description: "Could not open image on a map.")
         }
 
-        let regionDistance:CLLocationDistance = 10000
         let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
-        let regionSpan = MKCoordinateRegion(center: coordinates, latitudinalMeters: regionDistance, longitudinalMeters: regionDistance)
-        let options = [
-            MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
-            MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)
-        ]
         let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
         let mapItem = MKMapItem(placemark: placemark)
         mapItem.name = image[TagGroup.File.FileName]!
-        mapItem.openInMaps(launchOptions: options)
-
+        
+        return mapItem
     }
     
 }

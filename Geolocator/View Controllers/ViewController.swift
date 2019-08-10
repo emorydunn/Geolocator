@@ -115,13 +115,13 @@ class ViewController: NSViewController {
     
     @IBAction func openInMaps(_ sender: Any? = nil) {
         
-        guard let selectedRecord = dataArrayController.selectedObjects.first as? LocatableImage else {
+        guard let selectedRecord = dataArrayController.selectedObjects as? [LocatableImage] else {
             NSLog("No selection to copy")
             return
         }
         
         do {
-            try coordinator.geocoder.openMapForPlace(image: selectedRecord.image)
+            try coordinator.geocoder.openMapForPlace(images: selectedRecord.map { $0.image })
         } catch {
             presentError(error)
         }
@@ -291,12 +291,14 @@ extension ViewController: NSUserInterfaceValidations {
             return !dataArray.isEmpty
         case #selector(openInMaps(_:)):
             
-            guard let selectedRecord = dataArrayController.selectedObjects.first as? LocatableImage else {
+            guard let selectedRecords = dataArrayController.selectedObjects as? [LocatableImage] else {
                 return false
             }
-            let objectCount = dataArrayController.selectedObjects.count == 1
             
-            return selectedRecord.status.bool && objectCount
+            return selectedRecords.reduce(false) { (result, image) in
+                return result || image.status.bool
+            }
+
         case #selector(setGeocoder(_:)):
             let selectionIndex = UserDefaults.standard.integer(forKey: "geocoderSelection")
             if let item = item as? NSMenuItem {

@@ -460,7 +460,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="900" height="481"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="LP2-oZ-adD" viewBased="YES" id="RF7-bu-h54">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" autosaveColumns="NO" rowSizeStyle="automatic" headerView="LP2-oZ-adD" viewBased="YES" id="RF7-bu-h54">
                                             <rect key="frame" x="0.0" y="0.0" width="1008" height="458"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
