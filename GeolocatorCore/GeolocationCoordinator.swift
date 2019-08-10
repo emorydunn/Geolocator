@@ -19,38 +19,60 @@ public class GeolocationCoordinator {
         self.reader = reader
     }
     
-    public func openURLs(_ urls: [URL]) throws {
+    public func openURLs(_ urls: [URL], completionHandler: @escaping (Result<String, Error>) -> Void) {
         // Load the contents of the given URLs
-        let fullContents = try ImageLoader.contents(of: urls)
-        
-        let tags = [
-            // Basic Info
-            TagGroup.File.FileName.name,
-            TagGroup.EXIF.DateTimeOriginal.name,
+        do {
+            let fullContents = try ImageLoader.contents(of: urls)
             
-            // GPS Info
-            TagGroup.EXIF.GPSLatitude.name,
-            TagGroup.Composite.GPSLatitude.name,
-            TagGroup.EXIF.GPSLongitude.name,
-            TagGroup.Composite.GPSLongitude.name,
-            TagGroup.EXIF.GPSStatus.name,
+            let tags = [
+                // Basic Info
+                TagGroup.File.FileName.name,
+                TagGroup.EXIF.DateTimeOriginal.name,
+                
+                // GPS Info
+                TagGroup.EXIF.GPSStatus.name,
+                
+                TagGroup.EXIF.GPSLatitude.name,
+                TagGroup.EXIF.GPSLatitudeRef.name,
+                TagGroup.Composite.GPSLatitude.name,
+                
+                TagGroup.EXIF.GPSLongitude.name,
+                TagGroup.EXIF.GPSLongitudeRef.name,
+                TagGroup.Composite.GPSLongitude.name,
+                
+                // Existing Location info
+                TagGroup.IPTC.CountryPrimaryLocationName.name,
+                TagGroup.IPTC.ProvinceState.name,
+                TagGroup.IPTC.City.name,
+                TagGroup.IPTC.Sublocation.name
+            ]
             
-            // Existing Location info
-            TagGroup.IPTC.CountryPrimaryLocationName.name,
-            TagGroup.IPTC.ProvinceState.name,
-            TagGroup.IPTC.City.name,
-            TagGroup.IPTC.Sublocation.name
-        ]
+            reader.read(tags, from: fullContents) {
+                completionHandler($0)
+            }
+        } catch {
+            completionHandler(.failure(error))
+        }
         
-        try reader.read(tags, from: fullContents)
+        
     }
     
-    public func writeImages() throws {
-        let fileName = "\(UUID().uuidString).json"
-        let url = FileManager.default.temporaryDirectory.appendingPathComponent("Geolocator").appendingPathComponent(fileName)
+    public func writeImages(onQueue queue: DispatchQueue = DispatchQueue.main ,completionHandler: @escaping (Result<String, Error>) -> Void) {
         
-        try reader.writeJSON(to: url)
-        try reader.write(from: url)
+        queue.async {
+            let fileName = "\(UUID().uuidString).json"
+            let url = FileManager.default.temporaryDirectory.appendingPathComponent("Geolocator").appendingPathComponent(fileName)
+            
+            do {
+                try self.reader.writeJSON(to: url)
+                self.reader.write(from: url) {
+                    completionHandler($0)
+                }
+            } catch {
+               completionHandler(.failure(error))
+            }
+        }
+        
     }
     
     public func reverseGeocode(progress: @escaping (_ current: Int, _ total: Int, _ message: String) -> Void) {

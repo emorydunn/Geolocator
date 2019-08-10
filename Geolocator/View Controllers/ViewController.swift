@@ -59,12 +59,21 @@ class ViewController: NSViewController {
             if let urls = info["URLs"] as? [URL] {
                 NSLog("Opening images from URLs")
                 
-                do {
-                    try self.coordinator.openURLs(urls)
-                    self.loadMetatdata(nil)
-                } catch {
-                    self.presentError(error)
+                self.coordinator.openURLs(urls) {
+                    switch $0 {
+                    case .success(let message):
+                        NSLog(message)
+                        self.loadMetatdata(nil)
+                    case .failure(let error):
+                        self.presentError(error)
+                    }
                 }
+//                do {
+//                    try self.coordinator.openURLs(urls)
+//                    self.loadMetatdata(nil)
+//                } catch {
+//                    self.presentError(error)
+//                }
 
 //                if let images = self.open(urls: urls) {
 //                    self.dataArray.append(contentsOf: images.filter { image in
@@ -132,10 +141,13 @@ class ViewController: NSViewController {
     @IBAction func loadMetatdata(_ sender: Any?) {
         // Create LocatableImages from the coordinator
         
-        self.dataArray = coordinator.reader.images.map {
-            LocatableImage(image: $0)
-        }
+        DispatchQueue.main.async {
         
+            self.dataArray = self.coordinator.reader.images.map {
+                LocatableImage(image: $0)
+            }
+            
+        }
 //        coordinator.
 //        let manager = MetadataManager.shared
 //        manager.loadMetatdata(from: dataArray, manuallyStart: true)
@@ -263,9 +275,11 @@ class ViewController: NSViewController {
     @IBAction func reloadData(_ sender: Any? = nil) {
         print("Reloading array controller")
         // Save current selection
-        let currentSelection = dataArrayController.selectionIndexes
-        dataArrayController.rearrangeObjects()
-        dataArrayController.setSelectionIndexes(currentSelection)
+        DispatchQueue.main.async {
+            let currentSelection = self.dataArrayController.selectionIndexes
+            self.dataArrayController.rearrangeObjects()
+            self.dataArrayController.setSelectionIndexes(currentSelection)
+        }
 //        dataArrayController.selectionIndexes = currentSelection
     }
     
@@ -292,18 +306,29 @@ class ViewController: NSViewController {
             
             switch response {
             case .OK:
-                do {
-                    try self.coordinator.openURLs(openPanel.urls)
-                } catch {
-                    self.presentError(error)
+                
+                self.coordinator.openURLs(openPanel.urls) {
+                    switch $0 {
+                    case .success(let message):
+                        NSLog(message)
+                        self.loadMetatdata(nil)
+                    case .failure(let error):
+                        self.presentError(error)
+                    }
                 }
+                
+//                do {
+//                    try self.coordinator.openURLs(openPanel.urls)
+//                } catch {
+//                    self.presentError(error)
+//                }
                 
 //                if let images = self.open(urls: openPanel.urls) {
 ////                    self.dataArray = images
 //                    self.dataArray.append(contentsOf: images.filter { image in
 //                        !self.dataArray.contains(image)
 //                    })
-                    self.loadMetatdata(nil)
+//                    self.loadMetatdata(nil)
 //                }
                 
             default:
@@ -320,6 +345,7 @@ class ViewController: NSViewController {
             return
         }
 
+        dest.config = sender as? ActivityConfiguration
         activityView = dest
 
     }
