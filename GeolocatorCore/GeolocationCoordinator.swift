@@ -84,9 +84,7 @@ public class GeolocationCoordinator {
                 progress(current, total, message)
             }
         }
-        
-//        completion()
-        
+
     }
     
 }

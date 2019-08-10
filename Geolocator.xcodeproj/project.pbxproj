@@ -71,7 +71,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		620DFCE721C18E5900D1CD98 /* MetadataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataManager.swift; sourceTree = "<group>"; };
 		620DFCEB21C1AAA200D1CD98 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		D20745EB21C0BABF00D0423C /* Geolocator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Geolocator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D20745EE21C0BABF00D0423C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,7 +79,6 @@
 		D20745F521C0BAC100D0423C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D20745F721C0BAC100D0423C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D20745F821C0BAC100D0423C /* Geolocator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Geolocator.entitlements; sourceTree = "<group>"; };
-		D20745FE21C0BC5700D0423C /* ImageMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMetadata.swift; sourceTree = "<group>"; };
 		D207460021C0C88800D0423C /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		D24DCB1121D058D000F796DC /* Geolocator Plugin.coplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Geolocator Plugin.coplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D24DCB1321D058D000F796DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -88,11 +86,8 @@
 		D24DCB2121D0603700F796DC /* GeolocatorCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GeolocatorCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D24DCB2321D0603700F796DC /* GeolocatorCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeolocatorCore.h; sourceTree = "<group>"; };
 		D24DCB2421D0603700F796DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D26491DB21C5B93E005E3FB6 /* exiftool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = exiftool.swift; sourceTree = "<group>"; };
-		D26491DD21C5BBD5005E3FB6 /* LocatableImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocatableImage.swift; sourceTree = "<group>"; };
 		D264939B21C5C551005E3FB6 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
 		D264939C21C5C551005E3FB6 /* exiftool */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = exiftool; sourceTree = "<group>"; };
-		D2677F7221C579CD001607D3 /* MetadataDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataDomain.swift; sourceTree = "<group>"; };
 		D2677F7421C58CFE001607D3 /* APIKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = APIKeys.plist; path = Geolocator/APIKeys.plist; sourceTree = SOURCE_ROOT; };
 		D297F1FF21C2210100DBA825 /* ReverseGeocoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseGeocoder.swift; sourceTree = "<group>"; };
 		D297F20221C2212B00DBA825 /* IPTCLocatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPTCLocatable.swift; sourceTree = "<group>"; };
@@ -187,7 +182,6 @@
 			isa = PBXGroup;
 			children = (
 				D207460021C0C88800D0423C /* ImageLoader.swift */,
-				620DFCE721C18E5900D1CD98 /* MetadataManager.swift */,
 				D2F724D322FE3F3D00D79797 /* GeolocationCoordinator.swift */,
 				D26491E121C5C4CF005E3FB6 /* exiftool */,
 				D297F20521C48C9F00DBA825 /* GPS Info */,
@@ -228,10 +222,6 @@
 			isa = PBXGroup;
 			children = (
 				D297F1FF21C2210100DBA825 /* ReverseGeocoder.swift */,
-				D20745FE21C0BC5700D0423C /* ImageMetadata.swift */,
-				D26491DD21C5BBD5005E3FB6 /* LocatableImage.swift */,
-				D26491DB21C5B93E005E3FB6 /* exiftool.swift */,
-				D2677F7221C579CD001607D3 /* MetadataDomain.swift */,
 				D297F20821C48EBB00DBA825 /* GPSDirection.swift */,
 				D297F20621C48CB400DBA825 /* GPSStatus.swift */,
 			);

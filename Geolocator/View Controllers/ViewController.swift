@@ -23,8 +23,7 @@ class ViewController: NSViewController {
     @IBOutlet var dataArrayController: NSArrayController!
     
     var geocoders = [ReverseGeocoder]()
-//    var reader = MetadataReader()
-    
+
     var coordinator: GeolocationCoordinator!
     
     var activityView: NSViewController?
@@ -41,11 +40,6 @@ class ViewController: NSViewController {
         if let url = Bundle.main.url(forResource: "exiftool", withExtension: nil) {
             coordinator.reader.exiftool.exiftoolLocation = url.path
         }
-//        guard let url = Exiftool.bundle.url(forResource: "exiftool", withExtension: nil) else {
-//            NSLog("Could not find exiftool in resources of \(Exiftool.bundle.bundleURL.path)")
-//            return nil
-//        }
-
 
         dataArrayController.sortDescriptors = [
             NSSortDescriptor(key: "displayName", ascending: true)
@@ -68,20 +62,6 @@ class ViewController: NSViewController {
                         self.presentError(error)
                     }
                 }
-//                do {
-//                    try self.coordinator.openURLs(urls)
-//                    self.loadMetatdata(nil)
-//                } catch {
-//                    self.presentError(error)
-//                }
-
-//                if let images = self.open(urls: urls) {
-//                    self.dataArray.append(contentsOf: images.filter { image in
-//                        !self.dataArray.contains(image)
-//                    })
-////                    self.dataArray.append(contentsOf: images)
-//                    self.loadMetatdata(nil)
-//                }
 
             }
 
@@ -148,42 +128,6 @@ class ViewController: NSViewController {
             }
             
         }
-//        coordinator.
-//        let manager = MetadataManager.shared
-//        manager.loadMetatdata(from: dataArray, manuallyStart: true)
-//
-//        var showActivityView = UserDefaults.standard.bool(forKey: "showActivityView")
-//
-//        // If the sender is nil this was called directly, so show activity
-//        if dataArray.isEmpty {
-//            showActivityView = false
-//        } else if sender == nil {
-//            showActivityView = true
-//        } else if dataArray.count > 50 {
-//            showActivityView = true
-//        }
-//
-//        var token: NSObjectProtocol?
-//        token = NotificationCenter.default.addObserver(forName: MetadataManager.notificationName, object: nil, queue: OperationQueue.main) { _ in
-//            NotificationCenter.default.removeObserver(token!)
-//
-//            if self.activityView != nil {
-//                print("Dismissing activity view")
-//                self.dismiss(self.activityView!)
-//                self.activityView = nil
-//            }
-//
-//            manager.resetProgress()
-//            self.reloadData(sender)
-//
-//        }
-//
-//        if showActivityView && self.activityView == nil {
-//            NSLog("Performing Segue")
-//            performSegue(withIdentifier: NSStoryboardSegue.Identifier("ActivityProgressSegue"), sender: manager)
-//        } else {
-//            manager.progress.resume()
-//        }
 
     }
     
@@ -223,38 +167,6 @@ class ViewController: NSViewController {
         
         performSegue(withIdentifier: NSStoryboardSegue.Identifier("ActivityProgressSegue"), sender: activity)
         
-        
-//        let manager = MetadataManager.shared
-//
-//        let showActivityView = UserDefaults.standard.bool(forKey: "showActivityView")
-//
-//        let selectionIndex = UserDefaults.standard.integer(forKey: "geocoderSelection")
-//        let geocoder = geocoders[selectionIndex]
-//
-//        manager.reverseGeocode(dataArray, with: geocoder, manuallyStart: true)
-//
-//        var token: NSObjectProtocol?
-//        token = NotificationCenter.default.addObserver(forName: MetadataManager.notificationName, object: nil, queue: OperationQueue.main) { _ in
-//            NSLog("MetadataManager notification received")
-//
-//            if self.activityView != nil {
-//                self.dismiss(self.activityView!)
-//                self.activityView = nil
-//            }
-//
-//            manager.resetProgress()
-//            self.reloadData(sender)
-//
-//            NotificationCenter.default.removeObserver(token!)
-//        }
-//
-//        if dataArray.count > geocoder.showActivityCount || showActivityView {
-//            NSLog("Performing Segue")
-//            performSegue(withIdentifier: NSStoryboardSegue.Identifier("ActivityProgressSegue"), sender: manager)
-//        } else {
-//            manager.progress.resume()
-//        }
-        
     }
     
     @IBAction func writeMetatdata(_ sender: Any? = nil) {
@@ -288,57 +200,6 @@ class ViewController: NSViewController {
         
         performSegue(withIdentifier: NSStoryboardSegue.Identifier("ActivityProgressSegue"), sender: activity)
         
-//        activity.resume()
-//        self.coordinator.writeImages(onQueue: DispatchQueue.global(qos: .utility)) { result in
-//            switch result {
-//            case .success(let message):
-//                NSLog(message)
-//
-////                DispatchQueue.main.async {
-////                    let alert = NSAlert()
-////                    alert.messageText = message
-////
-////                    alert.beginSheetModal(for: self.view.window!)
-////                    self.loadMetatdata(nil)
-////                    self.view.window?.isDocumentEdited = false
-////                }
-//
-//                self.loadMetatdata(nil)
-//                self.view.window?.isDocumentEdited = false
-//
-//            case .failure(let error):
-//                DispatchQueue.main.async {
-//                    self.presentError(error)
-//                }
-//            }
-//        }
-//        }
-
-        
-//        let manager = MetadataManager.shared
-//        manager.writeMetadata(for: dataArray, manuallyStart: true)
-//        let showActivityView = UserDefaults.standard.bool(forKey: "showActivityView")
-//
-//        var token: NSObjectProtocol?
-//        token = NotificationCenter.default.addObserver(forName: MetadataManager.notificationName, object: nil, queue: OperationQueue.main) { _ in
-//
-//            if self.activityView != nil {
-//                self.dismiss(self.activityView!)
-//                self.activityView = nil
-//            }
-//            manager.resetProgress()
-//            self.reloadData(sender)
-//
-//            NotificationCenter.default.removeObserver(token!)
-//        }
-//
-//        if dataArray.count > 100 || showActivityView {
-//            NSLog("Performing Segue")
-//            performSegue(withIdentifier: NSStoryboardSegue.Identifier("ActivityProgressSegue"), sender: manager)
-//        } else {
-//            manager.progress.resume()
-//        }
-        
     }
     
     @IBAction func reloadData(_ sender: Any? = nil) {
@@ -349,21 +210,9 @@ class ViewController: NSViewController {
             self.dataArrayController.rearrangeObjects()
             self.dataArrayController.setSelectionIndexes(currentSelection)
         }
-//        dataArrayController.selectionIndexes = currentSelection
+
     }
-    
-//    func open(urls: [URL]) -> [LocatableImage]? {
-//
-//        do {
-//
-////            let contents = try ImageLoader.contents(of: urls)
-////            return ImageLoader.loadImages(from: contents)
-//        } catch {
-//            presentError(error)
-//            return []
-//        }
-//    }
-//
+
     func promptForFiles() {
         let openPanel = NSOpenPanel()
         
@@ -385,20 +234,6 @@ class ViewController: NSViewController {
                         self.presentError(error)
                     }
                 }
-                
-//                do {
-//                    try self.coordinator.openURLs(openPanel.urls)
-//                } catch {
-//                    self.presentError(error)
-//                }
-                
-//                if let images = self.open(urls: openPanel.urls) {
-////                    self.dataArray = images
-//                    self.dataArray.append(contentsOf: images.filter { image in
-//                        !self.dataArray.contains(image)
-//                    })
-//                    self.loadMetatdata(nil)
-//                }
                 
             default:
                 break
